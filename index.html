@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build Your Chatbot</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Build Your Chatbot</h1>
+      <p class="subtitle">Tell us about your business and we'll create a custom chatbot for you.</p>
+    </header>
+
+    <!-- Form Section -->
+    <section id="form-section">
+      <form id="chatbot-form" novalidate>
+        <div class="field">
+          <label for="website">Website URL</label>
+          <input type="url" id="website" name="website" placeholder="https://example.com" required>
+          <span class="error-msg" id="website-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="description">Company Description</label>
+          <textarea id="description" name="description" rows="4" placeholder="Describe what your company does, your products or services, and your target audience..." required minlength="10"></textarea>
+          <span class="error-msg" id="description-error"></span>
+        </div>
+
+        <div class="field">
+          <label for="chatbot-name">Chatbot Name</label>
+          <input type="text" id="chatbot-name" name="chatbotName" placeholder="e.g. SupportBot, Alex, HelpDesk" required minlength="2">
+          <span class="error-msg" id="chatbot-name-error"></span>
+        </div>
+
+        <button type="submit" id="submit-btn">Build My Chatbot</button>
+      </form>
+    </section>
+
+    <!-- Progress Section -->
+    <section id="progress-section" class="hidden">
+      <div class="progress-header">
+        <h2>Building your chatbot...</h2>
+        <p>This may take a moment. Please don't close this page.</p>
+      </div>
+      <div class="steps">
+        <div class="step" id="step-1">
+          <div class="step-icon">
+            <div class="spinner"></div>
+            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <span class="step-text">Analyzing your website...</span>
+        </div>
+        <div class="step hidden" id="step-2">
+          <div class="step-icon">
+            <div class="spinner"></div>
+            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <span class="step-text">Understanding your business...</span>
+        </div>
+        <div class="step hidden" id="step-3">
+          <div class="step-icon">
+            <div class="spinner"></div>
+            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <span class="step-text">Configuring your chatbot...</span>
+        </div>
+        <div class="step hidden" id="step-4">
+          <div class="step-icon">
+            <div class="spinner"></div>
+            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <span class="step-text">Finalizing setup...</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Result Section -->
+    <section id="result-section" class="hidden">
+      <div id="result-success" class="result-card hidden">
+        <div class="result-icon success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 12l3 3 5-5"/>
+          </svg>
+        </div>
+        <h2 id="success-title">Your chatbot is ready!</h2>
+        <p id="success-message"></p>
+      </div>
+      <div id="result-error" class="result-card hidden">
+        <div class="result-icon error-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M15 9l-6 6M9 9l6 6"/>
+          </svg>
+        </div>
+        <h2>Something went wrong</h2>
+        <p id="error-message">We couldn't build your chatbot. Please try again.</p>
+        <button id="retry-btn" class="retry-btn">Try Again</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
