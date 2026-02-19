@@ -263,3 +263,359 @@ button[type="submit"]:disabled {
 .retry-btn:hover {
   background: #f5f5f5;
 }
+
+/* ============================================
+   Chat Mode — Split Layout
+   ============================================ */
+
+.container.chat-mode {
+  max-width: 1200px;
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* Left Panel — Config Info */
+#chat-config {
+  width: 360px;
+  flex-shrink: 0;
+}
+
+.config-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.config-card h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+.config-field {
+  margin-bottom: 1rem;
+}
+
+.config-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.config-field a {
+  color: #1a1a1a;
+  font-size: 0.875rem;
+  word-break: break-all;
+}
+
+.config-field p {
+  font-size: 0.875rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.config-field code {
+  font-size: 0.8rem;
+  background: #f5f5f5;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  word-break: break-all;
+}
+
+.config-status {
+  font-size: 0.875rem;
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #2e7d32;
+  border-radius: 50%;
+  margin-right: 0.35rem;
+  vertical-align: middle;
+}
+
+.build-another-btn {
+  margin-top: 1.25rem;
+  width: 100%;
+  padding: 0.6rem;
+  background: #fff;
+  color: #1a1a1a;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.build-another-btn:hover {
+  background: #f5f5f5;
+}
+
+/* Right Panel — Chat Interface */
+#chat-panel {
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+}
+
+.chat-header {
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid #e0e0e0;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.chat-status-dot {
+  width: 8px;
+  height: 8px;
+  background: #2e7d32;
+  border-radius: 50%;
+}
+
+/* Messages Area */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.chat-bubble {
+  max-width: 80%;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+  animation: fadeIn 0.3s ease;
+}
+
+.chat-bubble a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.chat-bubble.bot {
+  align-self: flex-start;
+  background: #f5f5f5;
+  border-radius: 2px 8px 8px 8px;
+  color: #1a1a1a;
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 8px 2px 8px 8px;
+}
+
+.chat-bubble.error {
+  align-self: center;
+  background: #fff5f5;
+  border: 1px solid #ffcdd2;
+  color: #c62828;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  text-align: center;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  align-self: flex-start;
+  background: #f5f5f5;
+  border-radius: 2px 8px 8px 8px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  gap: 0.3rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.typing-indicator span {
+  width: 7px;
+  height: 7px;
+  background: #999;
+  border-radius: 50%;
+  animation: typingBounce 1.2s ease-in-out infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Reply Buttons */
+.chat-reply-buttons {
+  padding: 0.5rem 1.25rem 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chat-reply-buttons:empty {
+  display: none;
+}
+
+.reply-btn {
+  padding: 0.45rem 1rem;
+  background: #f5f5f5;
+  color: #1a1a1a;
+  border: 1px solid #d0d0d0;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.reply-btn:hover {
+  background: #e8e8e8;
+  border-color: #1a1a1a;
+}
+
+/* Input Area */
+.chat-input-area {
+  padding: 0.875rem 1.25rem;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+#chat-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+  min-height: 48px;
+}
+
+#chat-input:focus {
+  border-color: #1a1a1a;
+}
+
+#chat-input:disabled {
+  background: #f5f5f5;
+  color: #999;
+}
+
+#chat-send-btn {
+  width: 48px;
+  height: 48px;
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+#chat-send-btn:hover:not(:disabled) {
+  background: #333;
+}
+
+#chat-send-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Session ended message */
+.chat-session-ended {
+  padding: 0.75rem 1.25rem;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: #666;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* ============================================
+   Responsive — Mobile (≤768px)
+   ============================================ */
+
+@media (max-width: 768px) {
+  .container.chat-mode {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  #chat-config {
+    width: 100%;
+  }
+
+  .config-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    padding: 1rem 1.25rem;
+    align-items: center;
+  }
+
+  .config-card h2 {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    width: 100%;
+  }
+
+  .config-field {
+    margin-bottom: 0;
+  }
+
+  .config-card .config-field:nth-child(3),
+  .config-card .config-field:nth-child(4) {
+    display: none;
+  }
+
+  .build-another-btn {
+    margin-top: 0;
+    width: auto;
+    padding: 0.4rem 1rem;
+  }
+
+  .chat-card {
+    height: calc(100vh - 200px);
+    min-height: 400px;
+  }
+}

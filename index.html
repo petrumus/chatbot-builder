@@ -18,7 +18,7 @@
       <form id="chatbot-form" novalidate>
         <div class="field">
           <label for="website">Website URL</label>
-          <input type="url" id="website" name="website" placeholder="https://example.com" required>
+          <input type="text" id="website" name="website" placeholder="example.com" required>
           <span class="error-msg" id="website-error"></span>
         </div>
 
@@ -106,6 +106,51 @@
         <h2>Something went wrong</h2>
         <p id="error-message">We couldn't build your chatbot. Please try again.</p>
         <button id="retry-btn" class="retry-btn">Try Again</button>
+      </div>
+    </section>
+
+    <!-- Chat Mode: Left Panel (Config Info) -->
+    <aside id="chat-config" class="hidden">
+      <div class="config-card">
+        <h2 id="config-bot-name"></h2>
+        <div class="config-field">
+          <span class="config-label">Website</span>
+          <a id="config-website" href="#" target="_blank" rel="noopener"></a>
+        </div>
+        <div class="config-field">
+          <span class="config-label">Description</span>
+          <p id="config-description"></p>
+        </div>
+        <div class="config-field">
+          <span class="config-label">Chatbot ID</span>
+          <code id="config-uuid"></code>
+        </div>
+        <div class="config-field">
+          <span class="config-label">Status</span>
+          <span class="config-status"><span class="status-dot"></span> Active</span>
+        </div>
+        <button id="build-another-btn" class="build-another-btn">Build Another</button>
+      </div>
+    </aside>
+
+    <!-- Chat Mode: Right Panel (Chat Interface) -->
+    <section id="chat-panel" class="hidden">
+      <div class="chat-card">
+        <div class="chat-header">
+          <span id="chat-bot-name"></span>
+          <span class="chat-status-dot"></span>
+        </div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-reply-buttons" id="chat-reply-buttons"></div>
+        <div class="chat-input-area">
+          <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
+          <button id="chat-send-btn" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M22 2L11 13"/>
+              <path d="M22 2L15 22L11 13L2 9L22 2Z"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </section>
   </div>
