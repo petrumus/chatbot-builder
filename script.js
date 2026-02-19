@@ -411,9 +411,12 @@
     showTypingIndicator();
 
     try {
-      const response = await fetch(CONFIG.CHAT_WEBHOOK_URL, {
+      const response = await fetch(CONFIG.CHAT_FUNCTION_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+        },
         body: JSON.stringify({
           text: messageText,
           user_uuid: userUuid,
