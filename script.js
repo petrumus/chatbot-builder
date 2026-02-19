@@ -162,12 +162,15 @@
       body: JSON.stringify(data),
     });
 
+    const body = await response.json().catch(() => null);
+
     if (!response.ok) {
-      const errorBody = await response.text().catch(() => "");
-      throw new Error(errorBody || `Request failed (${response.status})`);
+      const err = new Error(body?.message || `Request failed (${response.status})`);
+      err.data = body;
+      throw err;
     }
 
-    return response.json();
+    return body;
   }
 
   // --- Form Submit ---
@@ -198,6 +201,12 @@
       // Short delay so user sees the final checkmark before switching
       await new Promise((r) => setTimeout(r, 600));
 
+      // Check for explicit failure from backend
+      if (result.success === false) {
+        showBuildError(result);
+        return;
+      }
+
       // Check for uuid — required for chat mode
       // uuid may be at top level or nested in user_data
       const uuid = result.uuid || (result.user_data && result.user_data.uuid);
@@ -214,6 +223,12 @@
       completeAllSteps();
       await new Promise((r) => setTimeout(r, 400));
 
+      // Check if backend returned structured error (e.g. 422 with failures)
+      if (err.data && err.data.success === false) {
+        showBuildError(err.data);
+        return;
+      }
+
       showSection(resultSection);
       resultError.classList.remove("hidden");
 
@@ -224,6 +239,17 @@
       submitBtn.disabled = false;
     }
   });
+
+  // --- Build Error Display ---
+
+  function showBuildError(result) {
+    completeAllSteps();
+    showSection(resultSection);
+    resultError.classList.remove("hidden");
+
+    document.getElementById("error-message").textContent =
+      result.message || "We couldn't build your chatbot.";
+  }
 
   // --- Retry ---
 
