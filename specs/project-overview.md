@@ -7,22 +7,25 @@ A static website where users fill a form to build a custom chatbot. After the ch
 ```
 [GitHub Pages — static HTML/CSS/JS]
         ↓ POST (Bearer anon key)
-[Supabase Edge Function — proxy]
+[Supabase Edge Function: chatbot-webhook]
         ↓ POST (Header Auth)
-[n8n Webhook — builds chatbot]
+[n8n Build Webhook — builds chatbot]
         ↓ responds with uuid + user_data
 
 [Frontend transitions to chat mode]
-        ↓ POST (direct, no proxy)
+        ↓ POST (Bearer anon key)
+[Supabase Edge Function: chat-message]
+        ↓ POST (Header Auth)
 [n8n Chat Webhook — handles messages]
         ↓ responds with bot message + reply options
 [Frontend renders chat]
 ```
 
+Both n8n webhook URLs are hidden as Supabase Edge Function secrets. The frontend only knows the Supabase function URLs.
+
 ## Tech Stack
 - **Frontend**: Plain HTML, CSS, JS — NO frameworks, NO build tools, NO npm dependencies
-- **Backend proxy**: Supabase Edge Function (Deno/TypeScript) — only for the build webhook
-- **Chat**: Direct POST to n8n webhook (no proxy needed)
+- **Backend proxy**: Supabase Edge Functions (Deno/TypeScript) — for both build and chat webhooks
 - **Automation**: n8n webhooks (build + chat)
 - **Hosting**: GitHub Pages (auto-deploys from `main` via GitHub Actions)
 - **Repo**: https://github.com/petrumus/chatbot-builder
@@ -33,7 +36,7 @@ A static website where users fill a form to build a custom chatbot. After the ch
 ├── index.html              # Single-page app: form, progress, result, chat
 ├── style.css               # All styles — minimal, clean, responsive
 ├── script.js               # All frontend logic (IIFE pattern)
-├── config.js               # Supabase URL, anon key, chat webhook URL
+├── config.js               # Supabase URLs + anon key (no n8n URLs)
 ├── serve.js                # Local dev server (Node.js, port 8080) — not deployed
 ├── .gitignore
 ├── CLAUDE.md               # Project instructions for Claude Code
@@ -42,8 +45,10 @@ A static website where users fill a form to build a custom chatbot. After the ch
 │   └── chat-interface.md   # Chat UI spec (post-build chat demo)
 ├── supabase/
 │   └── functions/
-│       └── chatbot-webhook/
-│           └── index.ts    # Edge function proxy (build only)
+│       ├── chatbot-webhook/
+│       │   └── index.ts    # Edge function proxy — build webhook
+│       └── chat-message/
+│           └── index.ts    # Edge function proxy — chat webhook
 └── .github/
     └── workflows/
         └── deploy.yml      # GitHub Pages deployment
@@ -63,21 +68,22 @@ A static website where users fill a form to build a custom chatbot. After the ch
 ## Key Conventions
 - No frameworks or libraries — everything is vanilla JS
 - No localStorage/sessionStorage — state resets on page refresh
-- All secrets (n8n URL, auth key) are in Supabase Edge Function secrets, never in frontend code
+- All secrets (n8n URLs, auth headers) are in Supabase Edge Function secrets, never in frontend code
 - Supabase anon key IS public (by design, like Firebase API keys)
-- Chat webhook URL is public (direct to n8n, no auth needed)
-- n8n build webhook uses Header Auth: custom header name + value (not Basic Auth)
-- The Edge Function handles CORS (allows `Content-Type` and `Authorization` headers)
+- Both n8n webhooks use Header Auth: custom header name + value (not Basic Auth)
+- Both Edge Functions handle CORS (allow `Content-Type` and `Authorization` headers)
+- n8n webhook URLs are never exposed to the browser — only Supabase function URLs are public
 
 ## Supabase Configuration
 - **Project ref**: `umkkmgrjxgekbnvinhiq`
-- **Edge Function**: `chatbot-webhook`
-- **Secrets**: `N8N_WEBHOOK_URL`, `N8N_AUTH_USER`, `N8N_AUTH_KEY`
+- **Edge Functions**: `chatbot-webhook` (build), `chat-message` (chat)
+- **Secrets**: `N8N_WEBHOOK_URL`, `N8N_CHAT_WEBHOOK_URL`, `N8N_AUTH_USER`, `N8N_AUTH_KEY`
 - **CLI path** (local): `C:\Users\Petru\supabase-cli\supabase.exe`
 
 ## Deployment
 - **Frontend**: Push to `main` → GitHub Actions auto-deploys to Pages
-- **Edge Function**: `supabase.exe functions deploy chatbot-webhook` (from project root)
+- **Build function**: `supabase.exe functions deploy chatbot-webhook`
+- **Chat function**: `supabase.exe functions deploy chat-message`
 - **Local dev**: `node serve.js` → http://localhost:8080
 
 ## Feature Specs
@@ -95,7 +101,7 @@ A static website where users fill a form to build a custom chatbot. After the ch
 ### 2. Build Success → Chat Mode
 6. On success → extract `uuid` from response (checks both `result.uuid` and `result.user_data.uuid`)
 7. Page transitions to split-panel layout (config left, chat right)
-8. Auto-sends `"Salut"` greeting to chat webhook
+8. Auto-sends `"Salut"` greeting via `chat-message` edge function
 9. User chats with bot (30-message session limit)
 10. Session ends when: backend sends `session_ended: true`, client count reaches 30, or response is missing `response` field
 
@@ -137,7 +143,7 @@ A static website where users fill a form to build a custom chatbot. After the ch
 ```
 Note: Only `message` is shown to the user. The `error.failures` array is for internal debugging.
 
-### Chat Webhook (direct to n8n)
+### Chat Webhook (via `chat-message` Edge Function)
 **Normal response:**
 ```json
 {

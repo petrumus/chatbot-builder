@@ -4,7 +4,7 @@
 
 ## Overview
 
-After a user successfully builds a chatbot (form submit → Supabase Edge Function → n8n webhook → success), the page transitions from a single-column form layout to a **two-panel split layout**: config info on the left, live chat on the right. The chat connects directly to an n8n webhook, auto-sends a greeting, and supports markdown rendering, reply buttons, a typing indicator, and a 30-message session limit.
+After a user successfully builds a chatbot (form submit → Supabase Edge Function → n8n webhook → success), the page transitions from a single-column form layout to a **two-panel split layout**: config info on the left, live chat on the right. The chat connects to n8n via a Supabase Edge Function proxy (`chat-message`), auto-sends a greeting, and supports markdown rendering, reply buttons, a typing indicator, and a 30-message session limit.
 
 ---
 
@@ -17,7 +17,7 @@ After a user successfully builds a chatbot (form submit → Supabase Edge Functi
 4. On success → extract `uuid` from response (checks `result.uuid` and `result.user_data.uuid`)
 5. Hide form, progress, header → show split-panel layout
 6. Auto-send `"Salut"` as greeting (first message, counts toward limit)
-7. User chats with bot via direct n8n webhook
+7. User chats with bot via `chat-message` edge function (proxies to n8n)
 
 ### Build Failure
 - Backend returns `{ success: false, message: "..." }` (HTTP 200 or 422)
@@ -112,9 +112,9 @@ A `.chat-card` with fixed `600px` height (flex column):
 
 ### Endpoint
 ```
-POST https://n8n.n3xon.com/webhook/message
+POST https://umkkmgrjxgekbnvinhiq.supabase.co/functions/v1/chat-message
 ```
-**Direct connection** — no Supabase proxy. URL is in `config.js` as `CONFIG.CHAT_WEBHOOK_URL`.
+**Proxied through Supabase Edge Function** — the n8n webhook URL (`N8N_CHAT_WEBHOOK_URL`) is a server-side secret. Frontend calls `CONFIG.CHAT_FUNCTION_URL` with Bearer anon key, same pattern as the build webhook.
 
 ### Request Body
 ```json
@@ -234,7 +234,7 @@ const MAX_MESSAGES = 30;      // Session message limit
 | `showTypingIndicator()` | Adds bouncing dots indicator |
 | `hideTypingIndicator()` | Removes typing indicator |
 | `scrollToBottom()` | Scrolls chat messages to bottom |
-| `sendMessage(text)` | Full send flow: show user msg → POST → handle response |
+| `sendMessage(text)` | Full send flow: show user msg → POST to edge function → handle response |
 | `disableChat(reason)` | Disables input, appends session-ended bar |
 | `updateSendButton()` | Enables/disables send based on input state |
 
@@ -321,6 +321,6 @@ Clicking the "Build Another" button:
 - No npm dependencies or build tools
 - No localStorage or sessionStorage
 - No markdown parsing library (custom `renderMarkdown` function)
-- No changes to Supabase Edge Function (it's a passthrough proxy)
+- No changes to Supabase Edge Functions (they're passthrough proxies)
 - No changes to `serve.js`
 - No authentication or session persistence
