@@ -10,4 +10,7 @@ const CONFIG = {
 
   // Contact form Edge Function URL (proxies to n8n, collects leads after chat demo)
   CONTACT_FUNCTION_URL: "https://umkkmgrjxgekbnvinhiq.supabase.co/functions/v1/contact-form",
+
+  // Reached-limit Edge Function URL (notifies n8n when user hits message limit)
+  REACHED_LIMIT_FUNCTION_URL: "https://umkkmgrjxgekbnvinhiq.supabase.co/functions/v1/reached-limit",
 };

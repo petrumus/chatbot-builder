@@ -550,6 +550,23 @@
         const endMsg = data.response || t("sessionEndFallback");
         appendMessage("bot", endMsg, []);
         disableChat(t("sessionEndedBar"));
+
+        // Notify n8n that user reached the message limit (fire-and-forget)
+        if (messageCount >= MAX_MESSAGES) {
+          fetch(CONFIG.REACHED_LIMIT_FUNCTION_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+            },
+            body: JSON.stringify({
+              user_uuid: userUuid,
+              chatbot_name: chatbotName,
+              lang: currentLang,
+            }),
+          }).catch(() => {});
+        }
+
         return;
       }
 
