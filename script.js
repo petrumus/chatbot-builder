@@ -221,7 +221,9 @@
     const body = await response.json().catch(() => null);
 
     if (!response.ok) {
-      const err = new Error(body?.message || `Request failed (${response.status})`);
+      const rawMsg = body?.message;
+      const errMsg = (typeof rawMsg === "string") ? rawMsg : `Request failed (${response.status})`;
+      const err = new Error(errMsg);
       err.data = body;
       throw err;
     }
@@ -292,8 +294,12 @@
     showSection(resultSection);
     resultError.classList.remove("hidden");
 
-    document.getElementById("error-message").textContent =
-      result.message || t("buildErrorFallback");
+    let msg = result.message;
+    // message may be an object with failures array from n8n validation
+    if (msg && typeof msg === "object") {
+      msg = (msg.failures && msg.failures[0]) || t("buildErrorFallback");
+    }
+    document.getElementById("error-message").textContent = msg || t("buildErrorFallback");
   }
 
   // --- Retry ---
