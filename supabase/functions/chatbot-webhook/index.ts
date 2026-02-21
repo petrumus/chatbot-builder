@@ -33,7 +33,7 @@ serve(async (req) => {
     );
   }
 
-  let body: { website?: string; description?: string; chatbotName?: string };
+  let body: { website?: string; description?: string; chatbotName?: string; lang?: string };
   try {
     body = await req.json();
   } catch {
@@ -66,6 +66,7 @@ serve(async (req) => {
         website: body.website,
         description: body.description,
         chatbotName: body.chatbotName,
+        lang: body.lang || "en",
       }),
     });
 

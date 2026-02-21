@@ -1,4 +1,64 @@
 (() => {
+  // ============================================
+  // i18n System
+  // ============================================
+
+  let currentLang = "en";
+
+  // Auto-detect language from browser locale
+  (function detectLanguage() {
+    const nav = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+    if (nav.startsWith("ro")) currentLang = "ro";
+    else if (nav.startsWith("ru")) currentLang = "ru";
+    else currentLang = "en";
+  })();
+
+  function t(key) {
+    const lang = LANG[currentLang] || LANG.en;
+    return lang[key] || LANG.en[key] || key;
+  }
+
+  function applyLanguage() {
+    // Update all [data-i18n] elements (textContent)
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      el.textContent = t(el.getAttribute("data-i18n"));
+    });
+
+    // Update all [data-i18n-placeholder] elements
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+      el.placeholder = t(el.getAttribute("data-i18n-placeholder"));
+    });
+
+    // Update page title
+    const titleEl = document.querySelector("[data-i18n-title]");
+    if (titleEl) {
+      document.title = t(titleEl.getAttribute("data-i18n-title"));
+    }
+
+    // Update html lang attribute
+    document.documentElement.lang = currentLang;
+
+    // Update lang switcher active state
+    document.querySelectorAll(".lang-btn").forEach((btn) => {
+      btn.classList.toggle("active", btn.getAttribute("data-lang") === currentLang);
+    });
+  }
+
+  // Language switcher click handlers
+  document.querySelectorAll(".lang-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      currentLang = btn.getAttribute("data-lang");
+      applyLanguage();
+    });
+  });
+
+  // Apply language on load
+  applyLanguage();
+
+  // ============================================
+  // DOM References
+  // ============================================
+
   const form = document.getElementById("chatbot-form");
   const formSection = document.getElementById("form-section");
   const progressSection = document.getElementById("progress-section");
@@ -27,7 +87,7 @@
   let sessionEnded = false;
   let isWaitingForResponse = false;
 
-  // Chat DOM refs (resolved lazily after DOM is ready)
+  // Chat DOM refs
   const chatConfig = document.getElementById("chat-config");
   const chatPanel = document.getElementById("chat-panel");
   const chatMessages = document.getElementById("chat-messages");
@@ -39,16 +99,13 @@
   // --- Validation ---
 
   function isValidDomain(value) {
-    // Strip protocol and path, check if it looks like a domain
     const stripped = value.replace(/^(https?:\/\/)?(www\.)?/, "").split("/")[0];
     return /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(stripped);
   }
 
   function normalizeWebsite(value) {
     let v = value.trim();
-    // Remove protocol if present
     v = v.replace(/^(https?:\/\/)?/, "");
-    // Ensure https://
     return "https://" + v;
   }
 
@@ -57,13 +114,13 @@
     let message = "";
 
     if (!input.value.trim()) {
-      message = "This field is required.";
+      message = t("validationRequired");
     } else if (input.id === "website") {
       if (!isValidDomain(input.value.trim())) {
-        message = "Please enter a valid domain (e.g. example.com).";
+        message = t("validationDomain");
       }
     } else if (input.minLength && input.value.trim().length < input.minLength) {
-      message = `Must be at least ${input.minLength} characters.`;
+      message = t("validationMinLength").replace("{n}", input.minLength);
     }
 
     if (message) {
@@ -127,14 +184,11 @@
 
   function startProgressSteps() {
     resetSteps();
-    // Show first step immediately
     steps[0].classList.remove("hidden");
 
     for (let i = 1; i < steps.length; i++) {
       const timer = setTimeout(() => {
-        // Mark previous step done
         markStepDone(steps[i - 1]);
-        // Show current step
         steps[i].classList.remove("hidden");
       }, STEP_INTERVAL * i);
       stepTimers.push(timer);
@@ -184,6 +238,7 @@
       website: normalizeWebsite(document.getElementById("website").value),
       description: document.getElementById("description").value.trim(),
       chatbotName: document.getElementById("chatbot-name").value.trim(),
+      lang: currentLang,
     };
 
     savedFormData = data;
@@ -195,35 +250,26 @@
     try {
       const result = await submitToBackend(data);
 
-      // Complete all progress steps visually
       completeAllSteps();
-
-      // Short delay so user sees the final checkmark before switching
       await new Promise((r) => setTimeout(r, 600));
 
-      // Check for explicit failure from backend
       if (result.success === false) {
         showBuildError(result);
         return;
       }
 
-      // Check for uuid — required for chat mode
-      // uuid may be at top level or nested in user_data
       const uuid = result.uuid || (result.user_data && result.user_data.uuid);
       if (uuid) {
         activateChatMode(uuid, data);
       } else {
-        // No uuid — show error, don't enter chat mode
         showSection(resultSection);
         resultError.classList.remove("hidden");
-        document.getElementById("error-message").textContent =
-          "Chatbot was created but something went wrong loading the chat. Please contact support.";
+        document.getElementById("error-message").textContent = t("noUuidError");
       }
     } catch (err) {
       completeAllSteps();
       await new Promise((r) => setTimeout(r, 400));
 
-      // Check if backend returned structured error (e.g. 422 with failures)
       if (err.data && err.data.success === false) {
         showBuildError(err.data);
         return;
@@ -231,10 +277,7 @@
 
       showSection(resultSection);
       resultError.classList.remove("hidden");
-
-      const errorMsg = document.getElementById("error-message");
-      errorMsg.textContent =
-        "We couldn't build your chatbot. Please try again.";
+      document.getElementById("error-message").textContent = t("buildErrorFallback");
     } finally {
       submitBtn.disabled = false;
     }
@@ -248,7 +291,7 @@
     resultError.classList.remove("hidden");
 
     document.getElementById("error-message").textContent =
-      result.message || "We couldn't build your chatbot.";
+      result.message || t("buildErrorFallback");
   }
 
   // --- Retry ---
@@ -289,7 +332,7 @@
     chatReplyButtons.innerHTML = "";
     chatInput.value = "";
     chatInput.disabled = false;
-    chatInput.placeholder = "Type a message...";
+    chatInput.placeholder = t("chatPlaceholder");
     chatSendBtn.disabled = true;
 
     // Show chat panels
@@ -300,7 +343,7 @@
     container.classList.add("chat-mode");
 
     // Auto-send greeting
-    sendMessage("Salut");
+    sendMessage(t("autoGreeting"));
   }
 
   // --- Markdown Renderer ---
@@ -313,22 +356,76 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
 
+    // Split into lines for block-level processing
+    const lines = html.split("\n");
+    const result = [];
+    let inList = false;
+
+    for (let i = 0; i < lines.length; i++) {
+      let line = lines[i];
+
+      // Bullet list items: "* text" or "- text" at start of line
+      const bulletMatch = line.match(/^(\*|-)\s+(.+)$/);
+      if (bulletMatch) {
+        if (!inList) {
+          result.push('<ul class="md-list">');
+          inList = true;
+        }
+        result.push("<li>" + renderInline(bulletMatch[2]) + "</li>");
+        continue;
+      }
+
+      // Close list if we were in one
+      if (inList) {
+        result.push("</ul>");
+        inList = false;
+      }
+
+      // Empty line → paragraph break
+      if (line.trim() === "") {
+        result.push("<br>");
+        continue;
+      }
+
+      // Regular line — apply inline formatting
+      result.push(renderInline(line));
+      // Add <br> unless next line is a bullet or end of text
+      if (i < lines.length - 1) {
+        const nextLine = lines[i + 1];
+        if (!nextLine.match(/^(\*|-)\s+/)) {
+          result.push("<br>");
+        }
+      }
+    }
+
+    // Close any open list
+    if (inList) {
+      result.push("</ul>");
+    }
+
+    return result.join("");
+  }
+
+  function renderInline(text) {
     // Bold: **text**
-    html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    text = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 
-    // Italic: *text* (but not inside a bold that was already processed)
-    html = html.replace(/\*(.+?)\*/g, "<em>$1</em>");
+    // Italic: *text* (but not at start of line — those are bullets, already handled)
+    text = text.replace(/(?<!\w)\*([^*]+?)\*(?!\w)/g, "<em>$1</em>");
 
-    // Links: [text](url)
-    html = html.replace(
+    // Markdown links: [text](url)
+    text = text.replace(
       /\[([^\]]+)\]\(([^)]+)\)/g,
       '<a href="$2" target="_blank" rel="noopener">$1</a>'
     );
 
-    // Newlines
-    html = html.replace(/\n/g, "<br>");
+    // Bare URLs: https://... or http://... (not already inside an href)
+    text = text.replace(
+      /(?<!="|&quot;)(https?:\/\/[^\s<,)]+)/g,
+      '<a href="$1" target="_blank" rel="noopener">$1</a>'
+    );
 
-    return html;
+    return text;
   }
 
   // --- Message Rendering ---
@@ -340,7 +437,6 @@
     if (role === "bot") {
       bubble.innerHTML = renderMarkdown(text);
     } else {
-      // User messages — escape HTML only
       bubble.textContent = text;
     }
 
@@ -420,6 +516,7 @@
         body: JSON.stringify({
           text: messageText,
           user_uuid: userUuid,
+          lang: currentLang,
         }),
       });
 
@@ -433,27 +530,21 @@
 
       messageCount++;
 
-      // Check for session end:
-      // - explicit flag from backend
-      // - client-side count reached limit
-      // - response missing the "response" field (webhook1 default body on limit)
       const isSessionEnd = data.session_ended
         || messageCount >= MAX_MESSAGES
         || (!data.response && !data.user_reply_options);
 
       if (isSessionEnd) {
-        const endMsg = data.response
-          || "Ai atins limita de mesaje pentru această sesiune demo. Contactează-ne pentru a continua.";
+        const endMsg = data.response || t("sessionEndFallback");
         appendMessage("bot", endMsg, []);
-        disableChat("You've reached the message limit for this demo session.");
+        disableChat(t("sessionEndedBar"));
         return;
       }
 
       appendMessage("bot", data.response, data.user_reply_options || []);
     } catch (err) {
       hideTypingIndicator();
-      appendError("Something went wrong. Please try again.");
-      // Don't count failed messages
+      appendError(t("chatError"));
       messageCount--;
     } finally {
       if (!sessionEnded) {
@@ -481,6 +572,95 @@
     endedEl.textContent = reason;
     const chatCard = chatPanel.querySelector(".chat-card");
     chatCard.appendChild(endedEl);
+
+    // Add contact CTA form
+    const cta = document.createElement("div");
+    cta.className = "contact-cta";
+    cta.innerHTML = `
+      <div class="contact-cta-title">${escapeHtml(t("contactTitle"))}</div>
+      <div class="field">
+        <label>${escapeHtml(t("contactName"))}</label>
+        <input type="text" id="cta-name" required>
+      </div>
+      <div class="field">
+        <label>${escapeHtml(t("contactContact"))}</label>
+        <input type="text" id="cta-contact" required>
+      </div>
+      <div class="field">
+        <label>${escapeHtml(t("contactNote"))}</label>
+        <textarea id="cta-note" rows="2"></textarea>
+      </div>
+      <button class="contact-cta-btn" id="cta-submit-btn">${escapeHtml(t("contactSubmit"))}</button>
+      <div class="contact-cta-error hidden" id="cta-error"></div>
+    `;
+    chatCard.appendChild(cta);
+
+    // CTA submit handler
+    document.getElementById("cta-submit-btn").addEventListener("click", submitContactForm);
+  }
+
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  // --- Contact Form Submission ---
+
+  async function submitContactForm() {
+    const nameEl = document.getElementById("cta-name");
+    const contactEl = document.getElementById("cta-contact");
+    const noteEl = document.getElementById("cta-note");
+    const errorEl = document.getElementById("cta-error");
+    const submitBtnEl = document.getElementById("cta-submit-btn");
+
+    const name = nameEl.value.trim();
+    const contact = contactEl.value.trim();
+    const note = noteEl.value.trim();
+
+    // Validate
+    errorEl.classList.add("hidden");
+    errorEl.textContent = "";
+
+    if (!name || !contact) {
+      errorEl.textContent = t("validationRequired");
+      errorEl.classList.remove("hidden");
+      return;
+    }
+
+    submitBtnEl.disabled = true;
+
+    try {
+      const response = await fetch(CONFIG.CONTACT_FUNCTION_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          name: name,
+          contact: contact,
+          note: note,
+          user_uuid: userUuid,
+          chatbot_name: chatbotName,
+          lang: currentLang,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      // Replace form with success message
+      const ctaEl = document.querySelector(".contact-cta");
+      ctaEl.innerHTML = `<div class="contact-cta-success">${escapeHtml(t("contactSuccess"))}</div>`;
+    } catch (err) {
+      errorEl.textContent = t("contactError");
+      errorEl.classList.remove("hidden");
+      submitBtnEl.disabled = false;
+    }
   }
 
   // --- Input Handling ---
@@ -521,9 +701,11 @@
     chatPanel.classList.add("hidden");
     container.classList.remove("chat-mode");
 
-    // Remove any session-ended bar
+    // Remove session-ended bar and contact CTA
     const endedEl = chatPanel.querySelector(".chat-session-ended");
     if (endedEl) endedEl.remove();
+    const ctaEl = chatPanel.querySelector(".contact-cta");
+    if (ctaEl) ctaEl.remove();
 
     // Show form
     document.querySelector("header").classList.remove("hidden");

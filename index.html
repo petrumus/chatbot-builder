@@ -3,47 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Build Your Chatbot</title>
+  <title data-i18n-title="pageTitle">Build Your Chatbot</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ro">RO</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
+    </div>
+
     <header>
-      <h1>Build Your Chatbot</h1>
-      <p class="subtitle">Tell us about your business and we'll create a custom chatbot for you.</p>
+      <div class="header-logo">
+        <img src="nexontech_logo.png" alt="NexonTech" height="40">
+        <h1 data-i18n="headerTitle">Build Your Chatbot</h1>
+      </div>
+      <p class="subtitle" data-i18n="subtitle">Tell us about your business and we'll create a custom chatbot for you.</p>
     </header>
 
     <!-- Form Section -->
     <section id="form-section">
       <form id="chatbot-form" novalidate>
         <div class="field">
-          <label for="website">Website URL</label>
-          <input type="text" id="website" name="website" placeholder="example.com" required>
+          <label for="website" data-i18n="labelWebsite">Website URL</label>
+          <input type="text" id="website" name="website" data-i18n-placeholder="placeholderWebsite" placeholder="example.com" required>
           <span class="error-msg" id="website-error"></span>
         </div>
 
         <div class="field">
-          <label for="description">Company Description</label>
-          <textarea id="description" name="description" rows="4" placeholder="Describe what your company does, your products or services, and your target audience..." required minlength="10"></textarea>
+          <label for="description" data-i18n="labelDescription">Company Description</label>
+          <textarea id="description" name="description" rows="4" data-i18n-placeholder="placeholderDescription" placeholder="Describe what your company does, your products or services, and your target audience..." required minlength="10"></textarea>
           <span class="error-msg" id="description-error"></span>
         </div>
 
         <div class="field">
-          <label for="chatbot-name">Chatbot Name</label>
-          <input type="text" id="chatbot-name" name="chatbotName" placeholder="e.g. SupportBot, Alex, HelpDesk" required minlength="2">
+          <label for="chatbot-name" data-i18n="labelChatbotName">Chatbot Name</label>
+          <input type="text" id="chatbot-name" name="chatbotName" data-i18n-placeholder="placeholderChatbotName" placeholder="e.g. SupportBot, Alex, HelpDesk" required minlength="2">
           <span class="error-msg" id="chatbot-name-error"></span>
         </div>
 
-        <button type="submit" id="submit-btn">Build My Chatbot</button>
+        <button type="submit" id="submit-btn" data-i18n="submitBtn">Build My Chatbot</button>
       </form>
     </section>
 
     <!-- Progress Section -->
     <section id="progress-section" class="hidden">
       <div class="progress-header">
-        <h2>Building your chatbot...</h2>
-        <p>This may take a moment. Please don't close this page.</p>
+        <h2 data-i18n="progressTitle">Building your chatbot...</h2>
+        <p data-i18n="progressSubtitle">This may take a moment. Please don't close this page.</p>
       </div>
       <div class="steps">
         <div class="step" id="step-1">
@@ -53,7 +65,7 @@
               <path d="M5 13l4 4L19 7"/>
             </svg>
           </div>
-          <span class="step-text">Analyzing your website...</span>
+          <span class="step-text" data-i18n="step1">Analyzing your website...</span>
         </div>
         <div class="step hidden" id="step-2">
           <div class="step-icon">
@@ -62,7 +74,7 @@
               <path d="M5 13l4 4L19 7"/>
             </svg>
           </div>
-          <span class="step-text">Understanding your business...</span>
+          <span class="step-text" data-i18n="step2">Understanding your business...</span>
         </div>
         <div class="step hidden" id="step-3">
           <div class="step-icon">
@@ -71,7 +83,7 @@
               <path d="M5 13l4 4L19 7"/>
             </svg>
           </div>
-          <span class="step-text">Configuring your chatbot...</span>
+          <span class="step-text" data-i18n="step3">Configuring your chatbot...</span>
         </div>
         <div class="step hidden" id="step-4">
           <div class="step-icon">
@@ -80,7 +92,7 @@
               <path d="M5 13l4 4L19 7"/>
             </svg>
           </div>
-          <span class="step-text">Finalizing setup...</span>
+          <span class="step-text" data-i18n="step4">Finalizing setup...</span>
         </div>
       </div>
     </section>
@@ -94,7 +106,7 @@
             <path d="M8 12l3 3 5-5"/>
           </svg>
         </div>
-        <h2 id="success-title">Your chatbot is ready!</h2>
+        <h2 id="success-title" data-i18n="successTitle">Your chatbot is ready!</h2>
         <p id="success-message"></p>
       </div>
       <div id="result-error" class="result-card hidden">
@@ -104,9 +116,9 @@
             <path d="M15 9l-6 6M9 9l6 6"/>
           </svg>
         </div>
-        <h2>Something went wrong</h2>
-        <p id="error-message">We couldn't build your chatbot. Please try again.</p>
-        <button id="retry-btn" class="retry-btn">Try Again</button>
+        <h2 data-i18n="errorTitle">Something went wrong</h2>
+        <p id="error-message" data-i18n="buildErrorFallback">We couldn't build your chatbot. Please try again.</p>
+        <button id="retry-btn" class="retry-btn" data-i18n="retryBtn">Try Again</button>
       </div>
     </section>
 
@@ -115,22 +127,22 @@
       <div class="config-card">
         <h2 id="config-bot-name"></h2>
         <div class="config-field">
-          <span class="config-label">Website</span>
+          <span class="config-label" data-i18n="configWebsite">Website</span>
           <a id="config-website" href="#" target="_blank" rel="noopener"></a>
         </div>
         <div class="config-field">
-          <span class="config-label">Description</span>
+          <span class="config-label" data-i18n="configDescription">Description</span>
           <p id="config-description"></p>
         </div>
         <div class="config-field">
-          <span class="config-label">Chatbot ID</span>
+          <span class="config-label" data-i18n="configChatbotId">Chatbot ID</span>
           <code id="config-uuid"></code>
         </div>
         <div class="config-field">
-          <span class="config-label">Status</span>
-          <span class="config-status"><span class="status-dot"></span> Active</span>
+          <span class="config-label" data-i18n="configStatus">Status</span>
+          <span class="config-status"><span class="status-dot"></span> <span data-i18n="configStatusActive">Active</span></span>
         </div>
-        <button id="build-another-btn" class="build-another-btn">Build Another</button>
+        <button id="build-another-btn" class="build-another-btn" data-i18n="buildAnotherBtn">Build Another</button>
       </div>
     </aside>
 
@@ -144,7 +156,7 @@
         <div class="chat-messages" id="chat-messages"></div>
         <div class="chat-reply-buttons" id="chat-reply-buttons"></div>
         <div class="chat-input-area">
-          <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
+          <input type="text" id="chat-input" data-i18n-placeholder="chatPlaceholder" placeholder="Type a message..." autocomplete="off">
           <button id="chat-send-btn" disabled>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
               <path d="M22 2L11 13"/>
@@ -157,6 +169,7 @@
   </div>
 
   <script src="config.js"></script>
+  <script src="lang.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

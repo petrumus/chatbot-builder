@@ -19,11 +19,11 @@ serve(async (req) => {
     });
   }
 
-  const N8N_CHAT_WEBHOOK_URL = Deno.env.get("N8N_CHAT_WEBHOOK_URL");
+  const N8N_CONTACT_WEBHOOK_URL = Deno.env.get("N8N_CONTACT_WEBHOOK_URL");
   const N8N_AUTH_USER = Deno.env.get("N8N_AUTH_USER");
   const N8N_AUTH_KEY = Deno.env.get("N8N_AUTH_KEY");
 
-  if (!N8N_CHAT_WEBHOOK_URL || !N8N_AUTH_USER || !N8N_AUTH_KEY) {
+  if (!N8N_CONTACT_WEBHOOK_URL || !N8N_AUTH_USER || !N8N_AUTH_KEY) {
     return new Response(
       JSON.stringify({ error: "Server configuration error" }),
       {
@@ -33,7 +33,14 @@ serve(async (req) => {
     );
   }
 
-  let body: { text?: string; user_uuid?: string; lang?: string };
+  let body: {
+    name?: string;
+    contact?: string;
+    note?: string;
+    user_uuid?: string;
+    chatbot_name?: string;
+    lang?: string;
+  };
   try {
     body = await req.json();
   } catch {
@@ -44,9 +51,9 @@ serve(async (req) => {
   }
 
   // Validate required fields
-  if (!body.text || !body.user_uuid) {
+  if (!body.name || !body.contact) {
     return new Response(
-      JSON.stringify({ error: "Missing required fields: text, user_uuid" }),
+      JSON.stringify({ error: "Missing required fields: name, contact" }),
       {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -56,15 +63,18 @@ serve(async (req) => {
 
   try {
     // n8n Header Auth: sends the header name (N8N_AUTH_USER) with value (N8N_AUTH_KEY)
-    const n8nResponse = await fetch(N8N_CHAT_WEBHOOK_URL, {
+    const n8nResponse = await fetch(N8N_CONTACT_WEBHOOK_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         [N8N_AUTH_USER]: N8N_AUTH_KEY,
       },
       body: JSON.stringify({
-        text: body.text,
-        user_uuid: body.user_uuid,
+        name: body.name,
+        contact: body.contact,
+        note: body.note || "",
+        user_uuid: body.user_uuid || "",
+        chatbot_name: body.chatbot_name || "",
         lang: body.lang || "en",
       }),
     });
@@ -78,7 +88,7 @@ serve(async (req) => {
       responseBody = n8nData;
     } catch {
       // If n8n returned non-JSON, wrap it
-      responseBody = JSON.stringify({ response: n8nData });
+      responseBody = JSON.stringify({ success: true, message: n8nData });
     }
 
     return new Response(responseBody, {
@@ -87,7 +97,7 @@ serve(async (req) => {
     });
   } catch (err) {
     return new Response(
-      JSON.stringify({ error: "Failed to reach the chat service" }),
+      JSON.stringify({ error: "Failed to reach the contact form service" }),
       {
         status: 502,
         headers: { ...corsHeaders, "Content-Type": "application/json" },

@@ -7,4 +7,7 @@ const CONFIG = {
 
   // Chat message Edge Function URL (proxies to n8n, hides webhook URL)
   CHAT_FUNCTION_URL: "https://umkkmgrjxgekbnvinhiq.supabase.co/functions/v1/chat-message",
+
+  // Contact form Edge Function URL (proxies to n8n, collects leads after chat demo)
+  CONTACT_FUNCTION_URL: "https://umkkmgrjxgekbnvinhiq.supabase.co/functions/v1/contact-form",
 };
