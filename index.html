@@ -134,15 +134,16 @@
           <span class="config-label" data-i18n="configDescription">Description</span>
           <p id="config-description"></p>
         </div>
-        <div class="config-field">
-          <span class="config-label" data-i18n="configChatbotId">Chatbot ID</span>
-          <code id="config-uuid"></code>
-        </div>
-        <div class="config-field">
-          <span class="config-label" data-i18n="configStatus">Status</span>
-          <span class="config-status"><span class="status-dot"></span> <span data-i18n="configStatusActive">Active</span></span>
-        </div>
         <button id="build-another-btn" class="build-another-btn" data-i18n="buildAnotherBtn">Build Another</button>
+      </div>
+      <div id="sidebar-cta" class="sidebar-cta">
+        <div class="contact-cta-title" data-i18n="contactTitle">Want a chatbot like this for your business?</div>
+        <div class="field">
+          <label data-i18n="contactContact">Phone or email</label>
+          <input type="text" id="sidebar-cta-contact" data-i18n-placeholder="contactContactPlaceholder" placeholder="Phone or email" required>
+        </div>
+        <button class="contact-cta-btn" id="sidebar-cta-submit-btn" data-i18n="contactSubmit">Get in Touch</button>
+        <div class="contact-cta-error hidden" id="sidebar-cta-error"></div>
       </div>
     </aside>
 

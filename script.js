@@ -95,6 +95,8 @@
   const chatInput = document.getElementById("chat-input");
   const chatSendBtn = document.getElementById("chat-send-btn");
   const container = document.querySelector(".container");
+  const sidebarCta = document.getElementById("sidebar-cta");
+  const sidebarCtaOriginalHtml = sidebarCta.innerHTML;
 
   // --- Validation ---
 
@@ -322,7 +324,6 @@
     document.getElementById("config-website").textContent = formData.website;
     document.getElementById("config-website").href = formData.website;
     document.getElementById("config-description").textContent = formData.description;
-    document.getElementById("config-uuid").textContent = uuid;
 
     // Populate chat header
     document.getElementById("chat-bot-name").textContent = chatbotName;
@@ -334,6 +335,11 @@
     chatInput.disabled = false;
     chatInput.placeholder = t("chatPlaceholder");
     chatSendBtn.disabled = true;
+
+    // Reset sidebar CTA
+    sidebarCta.classList.remove("hidden");
+    sidebarCta.innerHTML = sidebarCtaOriginalHtml;
+    document.getElementById("sidebar-cta-submit-btn").addEventListener("click", submitSidebarContactForm);
 
     // Show chat panels
     chatConfig.classList.remove("hidden");
@@ -566,6 +572,9 @@
     chatSendBtn.disabled = true;
     chatReplyButtons.innerHTML = "";
 
+    // Hide sidebar CTA (in-chat CTA takes over)
+    sidebarCta.classList.add("hidden");
+
     // Add session-ended bar
     const endedEl = document.createElement("div");
     endedEl.className = "chat-session-ended";
@@ -662,6 +671,58 @@
       submitBtnEl.disabled = false;
     }
   }
+
+  // --- Sidebar Contact Form Submission ---
+
+  async function submitSidebarContactForm() {
+    const contactEl = document.getElementById("sidebar-cta-contact");
+    const errorEl = document.getElementById("sidebar-cta-error");
+    const submitBtnEl = document.getElementById("sidebar-cta-submit-btn");
+
+    const contact = contactEl.value.trim();
+
+    // Validate
+    errorEl.classList.add("hidden");
+    errorEl.textContent = "";
+
+    if (!contact) {
+      errorEl.textContent = t("validationRequired");
+      errorEl.classList.remove("hidden");
+      return;
+    }
+
+    submitBtnEl.disabled = true;
+
+    try {
+      const response = await fetch(CONFIG.CONTACT_FUNCTION_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          contact: contact,
+          user_uuid: userUuid,
+          chatbot_name: chatbotName,
+          lang: currentLang,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      // Replace form with success message
+      sidebarCta.innerHTML = `<div class="sidebar-cta-success">${escapeHtml(t("contactSuccess"))}</div>`;
+    } catch (err) {
+      errorEl.textContent = t("contactError");
+      errorEl.classList.remove("hidden");
+      submitBtnEl.disabled = false;
+    }
+  }
+
+  // Attach sidebar CTA submit handler
+  document.getElementById("sidebar-cta-submit-btn").addEventListener("click", submitSidebarContactForm);
 
   // --- Input Handling ---
 

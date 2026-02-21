@@ -353,10 +353,16 @@ button[type="submit"]:disabled {
 /* Left Panel — Config Info */
 #chat-config {
   width: 360px;
+  height: 600px;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .config-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
   border-radius: 8px;
@@ -421,7 +427,7 @@ button[type="submit"]:disabled {
 }
 
 .build-another-btn {
-  margin-top: 1.25rem;
+  margin-top: auto;
   width: 100%;
   padding: 0.6rem;
   background: var(--color-card-bg);
@@ -664,6 +670,16 @@ button[type="submit"]:disabled {
   border-top: 1px solid var(--color-border);
 }
 
+/* Sidebar CTA (under config card) */
+.sidebar-cta {
+  margin-top: 1rem;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem 1.25rem;
+  animation: fadeIn 0.4s ease;
+}
+
 /* Contact CTA Form (shown after session ends) */
 .contact-cta {
   padding: 1rem 1.25rem 1.25rem;
@@ -679,22 +695,27 @@ button[type="submit"]:disabled {
   margin-bottom: 0.875rem;
 }
 
-.contact-cta .field {
+.contact-cta .field,
+.sidebar-cta .field {
   margin-bottom: 0.75rem;
 }
 
-.contact-cta label {
+.contact-cta label,
+.sidebar-cta label {
   font-size: 0.8rem;
   color: #555;
 }
 
 .contact-cta input,
-.contact-cta textarea {
+.contact-cta textarea,
+.sidebar-cta input,
+.sidebar-cta textarea {
   font-size: 0.875rem;
   padding: 0.5rem 0.75rem;
 }
 
-.contact-cta textarea {
+.contact-cta textarea,
+.sidebar-cta textarea {
   min-height: unset;
   resize: none;
 }
@@ -722,7 +743,8 @@ button[type="submit"]:disabled {
   cursor: not-allowed;
 }
 
-.contact-cta-success {
+.contact-cta-success,
+.sidebar-cta-success {
   font-size: 0.875rem;
   color: var(--color-success);
   font-weight: 500;
@@ -748,6 +770,7 @@ button[type="submit"]:disabled {
 
   #chat-config {
     width: 100%;
+    height: auto;
   }
 
   #chat-panel {
@@ -772,15 +795,14 @@ button[type="submit"]:disabled {
     margin-bottom: 0;
   }
 
-  .config-card .config-field:nth-child(3),
-  .config-card .config-field:nth-child(4) {
-    display: none;
-  }
-
   .build-another-btn {
     margin-top: 0;
     width: auto;
     padding: 0.4rem 1rem;
+  }
+
+  .sidebar-cta {
+    display: none;
   }
 
   .chat-card {
