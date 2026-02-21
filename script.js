@@ -255,12 +255,15 @@
       completeAllSteps();
       await new Promise((r) => setTimeout(r, 600));
 
-      if (result.success === false) {
-        showBuildError(result);
+      // Handle both object and array response formats
+      const parsed = Array.isArray(result) ? result[0] : result;
+
+      if (parsed?.success === false) {
+        showBuildError(parsed);
         return;
       }
 
-      const uuid = result.uuid || (result.user_data && result.user_data.uuid);
+      const uuid = parsed?.uuid || parsed?.user_data?.uuid;
       if (uuid) {
         activateChatMode(uuid, data);
       } else {
