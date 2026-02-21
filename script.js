@@ -81,11 +81,13 @@
   let savedFormData = null;
 
   // --- Chat State ---
-  let userUuid = null;
-  let chatbotName = null;
-  let messageCount = 0;
-  let sessionEnded = false;
-  let isWaitingForResponse = false;
+  const state = {
+    userUuid: null,
+    chatbotName: null,
+    messageCount: 0,
+    sessionEnded: false,
+    isWaitingForResponse: false,
+  };
 
   // Chat DOM refs
   const chatConfig = document.getElementById("chat-config");
@@ -281,7 +283,7 @@
 
       showSection(resultSection);
       resultError.classList.remove("hidden");
-      document.getElementById("error-message").textContent = t("buildErrorFallback");
+      document.getElementById("error-message").textContent = getBuildErrorMessage(err);
     } finally {
       submitBtn.disabled = false;
     }
@@ -302,6 +304,18 @@
     document.getElementById("error-message").textContent = msg || t("buildErrorFallback");
   }
 
+  function getBuildErrorMessage(err) {
+    if (err instanceof TypeError) return t("buildErrorNetwork");
+    if (err.message && /50[234]/.test(err.message)) return t("buildErrorUnavailable");
+    return t("buildErrorFallback");
+  }
+
+  function getChatErrorMessage(err) {
+    if (err instanceof TypeError) return t("chatErrorNetwork");
+    if (err.message && /50[234]/.test(err.message)) return t("chatErrorUnavailable");
+    return t("chatError");
+  }
+
   // --- Retry ---
 
   retryBtn.addEventListener("click", () => {
@@ -313,11 +327,11 @@
   // ============================================
 
   function activateChatMode(uuid, formData) {
-    userUuid = uuid;
-    chatbotName = formData.chatbotName;
-    messageCount = 0;
-    sessionEnded = false;
-    isWaitingForResponse = false;
+    state.userUuid = uuid;
+    state.chatbotName = formData.chatbotName;
+    state.messageCount = 0;
+    state.sessionEnded = false;
+    state.isWaitingForResponse = false;
 
     // Hide all existing sections
     formSection.classList.add("hidden");
@@ -326,13 +340,13 @@
     document.querySelector("header").classList.add("hidden");
 
     // Populate config panel
-    document.getElementById("config-bot-name").textContent = chatbotName;
+    document.getElementById("config-bot-name").textContent = state.chatbotName;
     document.getElementById("config-website").textContent = formData.website;
     document.getElementById("config-website").href = formData.website;
     document.getElementById("config-description").textContent = formData.description;
 
     // Populate chat header
-    document.getElementById("chat-bot-name").textContent = chatbotName;
+    document.getElementById("chat-bot-name").textContent = state.chatbotName;
 
     // Clear previous chat
     chatMessages.innerHTML = "";
@@ -371,7 +385,7 @@
     // Split into lines for block-level processing
     const lines = html.split("\n");
     const result = [];
-    let inList = false;
+    let listType = null; // "ul" or "ol"
 
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
@@ -379,18 +393,47 @@
       // Bullet list items: "* text" or "- text" at start of line
       const bulletMatch = line.match(/^(\*|-)\s+(.+)$/);
       if (bulletMatch) {
-        if (!inList) {
+        if (listType !== "ul") {
+          if (listType) result.push("</" + listType + ">");
           result.push('<ul class="md-list">');
-          inList = true;
+          listType = "ul";
         }
         result.push("<li>" + renderInline(bulletMatch[2]) + "</li>");
         continue;
       }
 
+      // Ordered list items: "1. text", "2. text" etc.
+      const orderedMatch = line.match(/^\d+\.\s+(.+)$/);
+      if (orderedMatch) {
+        if (listType !== "ol") {
+          if (listType) result.push("</" + listType + ">");
+          result.push('<ol class="md-list">');
+          listType = "ol";
+        }
+        result.push("<li>" + renderInline(orderedMatch[1]) + "</li>");
+        continue;
+      }
+
       // Close list if we were in one
-      if (inList) {
-        result.push("</ul>");
-        inList = false;
+      if (listType) {
+        result.push("</" + listType + ">");
+        listType = null;
+      }
+
+      // Table: detect lines starting with |
+      if (line.trim().startsWith("|") && line.trim().endsWith("|")) {
+        const tableLines = [line];
+        // Collect consecutive table lines
+        while (i + 1 < lines.length && lines[i + 1].trim().startsWith("|") && lines[i + 1].trim().endsWith("|")) {
+          i++;
+          tableLines.push(lines[i]);
+        }
+        if (tableLines.length >= 2) {
+          result.push(renderTable(tableLines));
+        } else {
+          result.push(renderInline(line));
+        }
+        continue;
       }
 
       // Empty line → paragraph break
@@ -401,21 +444,61 @@
 
       // Regular line — apply inline formatting
       result.push(renderInline(line));
-      // Add <br> unless next line is a bullet or end of text
+      // Add <br> unless next line is a list item, table, or end of text
       if (i < lines.length - 1) {
         const nextLine = lines[i + 1];
-        if (!nextLine.match(/^(\*|-)\s+/)) {
+        if (!nextLine.match(/^(\*|-)\s+/) && !nextLine.match(/^\d+\.\s+/) && !nextLine.trim().startsWith("|")) {
           result.push("<br>");
         }
       }
     }
 
     // Close any open list
-    if (inList) {
-      result.push("</ul>");
+    if (listType) {
+      result.push("</" + listType + ">");
     }
 
     return result.join("");
+  }
+
+  function renderTable(lines) {
+    // Parse cells from a table row
+    function parseCells(row) {
+      return row.trim().replace(/^\||\|$/g, "").split("|").map(function (c) { return c.trim(); });
+    }
+
+    // Check if a line is a separator row (e.g. |---|---|)
+    function isSeparator(row) {
+      return parseCells(row).every(function (c) { return /^[-:]+$/.test(c); });
+    }
+
+    var hasHeader = lines.length >= 2 && isSeparator(lines[1]);
+    var startIdx = hasHeader ? 2 : 0;
+    var headerCells = hasHeader ? parseCells(lines[0]) : [];
+
+    var tableHtml = '<div class="md-table-wrapper"><table class="md-table">';
+
+    if (hasHeader) {
+      tableHtml += "<thead><tr>";
+      for (var h = 0; h < headerCells.length; h++) {
+        tableHtml += "<th>" + renderInline(headerCells[h]) + "</th>";
+      }
+      tableHtml += "</tr></thead>";
+    }
+
+    tableHtml += "<tbody>";
+    for (var r = startIdx; r < lines.length; r++) {
+      if (isSeparator(lines[r])) continue;
+      var cells = parseCells(lines[r]);
+      tableHtml += "<tr>";
+      for (var c = 0; c < cells.length; c++) {
+        tableHtml += "<td>" + renderInline(cells[c]) + "</td>";
+      }
+      tableHtml += "</tr>";
+    }
+    tableHtml += "</tbody></table></div>";
+
+    return tableHtml;
   }
 
   function renderInline(text) {
@@ -457,7 +540,7 @@
 
     // Reply buttons
     chatReplyButtons.innerHTML = "";
-    if (role === "bot" && replyOptions && replyOptions.length > 0 && !sessionEnded) {
+    if (role === "bot" && replyOptions && replyOptions.length > 0 && !state.sessionEnded) {
       replyOptions.forEach((option) => {
         const btn = document.createElement("button");
         btn.className = "reply-btn";
@@ -493,13 +576,15 @@
   }
 
   function scrollToBottom() {
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    requestAnimationFrame(() => {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
   }
 
   // --- Send Message ---
 
   async function sendMessage(text) {
-    if (isWaitingForResponse || sessionEnded || !text.trim()) return;
+    if (state.isWaitingForResponse || state.sessionEnded || !text.trim()) return;
 
     const messageText = text.trim();
 
@@ -508,10 +593,10 @@
 
     // Show user message
     appendMessage("user", messageText);
-    messageCount++;
+    state.messageCount++;
 
     // Update input state
-    isWaitingForResponse = true;
+    state.isWaitingForResponse = true;
     chatInput.value = "";
     chatInput.disabled = true;
     chatSendBtn.disabled = true;
@@ -527,7 +612,7 @@
         },
         body: JSON.stringify({
           text: messageText,
-          user_uuid: userUuid,
+          user_uuid: state.userUuid,
           lang: currentLang,
         }),
       });
@@ -540,10 +625,10 @@
 
       const data = await response.json();
 
-      messageCount++;
+      state.messageCount++;
 
       const isSessionEnd = data.session_ended
-        || messageCount >= MAX_MESSAGES
+        || state.messageCount >= MAX_MESSAGES
         || (!data.response && !data.user_reply_options);
 
       if (isSessionEnd) {
@@ -552,7 +637,7 @@
         disableChat(t("sessionEndedBar"));
 
         // Notify n8n that user reached the message limit (fire-and-forget)
-        if (messageCount >= MAX_MESSAGES) {
+        if (state.messageCount >= MAX_MESSAGES) {
           fetch(CONFIG.REACHED_LIMIT_FUNCTION_URL, {
             method: "POST",
             headers: {
@@ -560,8 +645,8 @@
               "Authorization": `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
             },
             body: JSON.stringify({
-              user_uuid: userUuid,
-              chatbot_name: chatbotName,
+              user_uuid: state.userUuid,
+              chatbot_name: state.chatbotName,
               lang: currentLang,
             }),
           }).catch(() => {});
@@ -573,11 +658,11 @@
       appendMessage("bot", data.response, data.user_reply_options || []);
     } catch (err) {
       hideTypingIndicator();
-      appendError(t("chatError"));
-      messageCount--;
+      appendError(getChatErrorMessage(err));
+      state.messageCount--;
     } finally {
-      if (!sessionEnded) {
-        isWaitingForResponse = false;
+      if (!state.sessionEnded) {
+        state.isWaitingForResponse = false;
         chatInput.disabled = false;
         chatInput.focus();
         updateSendButton();
@@ -588,8 +673,8 @@
   // --- Disable Chat (session limit) ---
 
   function disableChat(reason) {
-    sessionEnded = true;
-    isWaitingForResponse = false;
+    state.sessionEnded = true;
+    state.isWaitingForResponse = false;
     chatInput.disabled = true;
     chatInput.placeholder = "";
     chatSendBtn.disabled = true;
@@ -629,6 +714,9 @@
 
     // CTA submit handler
     document.getElementById("cta-submit-btn").addEventListener("click", submitContactForm);
+
+    // Scroll contact CTA into view
+    cta.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
   function escapeHtml(str) {
@@ -675,8 +763,8 @@
           name: name,
           contact: contact,
           note: note,
-          user_uuid: userUuid,
-          chatbot_name: chatbotName,
+          user_uuid: state.userUuid,
+          chatbot_name: state.chatbotName,
           lang: currentLang,
         }),
       });
@@ -725,8 +813,8 @@
         },
         body: JSON.stringify({
           contact: contact,
-          user_uuid: userUuid,
-          chatbot_name: chatbotName,
+          user_uuid: state.userUuid,
+          chatbot_name: state.chatbotName,
           lang: currentLang,
         }),
       });
@@ -744,13 +832,10 @@
     }
   }
 
-  // Attach sidebar CTA submit handler
-  document.getElementById("sidebar-cta-submit-btn").addEventListener("click", submitSidebarContactForm);
-
   // --- Input Handling ---
 
   function updateSendButton() {
-    chatSendBtn.disabled = !chatInput.value.trim() || isWaitingForResponse || sessionEnded;
+    chatSendBtn.disabled = !chatInput.value.trim() || state.isWaitingForResponse || state.sessionEnded;
   }
 
   chatInput.addEventListener("input", updateSendButton);
@@ -758,14 +843,14 @@
   chatInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      if (chatInput.value.trim() && !isWaitingForResponse && !sessionEnded) {
+      if (chatInput.value.trim() && !state.isWaitingForResponse && !state.sessionEnded) {
         sendMessage(chatInput.value);
       }
     }
   });
 
   chatSendBtn.addEventListener("click", () => {
-    if (chatInput.value.trim() && !isWaitingForResponse && !sessionEnded) {
+    if (chatInput.value.trim() && !state.isWaitingForResponse && !state.sessionEnded) {
       sendMessage(chatInput.value);
     }
   });
@@ -774,11 +859,11 @@
 
   document.getElementById("build-another-btn").addEventListener("click", () => {
     // Reset chat state
-    userUuid = null;
-    chatbotName = null;
-    messageCount = 0;
-    sessionEnded = false;
-    isWaitingForResponse = false;
+    state.userUuid = null;
+    state.chatbotName = null;
+    state.messageCount = 0;
+    state.sessionEnded = false;
+    state.isWaitingForResponse = false;
 
     // Hide chat panels
     chatConfig.classList.add("hidden");

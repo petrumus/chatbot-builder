@@ -12,17 +12,19 @@
 </head>
 <body>
   <div class="container">
-    <div class="lang-switcher">
-      <button class="lang-btn active" data-lang="en">EN</button>
-      <button class="lang-btn" data-lang="ro">RO</button>
-      <button class="lang-btn" data-lang="ru">RU</button>
-    </div>
-
     <header>
-      <div class="header-logo">
-        <img src="nexontech_logo.png" alt="NexonTech" height="40">
-        <h1 data-i18n="headerTitle">Build Your Chatbot</h1>
+      <div class="header-top">
+        <div class="header-logo">
+          <img src="nexontech_logo.png" alt="NexonTech" height="40">
+          <span class="header-company">NexonTech</span>
+        </div>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="ro">RO</button>
+          <button class="lang-btn" data-lang="ru">RU</button>
+        </div>
       </div>
+      <h1 data-i18n="headerTitle">Build Your Chatbot</h1>
       <p class="subtitle" data-i18n="subtitle">Tell us about your business and we'll create a custom chatbot for you.</p>
     </header>
 
@@ -31,19 +33,19 @@
       <form id="chatbot-form" novalidate>
         <div class="field">
           <label for="website" data-i18n="labelWebsite">Website URL</label>
-          <input type="text" id="website" name="website" data-i18n-placeholder="placeholderWebsite" placeholder="example.com" required>
+          <input type="text" id="website" name="website" data-i18n-placeholder="placeholderWebsite" placeholder="example.com" required aria-describedby="website-error">
           <span class="error-msg" id="website-error"></span>
         </div>
 
         <div class="field">
           <label for="description" data-i18n="labelDescription">Company Description</label>
-          <textarea id="description" name="description" rows="4" data-i18n-placeholder="placeholderDescription" placeholder="Describe what your company does, your products or services, and your target audience..." required minlength="10"></textarea>
+          <textarea id="description" name="description" rows="4" data-i18n-placeholder="placeholderDescription" placeholder="Describe what your company does, your products or services, and your target audience..." required minlength="10" aria-describedby="description-error"></textarea>
           <span class="error-msg" id="description-error"></span>
         </div>
 
         <div class="field">
           <label for="chatbot-name" data-i18n="labelChatbotName">Chatbot Name</label>
-          <input type="text" id="chatbot-name" name="chatbotName" data-i18n-placeholder="placeholderChatbotName" placeholder="e.g. SupportBot, Alex, HelpDesk" required minlength="2">
+          <input type="text" id="chatbot-name" name="chatbotName" data-i18n-placeholder="placeholderChatbotName" placeholder="e.g. SupportBot, Alex, HelpDesk" required minlength="2" aria-describedby="chatbot-name-error">
           <span class="error-msg" id="chatbot-name-error"></span>
         </div>
 
@@ -61,7 +63,7 @@
         <div class="step" id="step-1">
           <div class="step-icon">
             <div class="spinner"></div>
-            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
               <path d="M5 13l4 4L19 7"/>
             </svg>
           </div>
@@ -70,7 +72,7 @@
         <div class="step hidden" id="step-2">
           <div class="step-icon">
             <div class="spinner"></div>
-            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
               <path d="M5 13l4 4L19 7"/>
             </svg>
           </div>
@@ -79,7 +81,7 @@
         <div class="step hidden" id="step-3">
           <div class="step-icon">
             <div class="spinner"></div>
-            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
               <path d="M5 13l4 4L19 7"/>
             </svg>
           </div>
@@ -88,7 +90,7 @@
         <div class="step hidden" id="step-4">
           <div class="step-icon">
             <div class="spinner"></div>
-            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
               <path d="M5 13l4 4L19 7"/>
             </svg>
           </div>
@@ -101,7 +103,7 @@
     <section id="result-section" class="hidden">
       <div id="result-success" class="result-card hidden">
         <div class="result-icon success-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="12" cy="12" r="10"/>
             <path d="M8 12l3 3 5-5"/>
           </svg>
@@ -111,7 +113,7 @@
       </div>
       <div id="result-error" class="result-card hidden">
         <div class="result-icon error-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="12" cy="12" r="10"/>
             <path d="M15 9l-6 6M9 9l6 6"/>
           </svg>
@@ -154,12 +156,12 @@
           <span id="chat-bot-name"></span>
           <span class="chat-status-dot"></span>
         </div>
-        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
         <div class="chat-reply-buttons" id="chat-reply-buttons"></div>
         <div class="chat-input-area">
           <input type="text" id="chat-input" data-i18n-placeholder="chatPlaceholder" placeholder="Type a message..." autocomplete="off">
           <button id="chat-send-btn" disabled>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true">
               <path d="M22 2L11 13"/>
               <path d="M22 2L15 22L11 13L2 9L22 2Z"/>
             </svg>

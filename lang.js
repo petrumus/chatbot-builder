@@ -34,6 +34,8 @@ const LANG = {
 
     // Build errors
     buildErrorFallback: "We couldn't build your chatbot. Please try again.",
+    buildErrorNetwork: "Network error. Please check your connection and try again.",
+    buildErrorUnavailable: "Service temporarily unavailable. Please try again in a moment.",
     noUuidError: "Chatbot was created but something went wrong loading the chat. Please contact support.",
 
     // Config panel
@@ -47,6 +49,8 @@ const LANG = {
     // Chat
     chatPlaceholder: "Type a message...",
     chatError: "Something went wrong. Please try again.",
+    chatErrorNetwork: "Network error. Please check your connection.",
+    chatErrorUnavailable: "Service temporarily unavailable. Please try again.",
     sessionEndFallback: "You've reached the message limit for this demo session. Contact us to continue.",
     sessionEndedBar: "You've reached the message limit for this demo session.",
     autoGreeting: "Hello",
@@ -97,6 +101,8 @@ const LANG = {
 
     // Build errors
     buildErrorFallback: "Nu am putut construi chatbot-ul. Te rugăm să încerci din nou.",
+    buildErrorNetwork: "Eroare de rețea. Verifică conexiunea și încearcă din nou.",
+    buildErrorUnavailable: "Serviciul este temporar indisponibil. Încearcă din nou într-un moment.",
     noUuidError: "Chatbot-ul a fost creat, dar a apărut o eroare la încărcarea chatului. Contactează suportul.",
 
     // Config panel
@@ -110,6 +116,8 @@ const LANG = {
     // Chat
     chatPlaceholder: "Scrie un mesaj...",
     chatError: "Ceva nu a mers bine. Încearcă din nou.",
+    chatErrorNetwork: "Eroare de rețea. Verifică conexiunea.",
+    chatErrorUnavailable: "Serviciul este temporar indisponibil. Încearcă din nou.",
     sessionEndFallback: "Ai atins limita de mesaje pentru această sesiune demo. Contactează-ne pentru a continua.",
     sessionEndedBar: "Ai atins limita de mesaje pentru această sesiune demo.",
     autoGreeting: "Salut",
@@ -160,6 +168,8 @@ const LANG = {
 
     // Build errors
     buildErrorFallback: "Не удалось создать чат-бота. Пожалуйста, попробуйте снова.",
+    buildErrorNetwork: "Ошибка сети. Проверьте подключение и попробуйте снова.",
+    buildErrorUnavailable: "Сервис временно недоступен. Попробуйте через несколько минут.",
     noUuidError: "Чат-бот был создан, но произошла ошибка при загрузке чата. Свяжитесь с поддержкой.",
 
     // Config panel
@@ -173,6 +183,8 @@ const LANG = {
     // Chat
     chatPlaceholder: "Напишите сообщение...",
     chatError: "Что-то пошло не так. Попробуйте снова.",
+    chatErrorNetwork: "Ошибка сети. Проверьте подключение.",
+    chatErrorUnavailable: "Сервис временно недоступен. Попробуйте снова.",
     sessionEndFallback: "Вы достигли лимита сообщений для этой демо-сессии. Свяжитесь с нами для продолжения.",
     sessionEndedBar: "Вы достигли лимита сообщений для этой демо-сессии.",
     autoGreeting: "Привет",
