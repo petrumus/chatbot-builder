@@ -72,28 +72,17 @@ serve(async (req) => {
 
     const n8nData = await n8nResponse.text();
 
-    let parsed: unknown;
+    let responseBody: string;
     try {
-      parsed = JSON.parse(n8nData);
+      // Try to parse as JSON and forward it
+      JSON.parse(n8nData);
+      responseBody = n8nData;
     } catch {
       // If n8n returned non-JSON, wrap it
-      return new Response(JSON.stringify({ message: n8nData }), {
-        status: n8nResponse.status,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      responseBody = JSON.stringify({ message: n8nData });
     }
 
-    // n8n may return an array like [{uuid, created_at, id}] — normalize to expected format
-    if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].uuid) {
-      const item = parsed[0];
-      parsed = {
-        success: true,
-        message: "Your chatbot has been built successfully.",
-        user_data: item,
-      };
-    }
-
-    return new Response(JSON.stringify(parsed), {
+    return new Response(responseBody, {
       status: n8nResponse.status,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
