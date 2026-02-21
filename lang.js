@@ -65,7 +65,7 @@ const LANG = {
     // Page
     pageTitle: "Construiește-ți Chatbot-ul",
     headerTitle: "Construiește-ți Chatbot-ul",
-    subtitle: "Spune-ne despre afacerea ta și vom crea un chatbot personalizat pentru tine.",
+    subtitle: "Spune-ne despre afacerea ta și vom crea un chatbot pentru tine.",
 
     // Form
     labelWebsite: "URL Website",
