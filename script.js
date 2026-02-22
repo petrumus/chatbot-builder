@@ -23,6 +23,19 @@
     else currentLang = "en";
   })();
 
+  // Notify backend of page visit (fire-and-forget)
+  fetch(CONFIG.PAGE_VISIT_FUNCTION_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+    },
+    body: JSON.stringify({
+      visitor_id: visitorId,
+      lang: currentLang,
+    }),
+  }).catch(() => {});
+
   function t(key) {
     const lang = LANG[currentLang] || LANG.en;
     return lang[key] || LANG.en[key] || key;

@@ -13,4 +13,7 @@ const CONFIG = {
 
   // Reached-limit Edge Function URL (notifies n8n when user hits message limit)
   REACHED_LIMIT_FUNCTION_URL: "https://umkkmgrjxgekbnvinhiq.supabase.co/functions/v1/reached-limit",
+
+  // Page-visit Edge Function URL (notifies n8n when a visitor loads the page)
+  PAGE_VISIT_FUNCTION_URL: "https://umkkmgrjxgekbnvinhiq.supabase.co/functions/v1/page-visit",
 };
