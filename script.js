@@ -1,5 +1,15 @@
 (() => {
   // ============================================
+  // Visitor ID
+  // ============================================
+
+  const visitorId = localStorage.getItem("visitor_id") || (() => {
+    const id = crypto.randomUUID();
+    localStorage.setItem("visitor_id", id);
+    return id;
+  })();
+
+  // ============================================
   // i18n System
   // ============================================
 
@@ -245,6 +255,7 @@
       description: document.getElementById("description").value.trim(),
       chatbotName: document.getElementById("chatbot-name").value.trim(),
       lang: currentLang,
+      visitor_id: visitorId,
     };
 
     savedFormData = data;
@@ -614,6 +625,7 @@
           text: messageText,
           user_uuid: state.userUuid,
           lang: currentLang,
+          visitor_id: visitorId,
         }),
       });
 
@@ -648,6 +660,7 @@
               user_uuid: state.userUuid,
               chatbot_name: state.chatbotName,
               lang: currentLang,
+              visitor_id: visitorId,
             }),
           }).catch(() => {});
         }
@@ -766,6 +779,7 @@
           user_uuid: state.userUuid,
           chatbot_name: state.chatbotName,
           lang: currentLang,
+          visitor_id: visitorId,
         }),
       });
 
@@ -816,6 +830,7 @@
           user_uuid: state.userUuid,
           chatbot_name: state.chatbotName,
           lang: currentLang,
+          visitor_id: visitorId,
         }),
       });
 

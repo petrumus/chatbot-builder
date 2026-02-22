@@ -16,7 +16,7 @@ serve(async (req) => {
   const env = loadN8nEnv("N8N_WEBHOOK_URL");
   if (!env) return errorResponse("Server configuration error", 500);
 
-  let body: { website?: string; description?: string; chatbotName?: string; lang?: string };
+  let body: { website?: string; description?: string; chatbotName?: string; lang?: string; visitor_id?: string };
   try {
     body = await req.json();
   } catch {
@@ -40,6 +40,7 @@ serve(async (req) => {
       description: body.description,
       chatbotName: body.chatbotName,
       lang: body.lang || "en",
+      visitor_id: body.visitor_id || "",
     });
 
     const { body: responseBody, status } = await parseN8nResponse(n8nResponse, "message");

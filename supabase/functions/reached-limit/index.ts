@@ -19,6 +19,7 @@ serve(async (req) => {
     user_uuid?: string;
     chatbot_name?: string;
     lang?: string;
+    visitor_id?: string;
   };
   try {
     body = await req.json();
@@ -31,6 +32,7 @@ serve(async (req) => {
       user_uuid: body.user_uuid || "",
       chatbot_name: body.chatbot_name || "",
       lang: body.lang || "en",
+      visitor_id: body.visitor_id || "",
     });
 
     const { body: responseBody, status } = await parseN8nResponse(n8nResponse, "message");
