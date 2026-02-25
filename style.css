@@ -67,9 +67,9 @@ body {
 }
 
 .btn-secondary {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
-  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  border: 1.5px solid #fff;
 }
 
 .btn-secondary:hover {
