@@ -1,18 +1,24 @@
-# Chatbot Builder — Project Guide
+# NexonTech — Project Guide
 
 ## Overview
-A static website where users fill a form to build a custom chatbot. After the chatbot is built, the page transitions to a live chat demo interface. Hosted on GitHub Pages with a Supabase Edge Function proxy for secure backend communication.
+A multi-page marketing website for NexonTech AI agents. The site positions the product as a full AI agent (not just a chatbot) with 5 capability layers. Users can explore the landing page, view pricing, read FAQs, and try a live demo that builds a custom AI agent in 60 seconds. Both webhooks (build + chat) are proxied through Supabase Edge Functions to keep n8n URLs hidden.
+
+**Pages:**
+- `index.html` — Landing page (hero, capabilities, how-it-works, use cases, testimonials, CTA)
+- `demo.html` — Interactive demo (form → build → live chat with AI agent)
+- `pricing.html` — Pricing tiers, add-ons, overage table
+- `faq.html` — Accordion FAQ (10 items, derived from sales objection handling)
 
 ## Architecture
 ```
-[GitHub Pages — static HTML/CSS/JS]
+[GitHub Pages — static HTML/CSS/JS, multi-page]
         ↓ POST (Bearer anon key)
 [Supabase Edge Function: chatbot-webhook]
         ↓ POST (Header Auth)
 [n8n Build Webhook — builds chatbot]
         ↓ responds with uuid + user_data
 
-[Frontend transitions to chat mode]
+[Frontend transitions to chat mode on demo.html]
         ↓ POST (Bearer anon key)
 [Supabase Edge Function: chat-message]
         ↓ POST (Header Auth)
@@ -20,7 +26,7 @@ A static website where users fill a form to build a custom chatbot. After the ch
         ↓ responds with bot message + reply options
 [Frontend renders chat]
 
-[On page load — fire-and-forget]
+[On page load (all pages) — fire-and-forget]
         ↓ POST (Bearer anon key)
 [Supabase Edge Function: page-visit]
         ↓ POST (Header Auth)
@@ -51,17 +57,21 @@ All n8n webhook URLs are hidden as Supabase Edge Function secrets. The frontend 
 
 ## File Structure
 ```
-├── index.html              # Single-page app: form, progress, result, chat
-├── style.css               # All styles — minimal, clean, responsive
-├── script.js               # All frontend logic (IIFE pattern)
+├── index.html              # Landing page — hero, capabilities, bridge, how-it-works, use cases, testimonials, CTA
+├── demo.html               # Demo page — form, progress steps, result, live chat
+├── pricing.html            # Pricing page — 4 tiers + enterprise + add-ons + overages
+├── faq.html                # FAQ page — 10 accordion items
+├── style.css               # All styles — navbar, pages, chat, responsive, animations
+├── shared.js               # Shared logic (all pages) — visitor ID, i18n, navbar, scroll reveal, FAQ, pricing toggle
+├── demo.js                 # Demo-only logic — form, build, chat, markdown, contacts
 ├── config.js               # Supabase URLs + anon key (no n8n URLs)
-├── lang.js                 # i18n translations (en, ro, ru)
+├── lang.js                 # i18n translations (en, ro, ru) — all pages
 ├── serve.js                # Local dev server (Node.js, port 8080) — not deployed
 ├── .gitignore
 ├── CLAUDE.md               # Project instructions for Claude Code
 ├── specs/                  # Feature specifications
 │   ├── project-overview.md # This file — architecture, conventions, deployment
-│   └── chat-interface.md   # Chat UI spec (post-build chat demo)
+│   └── chat-interface.md   # Chat UI spec (demo page: build + chat)
 ├── supabase/
 │   └── functions/
 │       ├── _shared/
@@ -81,31 +91,46 @@ All n8n webhook URLs are hidden as Supabase Edge Function secrets. The frontend 
         └── deploy.yml      # GitHub Pages deployment
 ```
 
+### JS Architecture
+The original monolithic `script.js` was split into two files:
+
+- **`shared.js`** (loaded on ALL pages): visitor ID, i18n system, page visit tracking, navbar (scroll/hamburger), smooth scroll, scroll reveal animations, FAQ accordion, pricing toggle. Exposes `window.NexonTech = { visitorId, t, getLang, applyLanguage }` for other scripts.
+- **`demo.js`** (loaded on `demo.html` ONLY): form validation, build API call, progress steps, chat mode, markdown renderer, contact forms. Uses `window.NexonTech` (aliased as `NT`) for translations and visitor ID. Guards with `if (!form) return;` to safely no-op on non-demo pages.
+
 ## Design System
-- Font: system font stack (`-apple-system, BlinkMacSystemFont, "Segoe UI", ...`)
-- Primary color: `#1a1a1a`
-- Background: `#fafafa`
-- Cards: white bg, `1px solid #e0e0e0`, `border-radius: 8px`
-- Buttons: dark bg (`#1a1a1a`), white text, 6px radius
-- Error color: `#d32f2f`
-- Success color: `#2e7d32`
-- Chat input: 12px border-radius, 48px min-height
-- Reply buttons: pill-shaped (`border-radius: 999px`), light gray bg (`#f5f5f5`), subtle border (`#d0d0d0`)
+- **Font**: system font stack (`-apple-system, BlinkMacSystemFont, "Segoe UI", ...`)
+- **Primary color**: `#0a2540` (dark navy)
+- **Accent color**: `#1a73e8` (blue)
+- **Background**: `#ffffff` (white), `#f0f4f8` (light blue-gray for alternating sections)
+- **Navbar**: fixed, transparent on home (→ solid on scroll), always solid on other pages
+- **Buttons**: primary = `#0a2540` bg / white text; outline = transparent bg / border; CTA = accent blue
+- **Cards**: white bg, subtle shadow, `border-radius: 12px`
+- **Chat bubbles**: bot = `#f5f5f5` bg, user = `#1a1a1a` bg + white text
+- **Error color**: `#d32f2f`
+- **Success color**: `#2e7d32`
+- **Reply buttons**: pill-shaped (`border-radius: 999px`), light gray bg
+
+## Responsive Breakpoints
+- **≤960px**: hamburger menu, stacked grids
+- **≤640px**: smaller headings, tighter padding
+- **≤480px**: single-column pricing, compact hero
 
 ## Key Conventions
 - No frameworks or libraries — everything is vanilla JS
-- `localStorage` is used only for `visitor_id` (persistent anonymous visitor tracking across sessions)
-- All other state resets on page refresh (no sessionStorage)
+- `localStorage` used for `visitor_id` (persistent anonymous tracking) and `lang` (language preference)
+- All other state resets on page refresh
 - All secrets (n8n URLs, auth headers) are in Supabase Edge Function secrets, never in frontend code
 - Supabase anon key IS public (by design, like Firebase API keys)
 - All n8n webhooks use Header Auth: custom header name + value (not Basic Auth)
-- All Edge Functions handle CORS via shared `_shared/utils.ts` (allow `Content-Type` and `Authorization` headers)
+- All Edge Functions handle CORS via shared `_shared/utils.ts`
 - n8n webhook URLs are never exposed to the browser — only Supabase function URLs are public
 - All webhook requests include `visitor_id` and `lang` fields for tracking and i18n
+- Body class determines page behavior: `page-home` = transparent navbar with scroll transition; other pages = solid navbar immediately
+- All user-facing text uses `data-i18n` attributes for translation; all 3 languages (en/ro/ru) are fully translated
 
 ## Shared Edge Function Utilities (`_shared/utils.ts`)
 All Edge Functions import from `_shared/utils.ts`:
-- `corsHeaders` / `corsResponse()` — CORS handling
+- `corsHeaders` / `corsResponse()` — CORS handling (allows all origins for dev/prod flexibility)
 - `jsonResponse(body, status)` — JSON response with CORS headers
 - `errorResponse(message, status)` — error JSON response
 - `parseJsonBody<T>(req)` — parse request JSON
@@ -130,58 +155,79 @@ All Edge Functions import from `_shared/utils.ts`:
 - **Local dev**: `node serve.js` → http://localhost:8080
 
 ## Feature Specs
-- [Chat Interface](chat-interface.md) — live chat demo after successful chatbot build
+- [Chat Interface](chat-interface.md) — demo page: live chat after successful agent build
 
 ## i18n System
 - `lang.js` defines `LANG` object with translations for `en`, `ro`, `ru`
-- Language auto-detected from `navigator.language` on page load
-- Language switcher buttons (`.lang-btn`) allow manual switching
+- Language auto-detected from `navigator.language` on first visit, then persisted in `localStorage` as `lang`
+- Language switcher in navbar footer (flag buttons) allows manual switching across pages
 - `t(key)` function resolves translation keys, falls back to English
 - `applyLanguage()` updates all `[data-i18n]` and `[data-i18n-placeholder]` elements, page title, and `html[lang]`
 - Auto-greeting is localized: "Hello" (en), "Salut" (ro), "Привет" (ru)
+- All pages share the same i18n system via `shared.js`
 
 ## Visitor Tracking
 - `visitor_id` generated via `crypto.randomUUID()` on first visit, stored in `localStorage`
 - Persists across sessions — same visitor gets the same ID
 - Sent with every webhook request (`visitor_id` field): build, chat, contact form, reached-limit, page-visit
+- Page visit webhook fires on every page load (all pages, via `shared.js`)
 
-## Current Flow
+## Page-Specific Features
 
-### 0. Page Load
-- Generate or retrieve `visitor_id` from `localStorage`
-- Auto-detect language from browser locale
-- Fire-and-forget POST to `page-visit` edge function with `{ visitor_id, lang }`
+### Landing Page (`index.html`)
+- **Hero section**: headline, subheading, CTA buttons ("See It in Action" → demo, "View Pricing" → pricing), CSS chat mockup showing appointment booking scenario
+- **Capabilities section**: 5 cards (Task Execution, Proactive Monitoring, Autonomous Decisions, Deep Context, Open Integrations)
+- **Bridge section**: "10% that's hardest to get right" messaging connecting capabilities to demo CTA
+- **How It Works**: 3 numbered steps with connectors (Describe → Review → Deploy)
+- **Use Cases**: 3 cards (E-commerce, Healthcare/Clinic, Agencies & B2B)
+- **Testimonials**: 3 quote cards + stats bar (200+ businesses, 93% satisfaction, <60s setup)
+- **Final CTA**: "Ready to Meet Your Next Employee?" with demo button
+- **Scroll reveal**: `.reveal` elements animate in via IntersectionObserver
 
-### 1. Build Phase
-1. User fills form (website URL, company description, chatbot name)
-2. Website URL accepts flexible formats: bare domain (`ultra.md`), with www (`www.ultra.md`), or with protocol (`https://ultra.md`) — all normalized to `https://` prefix
-3. Submit → POST to Supabase Edge Function (with Bearer anon key) — includes `lang` and `visitor_id`
-4. Edge Function → forwards to n8n build webhook (with Header Auth)
-5. Progress steps animate (4 steps, localized via i18n)
+### Demo Page (`demo.html`)
+- **Demo intro**: headline, "10%" description, badge ("30 messages · No signup required")
+- **Form → Progress → Chat**: see [chat-interface.md](chat-interface.md)
 
-### 2. Build Success → Chat Mode
-6. On success → extract `uuid` from response (checks both `result.uuid` and `result.user_data.uuid`)
-7. Page transitions to split-panel layout (config left, chat right)
-8. Auto-sends localized greeting via `chat-message` edge function
-9. User chats with bot (30-message session limit)
-10. Session ends when: backend sends `session_ended: true`, client count reaches 30, or response is missing `response` field
+### Pricing Page (`pricing.html`)
+- **Monthly/Annual toggle**: checkbox with "Save ~17%" badge
+- **4 pricing cards**: Free Demo ($0), Starter ($149/mo), Pro ($399/mo, "Most Popular"), Business ($899/mo)
+- **Enterprise banner**: "From ~$2,000/mo", "Let's Talk" CTA
+- **Add-ons**: Setup Sprint ($499 one-time), Managed Monthly (+$299/mo)
+- **Overage table**: per-conversation rates (Starter $0.08, Pro $0.05, Business $0.03)
+- **Proof of concept note**: "Every paid plan includes 1,000 free chats"
+- **Price anchoring**: "Compare: a part-time support hire costs $1,500–3,000/mo"
 
-### 3. Session End → Contact CTA
-11. Chat input disabled, session-ended bar shown
-12. In-chat contact CTA form appears (name, contact, optional note)
-13. Sidebar CTA is hidden (in-chat CTA takes over)
-14. Contact form submits to `contact-form` edge function
-15. On client-side limit (messageCount >= 30): fire-and-forget POST to `reached-limit` edge function
+### FAQ Page (`faq.html`)
+- **10 accordion items** derived from sales pitch objection handling:
+  1. What makes this different from other chatbots?
+  2. What can the AI agent actually do?
+  3. How long does setup take?
+  4. What systems does it integrate with?
+  5. How do we trust it to act autonomously?
+  6. We don't need this yet — is it too early?
+  7. Is there a free trial?
+  8. What languages are supported?
+  9. How does billing work?
+  10. What kind of support do you offer?
+- **Bottom CTA**: "Still have questions? Try the Free Demo"
 
-### 4. Build Failure
-- HTTP 422 with `{ success: false, message: "..." }` → shows backend's `message` text
-- HTTP 200 with `{ success: false, message: "..." }` → same handling
-- Network/other errors → generic localized error message
-- Retry button returns to form
+## Shared UI Components
 
-### 5. Chat Errors
-- Webhook failure → error bubble in chat (localized error message)
-- Failed messages don't count toward the 30-message limit
+### Navbar
+- Fixed position, `z-index: 1000`
+- Logo (SVG) + nav links (What It Does, How It Works, Demo, Pricing, FAQ) + language switcher
+- **Home page** (`page-home`): transparent bg → solid dark navy on scroll (>60px)
+- **Other pages**: always solid dark navy
+- **Mobile (≤960px)**: hamburger menu, full-screen overlay nav
+
+### Footer
+- Dark navy bg, 2-column layout (Product links, Company links)
+- Copyright line at bottom
+
+### Scroll Reveal
+- Elements with `.reveal` class start invisible (`opacity: 0; transform: translateY(20px)`)
+- IntersectionObserver adds `.revealed` class when element enters viewport (threshold 0.1)
+- Transition: `0.6s ease`
 
 ## Backend Response Formats
 
@@ -269,7 +315,7 @@ Fire-and-forget notification when client-side message count reaches 30.
 ```
 
 ### Page-Visit Webhook (via `page-visit` Edge Function)
-Fire-and-forget notification on every page load.
+Fire-and-forget notification on every page load (all pages).
 **Request body:**
 ```json
 {

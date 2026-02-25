@@ -1,15 +1,12 @@
 // Shared utilities for Supabase Edge Functions
 
-const ALLOWED_ORIGIN = "https://petrumus.github.io";
-
 export const corsHeaders = {
-  "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 export function corsResponse(): Response {
-  return new Response(null, { status: 204, headers: corsHeaders });
+  return new Response("ok", { headers: corsHeaders });
 }
 
 export function jsonResponse(body: unknown, status = 200): Response {

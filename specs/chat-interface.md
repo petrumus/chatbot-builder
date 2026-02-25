@@ -1,21 +1,48 @@
-# SPEC: Chat Interface After Successful Chatbot Build
+# SPEC: Demo Page — Build & Chat Interface
 
-> **Status: IMPLEMENTED** — This spec reflects the current working implementation.
+> **Status: IMPLEMENTED** — This spec reflects the current working implementation on `demo.html`.
 
 ## Overview
 
-After a user successfully builds a chatbot (form submit → Supabase Edge Function → n8n webhook → success), the page transitions from a single-column form layout to a **two-panel split layout**: config info on the left, live chat on the right. The chat connects to n8n via a Supabase Edge Function proxy (`chat-message`), auto-sends a greeting, and supports markdown rendering, reply buttons, a typing indicator, and a 30-message session limit.
+The demo page (`demo.html`) is where users build and interact with a custom AI agent. After filling a form (website URL, company description, agent name), the page transitions from a single-column form layout to a **two-panel split layout**: config info on the left, live chat on the right. The chat connects to n8n via a Supabase Edge Function proxy (`chat-message`), auto-sends a greeting, and supports markdown rendering, reply buttons, a typing indicator, and a 30-message session limit.
+
+All demo-specific logic lives in `demo.js`, which depends on `shared.js` via the `window.NexonTech` API (aliased as `NT`).
+
+---
+
+## Page Structure
+
+### Demo Intro Section (`#demo-header`)
+Shown before the form, provides context:
+- **Headline**: "See Your AI Agent in Action"
+- **Description**: "This demo shows the conversational foundation — the 10% that's hardest to get right."
+- **Badge**: "30 messages · No signup required"
+
+### Form Section (`#form-section`)
+The agent builder form with 3 fields:
+- Website URL (text input, flexible format validation)
+- Company Description (textarea, min 10 chars)
+- Agent Name (text input)
+
+### Progress Section (`#progress-section`)
+4 animated steps shown during build.
+
+### Result Section (`#result-section`)
+Error card with retry button on build failure.
+
+### Chat Panels (`#chat-config` + `#chat-panel`)
+Split layout shown after successful build (hidden by default).
 
 ---
 
 ## Flow
 
 ### Build → Chat Transition
-1. User fills form (website URL, company description, chatbot name)
+1. User fills form (website URL, company description, agent name)
 2. Submit → POST to Supabase Edge Function → n8n build webhook (includes `lang`, `visitor_id`)
 3. Progress steps animate (4 steps, 3s intervals, localized via i18n)
 4. On success → extract `uuid` from response (checks `result.uuid` and `result.user_data.uuid`)
-5. Hide form, progress, header → show split-panel layout
+5. Hide form, progress, demo header → show split-panel layout
 6. Auto-send localized greeting (first message, counts toward limit): "Hello" (en), "Salut" (ro), "Привет" (ru)
 7. User chats with bot via `chat-message` edge function (proxies to n8n, includes `lang`, `visitor_id`)
 
@@ -34,11 +61,13 @@ After a user successfully builds a chatbot (form submit → Supabase Edge Functi
 ## Layout
 
 ### Split Layout Container
-When chat activates, `.container` gets the `.chat-mode` class:
+When chat activates, `#demo-container` gets the `.chat-mode` class:
 - `display: flex`, `max-width: 1200px`, `gap: 1.5rem`
 - Left panel: `360px` fixed width
 - Right panel: `flex: 1`
 - On mobile (≤768px): stacks vertically
+
+**Note:** Uses `#demo-container` (not `.container`) and `#demo-header` (not `header`) to avoid conflicts with the shared navbar and page layout.
 
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -61,7 +90,7 @@ When chat activates, `.container` gets the `.chat-mode` class:
 
 ### Left Panel — Config Info (`#chat-config`)
 A card (`.config-card`) showing:
-- **Chatbot name** as heading (`<h2>`)
+- **Agent name** as heading (`<h2>`)
 - **Website** — clickable link (`target="_blank"`)
 - **Description** — company description from form
 - **Status** — "● Active" with green dot (`#2e7d32`)
@@ -189,7 +218,7 @@ Appears inside the chat card after session ends:
 
 ## Markdown Renderer
 
-Custom `renderMarkdown(text)` function (no library). Two-level processing:
+Custom `renderMarkdown(text)` function in `demo.js` (no library). Two-level processing:
 
 **Block-level** (line-by-line in `renderMarkdown`):
 1. **Escape HTML entities** (`&`, `<`, `>`, `"`) — XSS prevention
@@ -229,14 +258,13 @@ Input is `type="text"` (not `type="url"`) with placeholder `example.com`.
 
 **Persistent (localStorage):**
 ```js
+// In shared.js:
 const visitorId = localStorage.getItem("visitor_id") || crypto.randomUUID();
-// Generated once, persists across sessions
+let currentLang = localStorage.getItem("lang") || detectFromBrowser();
 ```
 
-**Session state (reset on page refresh):**
+**Session state in demo.js (reset on page refresh):**
 ```js
-let currentLang = "en";       // Auto-detected from navigator.language (en/ro/ru)
-
 const state = {
   userUuid: null,              // From build success response
   chatbotName: null,           // From form data
@@ -255,12 +283,17 @@ const MAX_MESSAGES = 30;      // Session message limit
 
 ---
 
-## Key Functions (script.js)
+## Key Functions
 
+### shared.js (all pages)
 | Function | Purpose |
 |----------|---------|
 | `t(key)` | Resolve i18n translation key (falls back to English) |
 | `applyLanguage()` | Update all `[data-i18n]` elements, placeholders, page title, lang attr |
+
+### demo.js (demo page only)
+| Function | Purpose |
+|----------|---------|
 | `isValidDomain(value)` | Validates domain format (flexible) |
 | `normalizeWebsite(value)` | Strips protocol, prepends `https://` |
 | `validateField(input)` | Per-field validation with localized error messages |
@@ -306,7 +339,7 @@ const MAX_MESSAGES = 30;      // Session message limit
 
 ## Responsive Design (≤768px)
 
-- `.container.chat-mode`: `flex-direction: column`, `max-width: 100%`
+- `#demo-container.chat-mode`: `flex-direction: column`, `max-width: 100%`
 - `#chat-config`: `width: 100%`
 - `.config-card`: horizontal flex wrap, description and UUID fields hidden
 - `.build-another-btn`: inline, `width: auto`
@@ -330,41 +363,17 @@ const MAX_MESSAGES = 30;      // Session message limit
 Clicking the "Build Another" button:
 1. Resets all chat state (`userUuid`, `chatbotName`, `messageCount`, `sessionEnded`, `isWaitingForResponse`)
 2. Hides chat panels (`#chat-config`, `#chat-panel`)
-3. Removes `.chat-mode` class from container
+3. Removes `.chat-mode` class from `#demo-container`
 4. Removes any `.chat-session-ended` bar and `.contact-cta` element
-5. Shows header and form section
-
----
-
-## Testing Checklist
-
-- [x] Form submit works (validation, progress steps, API call)
-- [x] Flexible URL validation (bare domains, www, https)
-- [x] On success: layout transitions to split view
-- [x] Config panel shows correct info (name, website, description, uuid)
-- [x] Auto-greeting ("Salut") sent immediately, typing indicator shows
-- [x] Bot's welcome response appears with markdown rendered
-- [x] Typing a message + Enter sends it
-- [x] User message appears right-aligned in dark bubble
-- [x] Typing indicator shows while waiting
-- [x] Bot response appears left-aligned with markdown rendered
-- [x] Reply option buttons appear when provided (pill-shaped)
-- [x] Clicking a reply button sends it as a message
-- [x] Reply buttons disappear after sending
-- [x] 30-message limit disables input and shows end message
-- [x] Webhook error shows error message in chat (not a page crash)
-- [x] Failed messages don't count toward limit
-- [x] Build failure shows backend's message text
-- [x] Mobile layout stacks panels properly
-- [x] On error (build fails): error card + retry button works
-- [x] "Build another" button resets everything back to the form
+5. Shows demo header and form section
 
 ---
 
 ## What NOT to Change
 
 - No npm dependencies or build tools
-- No markdown parsing library (custom `renderMarkdown` function)
+- No markdown parsing library (custom `renderMarkdown` function in demo.js)
 - No changes to `serve.js`
-- No authentication or session persistence (except `visitor_id` in localStorage)
-- `visitor_id` is the only use of localStorage — do not add other persistent state
+- No authentication or session persistence (except `visitor_id` and `lang` in localStorage)
+- `visitor_id` and `lang` are the only uses of localStorage — do not add other persistent state
+- `demo.js` must access shared state via `window.NexonTech`, not by duplicating logic
