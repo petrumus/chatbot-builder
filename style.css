@@ -68,12 +68,13 @@ body {
 
 .btn-secondary {
   background: transparent;
-  color: var(--color-deep-blue);
-  border: 1.5px solid var(--color-deep-blue);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
 }
 
 .btn-secondary:hover {
-  background: var(--color-soft-blue-gray);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
 }
 
 .btn-white {
