@@ -6,6 +6,9 @@ Plain HTML/CSS/JS website hosted on GitHub Pages. Users fill a form to build a c
 - [Project Overview](specs/project-overview.md) — architecture, file structure, conventions, deployment, response formats
 - [Chat Interface](specs/chat-interface.md) — live chat demo: layout, webhook integration, session limit, markdown, error handling
 
+## Conventions
+- **After any feature change, update the relevant spec in `specs/`** — specs must always reflect the current implementation
+
 ## Quick Reference
 - **Repo**: https://github.com/petrumus/chatbot-builder
 - **Live**: https://petrumus.github.io/chatbot-builder/

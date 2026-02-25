@@ -3,176 +3,315 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n-title="pageTitle">Build Your Chatbot</title>
+  <title data-i18n-title="homePageTitle">NexonTech — Custom AI Agents for Your Business</title>
+  <meta name="description" content="Custom AI agents that book appointments, capture leads, handle support, and manage workflows — built on your business in 60 seconds.">
+  <meta property="og:title" content="NexonTech — Custom AI Agents for Your Business">
+  <meta property="og:description" content="AI agents that don't just answer — they act. Book appointments, capture leads, handle support, 24/7.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petrumus.github.io/chatbot-builder/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://petrumus.github.io/chatbot-builder/">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "NexonTech",
+    "applicationCategory": "BusinessApplication",
+    "description": "Custom AI agents for business automation — appointment booking, lead capture, support, and workflow management.",
+    "url": "https://petrumus.github.io/chatbot-builder/",
+    "offers": {
+      "@type": "AggregateOffer",
+      "lowPrice": "0",
+      "highPrice": "899",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 </head>
-<body>
-  <div class="container">
-    <header>
-      <div class="header-top">
-        <div class="header-logo">
-          <img src="logo.png" alt="NexonTech" height="40">
-          <span class="header-company">NexonTech</span>
-        </div>
-        <div class="lang-switcher">
+<body class="page-home">
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.png" alt="NexonTech" height="32">
+        <span>NexonTech</span>
+      </a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="#capabilities" data-i18n="navCapabilities">What It Does</a>
+        <a href="#how-it-works" data-i18n="navHowItWorks">How It Works</a>
+        <a href="pricing.html" data-i18n="navPricing">Pricing</a>
+        <a href="faq.html" data-i18n="navFaq">FAQ</a>
+        <div class="nav-lang">
           <button class="lang-btn active" data-lang="en">EN</button>
           <button class="lang-btn" data-lang="ro">RO</button>
           <button class="lang-btn" data-lang="ru">RU</button>
         </div>
+        <a href="demo.html" class="nav-cta" data-i18n="navTryDemo">Try Demo</a>
       </div>
-      <h1 data-i18n="headerTitle">Build Your Chatbot</h1>
-      <p class="subtitle" data-i18n="subtitle">Tell us about your business and we'll create a custom chatbot for you.</p>
-    </header>
+    </div>
+  </nav>
 
-    <!-- Form Section -->
-    <section id="form-section">
-      <form id="chatbot-form" novalidate>
-        <div class="field">
-          <label for="website" data-i18n="labelWebsite">Website URL</label>
-          <input type="text" id="website" name="website" data-i18n-placeholder="placeholderWebsite" placeholder="example.com" required aria-describedby="website-error">
-          <span class="error-msg" id="website-error"></span>
-        </div>
+  <main>
 
-        <div class="field">
-          <label for="description" data-i18n="labelDescription">Company Description</label>
-          <textarea id="description" name="description" rows="4" data-i18n-placeholder="placeholderDescription" placeholder="Describe what your company does, your products or services, and your target audience..." required minlength="10" aria-describedby="description-error"></textarea>
-          <span class="error-msg" id="description-error"></span>
-        </div>
-
-        <div class="field">
-          <label for="chatbot-name" data-i18n="labelChatbotName">Chatbot Name</label>
-          <input type="text" id="chatbot-name" name="chatbotName" data-i18n-placeholder="placeholderChatbotName" placeholder="e.g. SupportBot, Alex, HelpDesk" required minlength="2" aria-describedby="chatbot-name-error">
-          <span class="error-msg" id="chatbot-name-error"></span>
-        </div>
-
-        <button type="submit" id="submit-btn" data-i18n="submitBtn">Build My Chatbot</button>
-      </form>
-    </section>
-
-    <!-- Progress Section -->
-    <section id="progress-section" class="hidden">
-      <div class="progress-header">
-        <h2 data-i18n="progressTitle">Building your chatbot...</h2>
-        <p data-i18n="progressSubtitle">This may take a moment. Please don't close this page.</p>
-      </div>
-      <div class="steps">
-        <div class="step" id="step-1">
-          <div class="step-icon">
-            <div class="spinner"></div>
-            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
-              <path d="M5 13l4 4L19 7"/>
-            </svg>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-container">
+        <div class="hero-content">
+          <h1 data-i18n="heroTitle">Your Next Employee Is an AI Agent</h1>
+          <p class="hero-subtitle" data-i18n="heroSubtitle">Custom AI agents that book appointments, capture leads, handle support, and manage workflows — built on your business in 60 seconds.</p>
+          <div class="hero-actions">
+            <a href="demo.html" class="btn btn-primary" data-i18n="heroCtaPrimary">See It in Action</a>
+            <a href="pricing.html" class="btn btn-secondary" data-i18n="heroCtaSecondary">View Pricing</a>
           </div>
-          <span class="step-text" data-i18n="step1">Analyzing your website...</span>
+          <p class="hero-proof" data-i18n="heroProof">Trusted by 200+ businesses</p>
         </div>
-        <div class="step hidden" id="step-2">
-          <div class="step-icon">
-            <div class="spinner"></div>
-            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
-              <path d="M5 13l4 4L19 7"/>
-            </svg>
+        <div class="hero-visual">
+          <div class="hero-chat-mockup">
+            <div class="mockup-header">
+              <span class="mockup-dot"></span>
+              <span>AI Agent</span>
+            </div>
+            <div class="mockup-messages">
+              <div class="mockup-bubble bot" data-i18n="mockupBot1">I found 3 available slots this week. Would Thursday at 2pm work?</div>
+              <div class="mockup-bubble user" data-i18n="mockupUser1">Yes, perfect!</div>
+              <div class="mockup-bubble bot">
+                <span data-i18n="mockupBot2">Appointment booked. Confirmation sent to your email.</span>
+                <span class="mockup-action-tag">Booked &middot; Email sent</span>
+              </div>
+            </div>
           </div>
-          <span class="step-text" data-i18n="step2">Understanding your business...</span>
-        </div>
-        <div class="step hidden" id="step-3">
-          <div class="step-icon">
-            <div class="spinner"></div>
-            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
-              <path d="M5 13l4 4L19 7"/>
-            </svg>
-          </div>
-          <span class="step-text" data-i18n="step3">Configuring your chatbot...</span>
-        </div>
-        <div class="step hidden" id="step-4">
-          <div class="step-icon">
-            <div class="spinner"></div>
-            <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
-              <path d="M5 13l4 4L19 7"/>
-            </svg>
-          </div>
-          <span class="step-text" data-i18n="step4">Finalizing setup...</span>
         </div>
       </div>
     </section>
 
-    <!-- Result Section -->
-    <section id="result-section" class="hidden">
-      <div id="result-success" class="result-card hidden">
-        <div class="result-icon success-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M8 12l3 3 5-5"/>
-          </svg>
+    <!-- Capabilities Section -->
+    <section class="section capabilities" id="capabilities">
+      <div class="section-container">
+        <div class="section-header reveal">
+          <h2 data-i18n="capTitle">More Than a Chatbot — A Full AI Agent</h2>
+          <p data-i18n="capSubtitle">Most chatbots stop at answering questions. Ours doesn't.</p>
         </div>
-        <h2 id="success-title" data-i18n="successTitle">Your chatbot is ready!</h2>
-        <p id="success-message"></p>
-      </div>
-      <div id="result-error" class="result-card hidden">
-        <div class="result-icon error-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M15 9l-6 6M9 9l6 6"/>
-          </svg>
-        </div>
-        <h2 data-i18n="errorTitle">Something went wrong</h2>
-        <p id="error-message" data-i18n="buildErrorFallback">We couldn't build your chatbot. Please try again.</p>
-        <button id="retry-btn" class="retry-btn" data-i18n="retryBtn">Try Again</button>
-      </div>
-    </section>
-
-    <!-- Chat Mode: Left Panel (Config Info) -->
-    <aside id="chat-config" class="hidden">
-      <div class="config-card">
-        <h2 id="config-bot-name"></h2>
-        <div class="config-field">
-          <span class="config-label" data-i18n="configWebsite">Website</span>
-          <a id="config-website" href="#" target="_blank" rel="noopener"></a>
-        </div>
-        <div class="config-field">
-          <span class="config-label" data-i18n="configDescription">Description</span>
-          <p id="config-description"></p>
-        </div>
-        <button id="build-another-btn" class="build-another-btn" data-i18n="buildAnotherBtn">Build Another</button>
-      </div>
-      <div id="sidebar-cta" class="sidebar-cta">
-        <div class="contact-cta-title" data-i18n="contactTitle">Want a chatbot like this for your business?</div>
-        <div class="field">
-          <label data-i18n="contactContact">Phone or email</label>
-          <input type="text" id="sidebar-cta-contact" data-i18n-placeholder="contactContactPlaceholder" placeholder="Phone or email" required>
-        </div>
-        <button class="contact-cta-btn" id="sidebar-cta-submit-btn" data-i18n="contactSubmit">Get in Touch</button>
-        <div class="contact-cta-error hidden" id="sidebar-cta-error"></div>
-      </div>
-    </aside>
-
-    <!-- Chat Mode: Right Panel (Chat Interface) -->
-    <section id="chat-panel" class="hidden">
-      <div class="chat-card">
-        <div class="chat-header">
-          <span id="chat-bot-name"></span>
-          <span class="chat-status-dot"></span>
-        </div>
-        <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
-        <div class="chat-reply-buttons" id="chat-reply-buttons"></div>
-        <div class="chat-input-area">
-          <input type="text" id="chat-input" data-i18n-placeholder="chatPlaceholder" placeholder="Type a message..." autocomplete="off">
-          <button id="chat-send-btn" disabled>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true">
-              <path d="M22 2L11 13"/>
-              <path d="M22 2L15 22L11 13L2 9L22 2Z"/>
-            </svg>
-          </button>
+        <div class="capabilities-grid">
+          <div class="capability-card reveal">
+            <div class="capability-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3 data-i18n="capTask">Task Execution</h3>
+            <p data-i18n="capTaskDesc">It doesn't describe what to do — it does it. Books appointments, creates tickets, sends confirmations, updates your CRM.</p>
+          </div>
+          <div class="capability-card reveal">
+            <div class="capability-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M21.17 8H2.83M21.17 16H2.83"/></svg>
+            </div>
+            <h3 data-i18n="capMonitor">Proactive Monitoring</h3>
+            <p data-i18n="capMonitorDesc">It watches your open items. A lead not followed up in 48h? A ticket sitting unanswered? It surfaces what needs attention — without being asked.</p>
+          </div>
+          <div class="capability-card reveal">
+            <div class="capability-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/><path d="M9 21h6M10 17h4"/></svg>
+            </div>
+            <h3 data-i18n="capDecisions">Autonomous Decisions</h3>
+            <p data-i18n="capDecisionsDesc">Set rules once. Auto-escalate after 3 missed responses. Auto-close resolved tickets. Auto-send reminders. The agent enforces them 24/7.</p>
+          </div>
+          <div class="capability-card reveal">
+            <div class="capability-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <h3 data-i18n="capContext">Deep Context</h3>
+            <p data-i18n="capContextDesc">It doesn't start fresh every conversation. It knows the customer's history, previous interactions, and purchase status. Every response is personalized.</p>
+          </div>
+          <div class="capability-card reveal">
+            <div class="capability-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            </div>
+            <h3 data-i18n="capIntegrations">Open Integrations</h3>
+            <p data-i18n="capIntegrationsDesc">Connects to anything that's online — CRMs, calendars, helpdesks, e-commerce platforms, Slack, email, and any other web-based tool.</p>
+          </div>
         </div>
       </div>
     </section>
-  </div>
+
+    <!-- Bridge Section -->
+    <section class="section bridge">
+      <div class="section-container">
+        <div class="bridge-content reveal">
+          <p class="bridge-text" data-i18n="bridgeText">The demo you're about to try shows the 10% — the conversational quality, the brand voice, the intelligence. That's the hardest part to get right. Everything above is built on top of it.</p>
+          <a href="demo.html" class="btn btn-primary" data-i18n="bridgeCta">Try the Demo — See the Foundation</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section how-it-works" id="how-it-works">
+      <div class="section-container">
+        <div class="section-header reveal">
+          <h2 data-i18n="howTitle">How It Works</h2>
+        </div>
+        <div class="steps-row">
+          <div class="how-step reveal">
+            <div class="how-step-number">1</div>
+            <h3 data-i18n="howStep1">Describe Your Business</h3>
+            <p data-i18n="howStep1Desc">Enter your website URL and a short description of what you do.</p>
+          </div>
+          <div class="how-step-connector"></div>
+          <div class="how-step reveal">
+            <div class="how-step-number">2</div>
+            <h3 data-i18n="howStep2">AI Builds Your Agent</h3>
+            <p data-i18n="howStep2Desc">Our AI analyzes your site, understands your business, and configures the agent in 60 seconds.</p>
+          </div>
+          <div class="how-step-connector"></div>
+          <div class="how-step reveal">
+            <div class="how-step-number">3</div>
+            <h3 data-i18n="howStep3">Test It Live, Then Deploy</h3>
+            <p data-i18n="howStep3Desc">Chat with your agent in the demo, then we deploy it with full capabilities into your business.</p>
+          </div>
+        </div>
+        <div class="section-cta reveal">
+          <a href="demo.html" class="btn btn-primary" data-i18n="howCta">Start Building</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section use-cases">
+      <div class="section-container">
+        <div class="section-header reveal">
+          <h2 data-i18n="useCasesTitle">Built for Your Business</h2>
+        </div>
+        <div class="use-cases-grid">
+          <div class="use-case-card reveal">
+            <div class="use-case-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </div>
+            <h3 data-i18n="useCaseEcommerce">E-commerce</h3>
+            <p data-i18n="useCaseEcommerceDesc">Customer asks where their order is. Agent checks fulfillment status. If delayed — apologizes, offers a discount code, logs the complaint. All in one conversation.</p>
+          </div>
+          <div class="use-case-card reveal">
+            <div class="use-case-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h3 data-i18n="useCaseClinic">Clinics & Services</h3>
+            <p data-i18n="useCaseClinicDesc">Patient asks to book a check-up. Agent checks availability, books the slot, sends a reminder 24h before, and follows up after the visit.</p>
+          </div>
+          <div class="use-case-card reveal">
+            <div class="use-case-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <h3 data-i18n="useCaseAgency">Agencies & B2B</h3>
+            <p data-i18n="useCaseAgencyDesc">Lead fills the chat. Agent qualifies them, books a discovery call, logs them in the CRM, and notifies the sales rep via Slack.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+      <div class="section-container">
+        <div class="section-header reveal">
+          <h2 data-i18n="testimonialsTitle">What Our Clients Say</h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card reveal">
+            <p class="testimonial-quote" data-i18n="testimonial1Quote">"We set it up in under a minute and the conversation quality blew us away. It actually sounds like someone who works here."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">MR</div>
+              <div>
+                <strong>Maria R.</strong>
+                <span data-i18n="testimonial1Role">Operations Manager, RetailPlus</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal">
+            <p class="testimonial-quote" data-i18n="testimonial2Quote">"The agent captured 3x more leads than our old contact form. And it qualifies them before we even get the notification."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">DT</div>
+              <div>
+                <strong>Daniel T.</strong>
+                <span data-i18n="testimonial2Role">Founder, GrowthLab Agency</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal">
+            <p class="testimonial-quote" data-i18n="testimonial3Quote">"We used to spend 4 hours a day answering the same questions. Now the agent handles 90% of them and our team focuses on real work."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">AS</div>
+              <div>
+                <strong>Ana S.</strong>
+                <span data-i18n="testimonial3Role">Customer Support Lead, MedCenter</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stats-bar reveal">
+          <div class="stat">
+            <strong>500+</strong>
+            <span data-i18n="statAgents">Agents Deployed</span>
+          </div>
+          <div class="stat">
+            <strong>50,000+</strong>
+            <span data-i18n="statConversations">Conversations</span>
+          </div>
+          <div class="stat">
+            <strong>3,000+</strong>
+            <span data-i18n="statLeads">Leads Captured</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="section final-cta">
+      <div class="section-container">
+        <div class="final-cta-content reveal">
+          <h2 data-i18n="finalCtaTitle">Ready to Hire Your AI Agent?</h2>
+          <p data-i18n="finalCtaSubtitle">See it work on your business in 60 seconds. No credit card required.</p>
+          <a href="demo.html" class="btn btn-white" data-i18n="finalCtaBtn">Try Free Demo</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">
+          <img src="logo.png" alt="NexonTech" height="28">
+          <span>NexonTech</span>
+        </a>
+        <p data-i18n="footerTagline">Custom AI agents that work for your business, 24/7.</p>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 data-i18n="footerProduct">Product</h4>
+          <a href="index.html#capabilities" data-i18n="navCapabilities">What It Does</a>
+          <a href="index.html#how-it-works" data-i18n="navHowItWorks">How It Works</a>
+          <a href="demo.html" data-i18n="navTryDemo">Try Demo</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footerCompany">Company</h4>
+          <a href="pricing.html" data-i18n="navPricing">Pricing</a>
+          <a href="faq.html" data-i18n="navFaq">FAQ</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 NexonTech. <span data-i18n="footerRights">All rights reserved.</span></p>
+    </div>
+  </footer>
 
   <script src="config.js"></script>
   <script src="lang.js"></script>
-  <script src="script.js"></script>
+  <script src="shared.js"></script>
 </body>
 </html>

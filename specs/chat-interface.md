@@ -12,12 +12,12 @@ After a user successfully builds a chatbot (form submit → Supabase Edge Functi
 
 ### Build → Chat Transition
 1. User fills form (website URL, company description, chatbot name)
-2. Submit → POST to Supabase Edge Function → n8n build webhook
-3. Progress steps animate (4 steps, 3s intervals)
+2. Submit → POST to Supabase Edge Function → n8n build webhook (includes `lang`, `visitor_id`)
+3. Progress steps animate (4 steps, 3s intervals, localized via i18n)
 4. On success → extract `uuid` from response (checks `result.uuid` and `result.user_data.uuid`)
 5. Hide form, progress, header → show split-panel layout
-6. Auto-send `"Salut"` as greeting (first message, counts toward limit)
-7. User chats with bot via `chat-message` edge function (proxies to n8n)
+6. Auto-send localized greeting (first message, counts toward limit): "Hello" (en), "Salut" (ro), "Привет" (ru)
+7. User chats with bot via `chat-message` edge function (proxies to n8n, includes `lang`, `visitor_id`)
 
 ### Build Failure
 - Backend returns `{ success: false, message: "..." }` (HTTP 200 or 422)
@@ -64,9 +64,15 @@ A card (`.config-card`) showing:
 - **Chatbot name** as heading (`<h2>`)
 - **Website** — clickable link (`target="_blank"`)
 - **Description** — company description from form
-- **Chatbot ID** — uuid in `<code>` tag
 - **Status** — "● Active" with green dot (`#2e7d32`)
 - **Build Another** button — resets everything back to the form
+
+#### Sidebar Contact CTA (`#sidebar-cta`)
+A compact lead capture form shown alongside the config card during active chat:
+- Single contact field (phone or email) + submit button
+- Visible during chat, hidden when session ends (in-chat CTA takes over)
+- Submits to `contact-form` edge function with `{ contact, user_uuid, chatbot_name, lang, visitor_id }`
+- On success: replaced with "Thank you" message
 
 ### Right Panel — Chat Interface (`#chat-panel`)
 A `.chat-card` with fixed `600px` height (flex column):
@@ -120,7 +126,9 @@ POST https://umkkmgrjxgekbnvinhiq.supabase.co/functions/v1/chat-message
 ```json
 {
   "text": "User's message text here",
-  "user_uuid": "c6b71ae3-e162-49d5-a046-94ade2723917"
+  "user_uuid": "c6b71ae3-e162-49d5-a046-94ade2723917",
+  "lang": "en",
+  "visitor_id": "abc-123-..."
 }
 ```
 
@@ -160,22 +168,42 @@ Three detection methods (any triggers session end):
 3. Response is missing both `response` and `user_reply_options` fields
 
 When session ends:
-- Final bot message is displayed (from webhook response, or fallback Romanian text)
+- Final bot message is displayed (from webhook response, or localized fallback text)
 - Input is disabled, placeholder cleared
 - Send button disabled
 - Reply buttons cleared
-- A `.chat-session-ended` bar is appended: "You've reached the message limit for this demo session."
+- A `.chat-session-ended` bar is appended (localized)
+- Sidebar CTA is hidden
+- **In-chat Contact CTA** form is appended inside `.chat-card`
+- If client-side limit triggered (messageCount >= 30): fire-and-forget POST to `reached-limit` edge function
+
+### In-Chat Contact CTA (`.contact-cta`)
+Appears inside the chat card after session ends:
+- Fields: name (required), contact/phone/email (required), optional note
+- Submit → POST to `contact-form` edge function with `{ name, contact, note, user_uuid, chatbot_name, lang, visitor_id }`
+- Validation: name and contact required
+- On success: form replaced with localized "Thank you" message
+- On error: error message shown, button re-enabled
 
 ---
 
 ## Markdown Renderer
 
-Custom `renderMarkdown(text)` function (no library). Processing order:
+Custom `renderMarkdown(text)` function (no library). Two-level processing:
+
+**Block-level** (line-by-line in `renderMarkdown`):
 1. **Escape HTML entities** (`&`, `<`, `>`, `"`) — XSS prevention
-2. **Bold**: `**text**` → `<strong>text</strong>`
-3. **Italic**: `*text*` → `<em>text</em>`
-4. **Links**: `[text](url)` → `<a href="url" target="_blank" rel="noopener">text</a>`
-5. **Newlines**: `\n` → `<br>`
+2. **Bullet lists**: `* text` or `- text` → `<ul class="md-list"><li>...</li></ul>`
+3. **Ordered lists**: `1. text` → `<ol class="md-list"><li>...</li></ol>`
+4. **Tables**: `| col | col |` rows → `<table class="md-table">` with optional header detection
+5. **Empty lines** → `<br>` paragraph breaks
+6. Regular lines → inline formatting + `<br>` between consecutive lines
+
+**Inline-level** (`renderInline`):
+1. **Bold**: `**text**` → `<strong>text</strong>`
+2. **Italic**: `*text*` → `<em>text</em>`
+3. **Markdown links**: `[text](url)` → `<a href="url" target="_blank" rel="noopener">text</a>`
+4. **Bare URLs**: `https://...` → auto-linked `<a>` tags
 
 Bot messages use `innerHTML` with rendered markdown. User messages use `textContent` (plain text only).
 
@@ -199,17 +227,27 @@ Input is `type="text"` (not `type="url"`) with placeholder `example.com`.
 
 ## State Management
 
-All state in JS variables (no persistence):
+**Persistent (localStorage):**
 ```js
-let userUuid = null;          // From build success response
-let chatbotName = null;       // From form data
-let messageCount = 0;         // Counts both user + bot messages
-let sessionEnded = false;     // True when limit reached
-let isWaitingForResponse = false; // Blocks input during API call
-let savedFormData = null;     // { website, description, chatbotName }
+const visitorId = localStorage.getItem("visitor_id") || crypto.randomUUID();
+// Generated once, persists across sessions
 ```
 
-Constants:
+**Session state (reset on page refresh):**
+```js
+let currentLang = "en";       // Auto-detected from navigator.language (en/ro/ru)
+
+const state = {
+  userUuid: null,              // From build success response
+  chatbotName: null,           // From form data
+  messageCount: 0,             // Counts both user + bot messages
+  sessionEnded: false,         // True when limit reached
+  isWaitingForResponse: false, // Blocks input during API call
+};
+let savedFormData = null;      // { website, description, chatbotName }
+```
+
+**Constants:**
 ```js
 const STEP_INTERVAL = 3000;   // Progress step timing (ms)
 const MAX_MESSAGES = 30;      // Session message limit
@@ -221,21 +259,28 @@ const MAX_MESSAGES = 30;      // Session message limit
 
 | Function | Purpose |
 |----------|---------|
+| `t(key)` | Resolve i18n translation key (falls back to English) |
+| `applyLanguage()` | Update all `[data-i18n]` elements, placeholders, page title, lang attr |
 | `isValidDomain(value)` | Validates domain format (flexible) |
 | `normalizeWebsite(value)` | Strips protocol, prepends `https://` |
-| `validateField(input)` | Per-field validation with error messages |
+| `validateField(input)` | Per-field validation with localized error messages |
 | `validateForm()` | Validates all form fields |
 | `submitToBackend(data)` | POST to Supabase Edge Function, parses JSON, attaches body to errors |
 | `showBuildError(result)` | Shows `result.message` on build failure |
-| `activateChatMode(uuid, formData)` | Transitions to split layout, populates config, auto-sends "Salut" |
-| `renderMarkdown(text)` | Simple MD → HTML (bold, italic, links, newlines) |
+| `activateChatMode(uuid, formData)` | Transitions to split layout, populates config, resets sidebar CTA, auto-sends greeting |
+| `renderMarkdown(text)` | Block-level MD → HTML (lists, tables, paragraphs) |
+| `renderTable(lines)` | Parse pipe-delimited table lines into `<table>` HTML |
+| `renderInline(text)` | Inline MD → HTML (bold, italic, links, bare URLs) |
 | `appendMessage(role, text, replyOptions)` | Renders chat bubble + optional reply buttons |
 | `appendError(text)` | Renders centered error bubble in chat |
 | `showTypingIndicator()` | Adds bouncing dots indicator |
 | `hideTypingIndicator()` | Removes typing indicator |
 | `scrollToBottom()` | Scrolls chat messages to bottom |
-| `sendMessage(text)` | Full send flow: show user msg → POST to edge function → handle response |
-| `disableChat(reason)` | Disables input, appends session-ended bar |
+| `sendMessage(text)` | Full send flow: show user msg → POST to edge function → handle response → reached-limit notification |
+| `disableChat(reason)` | Disables input, hides sidebar CTA, appends session-ended bar + in-chat contact CTA |
+| `escapeHtml(str)` | Escape HTML entities for safe insertion in contact CTA |
+| `submitContactForm()` | Submit in-chat contact CTA to `contact-form` edge function |
+| `submitSidebarContactForm()` | Submit sidebar contact CTA to `contact-form` edge function |
 | `updateSendButton()` | Enables/disables send based on input state |
 
 ---
@@ -286,7 +331,7 @@ Clicking the "Build Another" button:
 1. Resets all chat state (`userUuid`, `chatbotName`, `messageCount`, `sessionEnded`, `isWaitingForResponse`)
 2. Hides chat panels (`#chat-config`, `#chat-panel`)
 3. Removes `.chat-mode` class from container
-4. Removes any `.chat-session-ended` bar
+4. Removes any `.chat-session-ended` bar and `.contact-cta` element
 5. Shows header and form section
 
 ---
@@ -319,8 +364,7 @@ Clicking the "Build Another" button:
 ## What NOT to Change
 
 - No npm dependencies or build tools
-- No localStorage or sessionStorage
 - No markdown parsing library (custom `renderMarkdown` function)
-- No changes to Supabase Edge Functions (they're passthrough proxies)
 - No changes to `serve.js`
-- No authentication or session persistence
+- No authentication or session persistence (except `visitor_id` in localStorage)
+- `visitor_id` is the only use of localStorage — do not add other persistent state

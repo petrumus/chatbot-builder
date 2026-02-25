@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n-title="pricingPageTitle">Pricing — NexonTech</title>
+  <meta name="description" content="Simple, transparent pricing for NexonTech AI agents. From free demo to enterprise. Less than a part-time hire.">
+  <meta property="og:title" content="Pricing — NexonTech AI Agents">
+  <meta property="og:description" content="AI agents from $149/mo. Less than a part-time hire, more capable than a full team.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://petrumus.github.io/chatbot-builder/pricing.html">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-pricing">
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.png" alt="NexonTech" height="32">
+        <span>NexonTech</span>
+      </a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html#capabilities" data-i18n="navCapabilities">What It Does</a>
+        <a href="index.html#how-it-works" data-i18n="navHowItWorks">How It Works</a>
+        <a href="pricing.html" class="active" data-i18n="navPricing">Pricing</a>
+        <a href="faq.html" data-i18n="navFaq">FAQ</a>
+        <div class="nav-lang">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="ro">RO</button>
+          <button class="lang-btn" data-lang="ru">RU</button>
+        </div>
+        <a href="demo.html" class="nav-cta" data-i18n="navTryDemo">Try Demo</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pricing-page">
+
+    <!-- Pricing Header -->
+    <div class="pricing-header">
+      <h1 data-i18n="pricingTitle">Simple, Transparent Pricing</h1>
+      <p class="pricing-subtitle" data-i18n="pricingSubtitle">Less than a part-time hire. More capable than a full team.</p>
+      <p class="pricing-anchor" data-i18n="pricingAnchor">Compare: a part-time support hire costs $1,500&ndash;3,000/mo</p>
+      <p class="pricing-poc" data-i18n="pricingPoc">Every paid plan includes 1,000 free chats as a proof of concept</p>
+
+      <!-- Monthly / Annual Toggle -->
+      <div class="pricing-toggle-wrap">
+        <span data-i18n="pricingMonthly">Monthly</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="pricing-toggle">
+          <span class="toggle-slider"></span>
+        </label>
+        <span data-i18n="pricingAnnual">Annual</span>
+        <span class="toggle-save" data-i18n="pricingSave">Save ~17%</span>
+      </div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="pricing-cards">
+
+      <!-- Free Demo -->
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <h3 data-i18n="pricingFreeTitle">Free Demo</h3>
+          <div class="pricing-price">
+            <span class="price-amount">$0</span>
+          </div>
+        </div>
+        <ul class="pricing-features">
+          <li class="included" data-i18n="pricingFree1">30-message demo session</li>
+          <li class="included" data-i18n="pricingFree2">Build unlimited demos</li>
+          <li class="included" data-i18n="pricingFree3">All languages supported</li>
+          <li class="excluded" data-i18n="pricingFree4">No deployment</li>
+          <li class="excluded" data-i18n="pricingFree5">No integrations</li>
+        </ul>
+        <a href="demo.html" class="pricing-cta-btn pricing-cta-secondary" data-i18n="pricingTryDemo">Try Demo</a>
+      </div>
+
+      <!-- Starter -->
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <h3 data-i18n="pricingStarterTitle">Starter</h3>
+          <div class="pricing-price">
+            <span class="price-amount" data-monthly="$149" data-annual="$1,490">$149</span>
+            <span class="price-period" data-monthly="/mo" data-annual="/yr">/mo</span>
+          </div>
+        </div>
+        <ul class="pricing-features">
+          <li class="included" data-i18n="pricingStarter1">1 deployed AI agent</li>
+          <li class="included" data-i18n="pricingStarter2">2,000 conversations/mo</li>
+          <li class="included" data-i18n="pricingStarter3">2 integrations</li>
+          <li class="included" data-i18n="pricingStarter4">1 automated workflow</li>
+          <li class="included" data-i18n="pricingStarter5">1 monitoring trigger</li>
+          <li class="included" data-i18n="pricingStarter6">30-day conversation history</li>
+          <li class="included" data-i18n="pricingStarter7">All languages</li>
+          <li class="included" data-i18n="pricingStarter8">Email support</li>
+          <li class="included" data-i18n="pricingStarter9">1,000 free proof-of-concept chats</li>
+        </ul>
+        <a href="#" class="pricing-cta-btn" data-i18n="pricingGetStarted">Get Started</a>
+      </div>
+
+      <!-- Pro (Highlighted) -->
+      <div class="pricing-card highlighted">
+        <div class="pricing-badge" data-i18n="pricingMostPopular">Most Popular</div>
+        <div class="pricing-card-header">
+          <h3 data-i18n="pricingProTitle">Pro</h3>
+          <div class="pricing-price">
+            <span class="price-amount" data-monthly="$399" data-annual="$3,990">$399</span>
+            <span class="price-period" data-monthly="/mo" data-annual="/yr">/mo</span>
+          </div>
+        </div>
+        <ul class="pricing-features">
+          <li class="included" data-i18n="pricingPro1">3 deployed agents</li>
+          <li class="included" data-i18n="pricingPro2">8,000 conversations/mo</li>
+          <li class="included" data-i18n="pricingPro3">5 integrations</li>
+          <li class="included" data-i18n="pricingPro4">5 automated workflows</li>
+          <li class="included" data-i18n="pricingPro5">5 monitoring triggers</li>
+          <li class="included" data-i18n="pricingPro6">3 autonomous rules</li>
+          <li class="included" data-i18n="pricingPro7">Full conversation history</li>
+          <li class="included" data-i18n="pricingPro8">Analytics dashboard</li>
+          <li class="included" data-i18n="pricingPro9">Priority support</li>
+          <li class="included" data-i18n="pricingPro10">1,000 free proof-of-concept chats</li>
+        </ul>
+        <a href="#" class="pricing-cta-btn" data-i18n="pricingGetStarted">Get Started</a>
+      </div>
+
+      <!-- Business -->
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <h3 data-i18n="pricingBusinessTitle">Business</h3>
+          <div class="pricing-price">
+            <span class="price-amount" data-monthly="$899" data-annual="$8,990">$899</span>
+            <span class="price-period" data-monthly="/mo" data-annual="/yr">/mo</span>
+          </div>
+        </div>
+        <ul class="pricing-features">
+          <li class="included" data-i18n="pricingBusiness1">Up to 10 agents</li>
+          <li class="included" data-i18n="pricingBusiness2">25,000 conversations/mo</li>
+          <li class="included" data-i18n="pricingBusiness3">Unlimited integrations</li>
+          <li class="included" data-i18n="pricingBusiness4">Unlimited workflows</li>
+          <li class="included" data-i18n="pricingBusiness5">Unlimited monitoring</li>
+          <li class="included" data-i18n="pricingBusiness6">Unlimited autonomous rules</li>
+          <li class="included" data-i18n="pricingBusiness7">Full multi-session memory</li>
+          <li class="included" data-i18n="pricingBusiness8">Advanced analytics + reports</li>
+          <li class="included" data-i18n="pricingBusiness9">API access</li>
+          <li class="included" data-i18n="pricingBusiness10">Priority support + quarterly review</li>
+        </ul>
+        <a href="#" class="pricing-cta-btn" data-i18n="pricingContactUs">Contact Us</a>
+      </div>
+
+    </div>
+
+    <!-- Enterprise Banner -->
+    <div class="enterprise-banner reveal">
+      <div class="enterprise-content">
+        <h3 data-i18n="pricingEnterpriseTitle">Enterprise</h3>
+        <p data-i18n="pricingEnterpriseDesc">Custom agent infrastructure for larger organizations. Private deployment, SSO, fine-tuned models, dedicated account manager, and custom SLA.</p>
+        <span class="enterprise-price" data-i18n="pricingEnterprisePrice">From ~$2,000/mo, custom scoped</span>
+      </div>
+      <a href="#" class="pricing-cta-btn" data-i18n="pricingContactUs">Contact Us</a>
+    </div>
+
+    <!-- Add-ons -->
+    <div class="pricing-addons reveal">
+      <h3 data-i18n="pricingAddonsTitle">Done-For-You Add-Ons</h3>
+      <div class="addons-grid">
+        <div class="addon-card">
+          <h4 data-i18n="pricingSetupSprint">Setup Sprint</h4>
+          <span class="addon-price">$499 <small data-i18n="pricingOneTime">one-time</small></span>
+          <p data-i18n="pricingSetupSprintDesc">We map your workflows, configure integrations, test, and deploy your agent.</p>
+        </div>
+        <div class="addon-card">
+          <h4 data-i18n="pricingManagedMonthly">Managed Monthly</h4>
+          <span class="addon-price">+$299<small>/mo</small></span>
+          <p data-i18n="pricingManagedDesc">Monthly tuning, new rule additions, performance review, and reporting.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overage Table -->
+    <div class="pricing-overage reveal">
+      <h3 data-i18n="pricingOverageTitle">Overage Pricing</h3>
+      <p class="pricing-overage-note" data-i18n="pricingOverageNote">When conversation limits are reached, continue at flexible per-conversation rates.</p>
+      <table class="overage-table">
+        <thead>
+          <tr>
+            <th data-i18n="pricingOverageTier">Tier</th>
+            <th data-i18n="pricingOverageRate">Per extra conversation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Starter</td><td>$0.08</td></tr>
+          <tr><td>Pro</td><td>$0.05</td></tr>
+          <tr><td>Business</td><td>$0.03</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">
+          <img src="logo.png" alt="NexonTech" height="28">
+          <span>NexonTech</span>
+        </a>
+        <p data-i18n="footerTagline">Custom AI agents that work for your business, 24/7.</p>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 data-i18n="footerProduct">Product</h4>
+          <a href="index.html#capabilities" data-i18n="navCapabilities">What It Does</a>
+          <a href="index.html#how-it-works" data-i18n="navHowItWorks">How It Works</a>
+          <a href="demo.html" data-i18n="navTryDemo">Try Demo</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footerCompany">Company</h4>
+          <a href="pricing.html" data-i18n="navPricing">Pricing</a>
+          <a href="faq.html" data-i18n="navFaq">FAQ</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 NexonTech. <span data-i18n="footerRights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="lang.js"></script>
+  <script src="shared.js"></script>
+</body>
+</html>

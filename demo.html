@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n-title="demoPageTitle">Try the Demo — NexonTech</title>
+  <meta name="description" content="Build a custom AI agent for your business in 60 seconds. Try the free demo — no signup required.">
+  <meta property="og:title" content="Try the Demo — NexonTech AI Agents">
+  <meta property="og:description" content="See your AI agent in action. 30 messages, no signup required.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://petrumus.github.io/chatbot-builder/demo.html">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-demo">
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.png" alt="NexonTech" height="32">
+        <span>NexonTech</span>
+      </a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html#capabilities" data-i18n="navCapabilities">What It Does</a>
+        <a href="index.html#how-it-works" data-i18n="navHowItWorks">How It Works</a>
+        <a href="pricing.html" data-i18n="navPricing">Pricing</a>
+        <a href="faq.html" data-i18n="navFaq">FAQ</a>
+        <div class="nav-lang">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="ro">RO</button>
+          <button class="lang-btn" data-lang="ru">RU</button>
+        </div>
+        <a href="demo.html" class="nav-cta active" data-i18n="navTryDemo">Try Demo</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="demo-page">
+    <!-- Demo Intro -->
+    <div class="demo-intro" id="demo-header">
+      <h1 data-i18n="demoTitle">See Your AI Agent in Action</h1>
+      <p data-i18n="demoSubtitle">This demo shows the conversational foundation — the 10% that's hardest to get right. The full deployed agent does everything you saw on the homepage, built on top of this.</p>
+      <span class="demo-badge" data-i18n="demoBadge">30 messages &middot; No signup required</span>
+    </div>
+
+    <!-- Demo Container (form/chat) -->
+    <div class="container" id="demo-container">
+
+      <!-- Form Section -->
+      <section id="form-section">
+        <form id="chatbot-form" novalidate>
+          <div class="field">
+            <label for="website" data-i18n="labelWebsite">Website URL</label>
+            <input type="text" id="website" name="website" data-i18n-placeholder="placeholderWebsite" placeholder="example.com" required aria-describedby="website-error">
+            <span class="error-msg" id="website-error"></span>
+          </div>
+
+          <div class="field">
+            <label for="description" data-i18n="labelDescription">Company Description</label>
+            <textarea id="description" name="description" rows="4" data-i18n-placeholder="placeholderDescription" placeholder="Describe what your company does, your products or services, and your target audience..." required minlength="10" aria-describedby="description-error"></textarea>
+            <span class="error-msg" id="description-error"></span>
+          </div>
+
+          <div class="field">
+            <label for="chatbot-name" data-i18n="labelAgentName">Agent Name</label>
+            <input type="text" id="chatbot-name" name="chatbotName" data-i18n-placeholder="placeholderAgentName" placeholder="e.g. SupportBot, Alex, HelpDesk" required minlength="2" aria-describedby="chatbot-name-error">
+            <span class="error-msg" id="chatbot-name-error"></span>
+          </div>
+
+          <button type="submit" id="submit-btn" data-i18n="submitBtn">Build My Agent</button>
+        </form>
+      </section>
+
+      <!-- Progress Section -->
+      <section id="progress-section" class="hidden">
+        <div class="progress-header">
+          <h2 data-i18n="progressTitle">Building your agent...</h2>
+          <p data-i18n="progressSubtitle">This may take a moment. Please don't close this page.</p>
+        </div>
+        <div class="steps">
+          <div class="step" id="step-1">
+            <div class="step-icon">
+              <div class="spinner"></div>
+              <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <path d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <span class="step-text" data-i18n="step1">Analyzing your website...</span>
+          </div>
+          <div class="step hidden" id="step-2">
+            <div class="step-icon">
+              <div class="spinner"></div>
+              <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <path d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <span class="step-text" data-i18n="step2">Understanding your business...</span>
+          </div>
+          <div class="step hidden" id="step-3">
+            <div class="step-icon">
+              <div class="spinner"></div>
+              <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <path d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <span class="step-text" data-i18n="step3">Configuring your agent...</span>
+          </div>
+          <div class="step hidden" id="step-4">
+            <div class="step-icon">
+              <div class="spinner"></div>
+              <svg class="checkmark hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+                <path d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <span class="step-text" data-i18n="step4">Finalizing setup...</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Result Section -->
+      <section id="result-section" class="hidden">
+        <div id="result-success" class="result-card hidden">
+          <div class="result-icon success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12l3 3 5-5"/>
+            </svg>
+          </div>
+          <h2 id="success-title" data-i18n="successTitle">Your agent is ready!</h2>
+          <p id="success-message"></p>
+        </div>
+        <div id="result-error" class="result-card hidden">
+          <div class="result-icon error-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M15 9l-6 6M9 9l6 6"/>
+            </svg>
+          </div>
+          <h2 data-i18n="errorTitle">Something went wrong</h2>
+          <p id="error-message" data-i18n="buildErrorFallback">We couldn't build your agent. Please try again.</p>
+          <button id="retry-btn" class="retry-btn" data-i18n="retryBtn">Try Again</button>
+        </div>
+      </section>
+
+      <!-- Chat Mode: Left Panel (Config Info) -->
+      <aside id="chat-config" class="hidden">
+        <div class="config-card">
+          <h2 id="config-bot-name"></h2>
+          <div class="config-field">
+            <span class="config-label" data-i18n="configWebsite">Website</span>
+            <a id="config-website" href="#" target="_blank" rel="noopener"></a>
+          </div>
+          <div class="config-field">
+            <span class="config-label" data-i18n="configDescription">Description</span>
+            <p id="config-description"></p>
+          </div>
+          <button id="build-another-btn" class="build-another-btn" data-i18n="buildAnotherBtn">Build Another</button>
+        </div>
+        <div id="sidebar-cta" class="sidebar-cta">
+          <div class="contact-cta-title" data-i18n="contactTitle">Want an AI agent like this for your business?</div>
+          <div class="field">
+            <label data-i18n="contactContact">Phone or email</label>
+            <input type="text" id="sidebar-cta-contact" data-i18n-placeholder="contactContactPlaceholder" placeholder="Phone or email" required>
+          </div>
+          <button class="contact-cta-btn" id="sidebar-cta-submit-btn" data-i18n="contactSubmit">Get in Touch</button>
+          <div class="contact-cta-error hidden" id="sidebar-cta-error"></div>
+        </div>
+      </aside>
+
+      <!-- Chat Mode: Right Panel (Chat Interface) -->
+      <section id="chat-panel" class="hidden">
+        <div class="chat-card">
+          <div class="chat-header">
+            <span id="chat-bot-name"></span>
+            <span class="chat-status-dot"></span>
+          </div>
+          <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
+          <div class="chat-reply-buttons" id="chat-reply-buttons"></div>
+          <div class="chat-input-area">
+            <input type="text" id="chat-input" data-i18n-placeholder="chatPlaceholder" placeholder="Type a message..." autocomplete="off">
+            <button id="chat-send-btn" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true">
+                <path d="M22 2L11 13"/>
+                <path d="M22 2L15 22L11 13L2 9L22 2Z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo">
+          <img src="logo.png" alt="NexonTech" height="28">
+          <span>NexonTech</span>
+        </a>
+        <p data-i18n="footerTagline">Custom AI agents that work for your business, 24/7.</p>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 data-i18n="footerProduct">Product</h4>
+          <a href="index.html#capabilities" data-i18n="navCapabilities">What It Does</a>
+          <a href="index.html#how-it-works" data-i18n="navHowItWorks">How It Works</a>
+          <a href="demo.html" data-i18n="navTryDemo">Try Demo</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footerCompany">Company</h4>
+          <a href="pricing.html" data-i18n="navPricing">Pricing</a>
+          <a href="faq.html" data-i18n="navFaq">FAQ</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 NexonTech. <span data-i18n="footerRights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="lang.js"></script>
+  <script src="shared.js"></script>
+  <script src="demo.js"></script>
+</body>
+</html>

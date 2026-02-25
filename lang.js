@@ -1,52 +1,126 @@
 const LANG = {
   en: {
-    // Page
-    pageTitle: "Build Your Chatbot",
-    headerTitle: "Build Your Chatbot",
-    subtitle: "Tell us about your business and we'll create a custom chatbot for you.",
+    // === Page Titles ===
+    homePageTitle: "NexonTech — Custom AI Agents for Your Business",
+    demoPageTitle: "Try the Demo — NexonTech",
+    pricingPageTitle: "Pricing — NexonTech",
+    faqPageTitle: "FAQ — NexonTech",
 
-    // Form
+    // === Navbar ===
+    navCapabilities: "What It Does",
+    navHowItWorks: "How It Works",
+    navPricing: "Pricing",
+    navFaq: "FAQ",
+    navTryDemo: "Try Demo",
+
+    // === Hero ===
+    heroTitle: "Your Next Employee Is an AI Agent",
+    heroSubtitle: "Custom AI agents that book appointments, capture leads, handle support, and manage workflows — built on your business in 60 seconds.",
+    heroCtaPrimary: "See It in Action",
+    heroCtaSecondary: "View Pricing",
+    heroProof: "Trusted by 200+ businesses",
+    mockupBot1: "I found 3 available slots this week. Would Thursday at 2pm work?",
+    mockupUser1: "Yes, perfect!",
+    mockupBot2: "Appointment booked. Confirmation sent to your email.",
+
+    // === Capabilities ===
+    capTitle: "More Than a Chatbot — A Full AI Agent",
+    capSubtitle: "Most chatbots stop at answering questions. Ours doesn't.",
+    capTask: "Task Execution",
+    capTaskDesc: "It doesn't describe what to do — it does it. Books appointments, creates tickets, sends confirmations, updates your CRM.",
+    capMonitor: "Proactive Monitoring",
+    capMonitorDesc: "It watches your open items. A lead not followed up in 48h? A ticket sitting unanswered? It surfaces what needs attention — without being asked.",
+    capDecisions: "Autonomous Decisions",
+    capDecisionsDesc: "Set rules once. Auto-escalate after 3 missed responses. Auto-close resolved tickets. Auto-send reminders. The agent enforces them 24/7.",
+    capContext: "Deep Context",
+    capContextDesc: "It doesn't start fresh every conversation. It knows the customer's history, previous interactions, and purchase status. Every response is personalized.",
+    capIntegrations: "Open Integrations",
+    capIntegrationsDesc: "Connects to anything that's online — CRMs, calendars, helpdesks, e-commerce platforms, Slack, email, and any other web-based tool.",
+
+    // === Bridge ===
+    bridgeText: "The demo you're about to try shows the 10% — the conversational quality, the brand voice, the intelligence. That's the hardest part to get right. Everything above is built on top of it.",
+    bridgeCta: "Try the Demo — See the Foundation",
+
+    // === How It Works ===
+    howTitle: "How It Works",
+    howStep1: "Describe Your Business",
+    howStep1Desc: "Enter your website URL and a short description of what you do.",
+    howStep2: "AI Builds Your Agent",
+    howStep2Desc: "Our AI analyzes your site, understands your business, and configures the agent in 60 seconds.",
+    howStep3: "Test It Live, Then Deploy",
+    howStep3Desc: "Chat with your agent in the demo, then we deploy it with full capabilities into your business.",
+    howCta: "Start Building",
+
+    // === Use Cases ===
+    useCasesTitle: "Built for Your Business",
+    useCaseEcommerce: "E-commerce",
+    useCaseEcommerceDesc: "Customer asks where their order is. Agent checks fulfillment status. If delayed — apologizes, offers a discount code, logs the complaint. All in one conversation.",
+    useCaseClinic: "Clinics & Services",
+    useCaseClinicDesc: "Patient asks to book a check-up. Agent checks availability, books the slot, sends a reminder 24h before, and follows up after the visit.",
+    useCaseAgency: "Agencies & B2B",
+    useCaseAgencyDesc: "Lead fills the chat. Agent qualifies them, books a discovery call, logs them in the CRM, and notifies the sales rep via Slack.",
+
+    // === Testimonials ===
+    testimonialsTitle: "What Our Clients Say",
+    testimonial1Quote: "\"We set it up in under a minute and the conversation quality blew us away. It actually sounds like someone who works here.\"",
+    testimonial1Role: "Operations Manager, RetailPlus",
+    testimonial2Quote: "\"The agent captured 3x more leads than our old contact form. And it qualifies them before we even get the notification.\"",
+    testimonial2Role: "Founder, GrowthLab Agency",
+    testimonial3Quote: "\"We used to spend 4 hours a day answering the same questions. Now the agent handles 90% of them and our team focuses on real work.\"",
+    testimonial3Role: "Customer Support Lead, MedCenter",
+    statAgents: "Agents Deployed",
+    statConversations: "Conversations",
+    statLeads: "Leads Captured",
+
+    // === Final CTA ===
+    finalCtaTitle: "Ready to Hire Your AI Agent?",
+    finalCtaSubtitle: "See it work on your business in 60 seconds. No credit card required.",
+    finalCtaBtn: "Try Free Demo",
+
+    // === Demo Page ===
+    demoTitle: "See Your AI Agent in Action",
+    demoSubtitle: "This demo shows the conversational foundation — the 10% that's hardest to get right. The full deployed agent does everything you saw on the homepage, built on top of this.",
+    demoBadge: "30 messages \u00b7 No signup required",
+
+    // === Form ===
     labelWebsite: "Website URL",
     labelDescription: "Company Description",
-    labelChatbotName: "Chatbot Name",
+    labelAgentName: "Agent Name",
     placeholderWebsite: "example.com",
     placeholderDescription: "Describe what your company does, your products or services, and your target audience...",
-    placeholderChatbotName: "e.g. SupportBot, Alex, HelpDesk",
-    submitBtn: "Build My Chatbot",
+    placeholderAgentName: "e.g. SupportBot, Alex, HelpDesk",
+    submitBtn: "Build My Agent",
 
-    // Validation
+    // === Validation ===
     validationRequired: "This field is required.",
     validationDomain: "Please enter a valid domain (e.g. example.com).",
     validationMinLength: "Must be at least {n} characters.",
 
-    // Progress
-    progressTitle: "Building your chatbot...",
+    // === Progress ===
+    progressTitle: "Building your agent...",
     progressSubtitle: "This may take a moment. Please don't close this page.",
     step1: "Analyzing your website...",
     step2: "Understanding your business...",
-    step3: "Configuring your chatbot...",
+    step3: "Configuring your agent...",
     step4: "Finalizing setup...",
 
-    // Result
-    successTitle: "Your chatbot is ready!",
+    // === Result ===
+    successTitle: "Your agent is ready!",
     errorTitle: "Something went wrong",
     retryBtn: "Try Again",
 
-    // Build errors
-    buildErrorFallback: "We couldn't build your chatbot. Please try again.",
+    // === Build errors ===
+    buildErrorFallback: "We couldn't build your agent. Please try again.",
     buildErrorNetwork: "Network error. Please check your connection and try again.",
     buildErrorUnavailable: "Service temporarily unavailable. Please try again in a moment.",
-    noUuidError: "Chatbot was created but something went wrong loading the chat. Please contact support.",
+    noUuidError: "Agent was created but something went wrong loading the chat. Please contact support.",
 
-    // Config panel
+    // === Config panel ===
     configWebsite: "Website",
     configDescription: "Description",
-    configChatbotId: "Chatbot ID",
-    configStatus: "Status",
-    configStatusActive: "Active",
     buildAnotherBtn: "Build Another",
 
-    // Chat
+    // === Chat ===
     chatPlaceholder: "Type a message...",
     chatError: "Something went wrong. Please try again.",
     chatErrorNetwork: "Network error. Please check your connection.",
@@ -55,8 +129,8 @@ const LANG = {
     sessionEndedBar: "You've reached the message limit for this demo session.",
     autoGreeting: "Hello",
 
-    // Contact CTA
-    contactTitle: "Want a chatbot like this for your business?",
+    // === Contact CTA ===
+    contactTitle: "Want an AI agent like this for your business?",
     contactName: "Your name",
     contactContact: "Phone or email",
     contactContactPlaceholder: "Phone or email",
@@ -64,139 +138,456 @@ const LANG = {
     contactSubmit: "Get in Touch",
     contactSuccess: "Thank you! We'll get back to you shortly.",
     contactError: "Something went wrong. Please try again.",
+
+    // === Pricing Page ===
+    pricingTitle: "Simple, Transparent Pricing",
+    pricingSubtitle: "Less than a part-time hire. More capable than a full team.",
+    pricingAnchor: "Compare: a part-time support hire costs $1,500\u20133,000/mo",
+    pricingPoc: "Every paid plan includes 1,000 free chats as a proof of concept",
+    pricingMonthly: "Monthly",
+    pricingAnnual: "Annual",
+    pricingSave: "Save ~17%",
+    pricingMostPopular: "Most Popular",
+    pricingTryDemo: "Try Demo",
+    pricingGetStarted: "Get Started",
+    pricingContactUs: "Contact Us",
+    pricingFreeTitle: "Free Demo",
+    pricingFree1: "30-message demo session",
+    pricingFree2: "Build unlimited demos",
+    pricingFree3: "All languages supported",
+    pricingFree4: "No deployment",
+    pricingFree5: "No integrations",
+    pricingStarterTitle: "Starter",
+    pricingStarter1: "1 deployed AI agent",
+    pricingStarter2: "2,000 conversations/mo",
+    pricingStarter3: "2 integrations",
+    pricingStarter4: "1 automated workflow",
+    pricingStarter5: "1 monitoring trigger",
+    pricingStarter6: "30-day conversation history",
+    pricingStarter7: "All languages",
+    pricingStarter8: "Email support",
+    pricingStarter9: "1,000 free proof-of-concept chats",
+    pricingProTitle: "Pro",
+    pricingPro1: "3 deployed agents",
+    pricingPro2: "8,000 conversations/mo",
+    pricingPro3: "5 integrations",
+    pricingPro4: "5 automated workflows",
+    pricingPro5: "5 monitoring triggers",
+    pricingPro6: "3 autonomous rules",
+    pricingPro7: "Full conversation history",
+    pricingPro8: "Analytics dashboard",
+    pricingPro9: "Priority support",
+    pricingPro10: "1,000 free proof-of-concept chats",
+    pricingBusinessTitle: "Business",
+    pricingBusiness1: "Up to 10 agents",
+    pricingBusiness2: "25,000 conversations/mo",
+    pricingBusiness3: "Unlimited integrations",
+    pricingBusiness4: "Unlimited workflows",
+    pricingBusiness5: "Unlimited monitoring",
+    pricingBusiness6: "Unlimited autonomous rules",
+    pricingBusiness7: "Full multi-session memory",
+    pricingBusiness8: "Advanced analytics + reports",
+    pricingBusiness9: "API access",
+    pricingBusiness10: "Priority support + quarterly review",
+    pricingEnterpriseTitle: "Enterprise",
+    pricingEnterpriseDesc: "Custom agent infrastructure for larger organizations. Private deployment, SSO, fine-tuned models, dedicated account manager, and custom SLA.",
+    pricingEnterprisePrice: "From ~$2,000/mo, custom scoped",
+    pricingAddonsTitle: "Done-For-You Add-Ons",
+    pricingSetupSprint: "Setup Sprint",
+    pricingOneTime: "one-time",
+    pricingSetupSprintDesc: "We map your workflows, configure integrations, test, and deploy your agent.",
+    pricingManagedMonthly: "Managed Monthly",
+    pricingManagedDesc: "Monthly tuning, new rule additions, performance review, and reporting.",
+    pricingOverageTitle: "Overage Pricing",
+    pricingOverageNote: "When conversation limits are reached, continue at flexible per-conversation rates.",
+    pricingOverageTier: "Tier",
+    pricingOverageRate: "Per extra conversation",
+
+    // === FAQ Page ===
+    faqTitle: "Frequently Asked Questions",
+    faq1Q: "What makes this different from other chatbots?",
+    faq1A: "Most chatbots follow scripts \u2014 they present options, the user clicks, the bot presents more options. That\u2019s a decision tree with a chat interface. Our AI agent learns from your live website, generates contextually appropriate responses, and \u2014 in the full version \u2014 takes real actions in your real systems. It books appointments, updates CRMs, sends confirmations, and monitors open items. It\u2019s the difference between a phone menu and an employee who knows your business.",
+    faq2Q: "What can the AI agent actually do?",
+    faq2A: "Five capability layers: (1) Task execution \u2014 books appointments, creates tickets, sends emails, updates records. (2) Proactive monitoring \u2014 watches for leads that haven\u2019t been followed up, tickets sitting unanswered, orders flagged for issues. (3) Autonomous decisions \u2014 enforces rules you define, like auto-escalating after missed responses. (4) Deep context \u2014 remembers customer history across sessions. (5) Open integrations \u2014 connects to anything online.",
+    faq3Q: "How long does setup take?",
+    faq3A: "The demo builds in under 60 seconds \u2014 just enter your website and a description. Full deployment with integrations and workflows takes a few days with our Setup Sprint ($499 one-time), where we map your workflows, configure everything, test, and deploy.",
+    faq4Q: "What systems does it integrate with?",
+    faq4A: "Anything that\u2019s online. CRMs (HubSpot, Pipedrive, Salesforce), calendars (Google Calendar, Calendly), helpdesks (Zendesk, Freshdesk), e-commerce platforms (Shopify, WooCommerce), communication tools (Slack, email), and any other web-based tool with an API.",
+    faq5Q: "How do we trust it to act autonomously?",
+    faq5A: "You define the boundaries. The agent never acts outside the rules you set. You tell it: \u201cYou can book appointments, but never cancel without confirmation.\u201d \u201cYou can offer a 10% discount, never more.\u201d Everything outside the defined perimeter gets flagged for a human. You start narrow, watch it work, and expand the permissions over time.",
+    faq6Q: "We don\u2019t need this yet \u2014 is it too early?",
+    faq6A: "The right time to set this up is before you feel the pain. Once a business handles 50+ customer interactions a day, every minute of delay costs a lead or a satisfaction score. The agent starts small and scales with you \u2014 you\u2019re not buying enterprise software, you\u2019re hiring a 24/7 team member at a fraction of the cost.",
+    faq7Q: "Is there a free trial?",
+    faq7A: "Yes. The free demo lets you build and chat with an AI agent (30 messages, no signup). Every paid plan also includes 1,000 free chats as a proof of concept, so you can validate the agent on real conversations before committing.",
+    faq8Q: "What languages are supported?",
+    faq8A: "All languages are fully supported with no limitations. The AI agent handles multilingual conversations natively \u2014 whether your customers speak English, Spanish, French, German, Chinese, Arabic, or any other language.",
+    faq9Q: "How does billing work?",
+    faq9A: "Monthly or annual billing (save ~17% on annual). If you exceed your conversation limit, overage is charged per conversation at a reduced rate. When monthly overage exceeds 30% of your plan price, we recommend upgrading \u2014 no surprise bills.",
+    faq10Q: "What kind of support do we get?",
+    faq10A: "Starter: email support. Pro: priority email + chat support. Business: priority support + quarterly review call. Enterprise: dedicated account manager with custom SLA. All paid plans include guided onboarding.",
+    faqCtaText: "Still have questions?",
+    faqCtaBtn: "Try the Free Demo",
+
+    // === Footer ===
+    footerTagline: "Custom AI agents that work for your business, 24/7.",
+    footerProduct: "Product",
+    footerCompany: "Company",
+    footerRights: "All rights reserved.",
   },
 
   ro: {
-    // Page
-    pageTitle: "Construiește-ți Chatbot-ul",
-    headerTitle: "Construiește-ți Chatbot-ul",
-    subtitle: "Spune-ne despre afacerea ta și vom crea un chatbot pentru tine.",
+    // === Page Titles ===
+    homePageTitle: "NexonTech — Agen\u021bi AI Personaliza\u021bi pentru Afacerea Ta",
+    demoPageTitle: "\u00cencearc\u0103 Demo — NexonTech",
+    pricingPageTitle: "Pre\u021buri — NexonTech",
+    faqPageTitle: "\u00centreba\u0306ri Frecvente — NexonTech",
 
-    // Form
+    // === Navbar ===
+    navCapabilities: "Ce Face",
+    navHowItWorks: "Cum Func\u021bioneaz\u0103",
+    navPricing: "Pre\u021buri",
+    navFaq: "\u00centreb\u0103ri",
+    navTryDemo: "\u00cencerc\u0103 Demo",
+
+    // === Hero ===
+    heroTitle: "Urm\u0103torul T\u0103u Angajat Este un Agent AI",
+    heroSubtitle: "Agen\u021bi AI personaliza\u021bi care programeaz\u0103 \u00eent\u00e2lniri, capteaz\u0103 lead-uri, gestioneaz\u0103 suportul \u0219i automatizeaz\u0103 fluxuri de lucru \u2014 construit pe afacerea ta \u00een 60 de secunde.",
+    heroCtaPrimary: "Vezi \u00een Ac\u021biune",
+    heroCtaSecondary: "Vezi Pre\u021burile",
+    heroProof: "Utilizat de peste 200 de afaceri",
+    mockupBot1: "Am g\u0103sit 3 sloturi disponibile s\u0103pt\u0103m\u00e2na aceasta. Joi la 14:00 ar fi bine?",
+    mockupUser1: "Da, perfect!",
+    mockupBot2: "Programare confirmat\u0103. Confirmare trimis\u0103 pe email.",
+
+    // === Capabilities ===
+    capTitle: "Mai Mult Dec\u00e2t un Chatbot \u2014 Un Agent AI Complet",
+    capSubtitle: "Majoritatea chatbot-urilor se opresc la a r\u0103spunde la \u00eentreb\u0103ri. Al nostru nu.",
+    capTask: "Execu\u021bia Sarcinilor",
+    capTaskDesc: "Nu descrie ce trebuie f\u0103cut \u2014 o face. Programeaz\u0103 \u00eent\u00e2lniri, creeaz\u0103 tichete, trimite confirm\u0103ri, actualizeaz\u0103 CRM-ul.",
+    capMonitor: "Monitorizare Proactiv\u0103",
+    capMonitorDesc: "Urm\u0103re\u0219te elementele deschise. Un lead nerecontactat \u00een 48h? Un tichet f\u0103r\u0103 r\u0103spuns? Scoate la suprafa\u021b\u0103 ce necesit\u0103 aten\u021bie.",
+    capDecisions: "Decizii Autonome",
+    capDecisionsDesc: "Seteaz\u0103 regulile o dat\u0103. Auto-escaleaz\u0103, \u00eenchide automat, trimite remindere. Agentul le aplic\u0103 24/7.",
+    capContext: "Context Profund",
+    capContextDesc: "Nu \u00eencepe de la zero la fiecare conversa\u021bie. Cunoa\u0219te istoricul clientului, interac\u021biunile anterioare \u0219i statusul comenzilor.",
+    capIntegrations: "Integr\u0103ri Deschise",
+    capIntegrationsDesc: "Se conecteaz\u0103 la orice este online \u2014 CRM-uri, calendare, helpdesk-uri, platforme e-commerce, Slack, email \u0219i multe altele.",
+
+    // === Bridge ===
+    bridgeText: "Demo-ul pe care \u00eel vei \u00eencerca arat\u0103 10% \u2014 calitatea conversa\u021biei, vocea brandului, inteligen\u021ba. Aceasta e partea cea mai greu de realizat. Tot ce ai v\u0103zut mai sus este construit deasupra.",
+    bridgeCta: "\u00cencerc\u0103 Demo \u2014 Vezi Funda\u021bia",
+
+    // === How It Works ===
+    howTitle: "Cum Func\u021bioneaz\u0103",
+    howStep1: "Descrie Afacerea Ta",
+    howStep1Desc: "Introdu URL-ul site-ului t\u0103u \u0219i o scurt\u0103 descriere a activit\u0103\u021bii tale.",
+    howStep2: "AI Construie\u0219te Agentul",
+    howStep2Desc: "AI-ul nostru analizeaz\u0103 site-ul, \u00een\u021belege afacerea \u0219i configureaz\u0103 agentul \u00een 60 de secunde.",
+    howStep3: "Testeaz\u0103, Apoi Implementeaz\u0103",
+    howStep3Desc: "Discut\u0103 cu agentul \u00een demo, apoi \u00eel implement\u0103m cu capabilit\u0103\u021bi complete \u00een afacerea ta.",
+    howCta: "\u00cencepe S\u0103 Construie\u0219ti",
+
+    // === Use Cases ===
+    useCasesTitle: "Construit pentru Afacerea Ta",
+    useCaseEcommerce: "E-commerce",
+    useCaseEcommerceDesc: "Clientul \u00eentreab\u0103 unde e comanda. Agentul verific\u0103 statusul. Dac\u0103 e \u00eent\u00e2rziere \u2014 \u00ee\u0219i cere scuze, ofer\u0103 un cod de discount, \u00eenregistreaz\u0103 reclama\u021bia.",
+    useCaseClinic: "Clinici & Servicii",
+    useCaseClinicDesc: "Pacientul cere o programare. Agentul verific\u0103 disponibilitatea, programeaz\u0103, trimite reminder cu 24h \u00eenainte \u0219i face follow-up dup\u0103 vizit\u0103.",
+    useCaseAgency: "Agen\u021bii & B2B",
+    useCaseAgencyDesc: "Lead-ul completeaz\u0103 chatul. Agentul \u00eel calific\u0103, programeaz\u0103 un apel, \u00eel \u00eenregistreaz\u0103 \u00een CRM \u0219i notific\u0103 echipa de v\u00e2nz\u0103ri pe Slack.",
+
+    // === Testimonials ===
+    testimonialsTitle: "Ce Spun Clien\u021bii No\u0219tri",
+    testimonial1Quote: "\"L-am configurat \u00een mai pu\u021bin de un minut \u0219i calitatea conversa\u021biei ne-a uimit. Chiar sun\u0103 ca cineva care lucreaz\u0103 aici.\"",
+    testimonial1Role: "Manager Opera\u021biuni, RetailPlus",
+    testimonial2Quote: "\"Agentul a capturat de 3 ori mai multe lead-uri dec\u00e2t formularul nostru vechi. \u0218i le calific\u0103 \u00eenainte s\u0103 primim notificarea.\"",
+    testimonial2Role: "Fondator, GrowthLab Agency",
+    testimonial3Quote: "\"Petreceam 4 ore pe zi r\u0103spunz\u00e2nd la acelea\u0219i \u00eentreb\u0103ri. Acum agentul gestioneaz\u0103 90% din ele \u0219i echipa se concentreaz\u0103 pe munc\u0103 real\u0103.\"",
+    testimonial3Role: "Lead Suport Clien\u021bi, MedCenter",
+    statAgents: "Agen\u021bi Implementa\u021bi",
+    statConversations: "Conversa\u021bii",
+    statLeads: "Lead-uri Capturate",
+
+    // === Final CTA ===
+    finalCtaTitle: "Gata S\u0103 Angajezi Agentul T\u0103u AI?",
+    finalCtaSubtitle: "Vezi cum func\u021bioneaz\u0103 pe afacerea ta \u00een 60 de secunde. F\u0103r\u0103 card bancar.",
+    finalCtaBtn: "\u00cencerc\u0103 Demo Gratuit",
+
+    // === Demo Page ===
+    demoTitle: "Vezi Agentul T\u0103u AI \u00een Ac\u021biune",
+    demoSubtitle: "Acest demo arat\u0103 funda\u021bia conversa\u021bional\u0103 \u2014 cei 10% care sunt cel mai greu de realizat. Agentul complet face tot ce ai v\u0103zut pe pagina principal\u0103.",
+    demoBadge: "30 mesaje \u00b7 F\u0103r\u0103 \u00eenregistrare",
+
+    // === Form ===
     labelWebsite: "URL Website",
     labelDescription: "Descrierea Companiei",
-    labelChatbotName: "Numele Chatbot-ului",
+    labelAgentName: "Numele Agentului",
     placeholderWebsite: "exemplu.md",
-    placeholderDescription: "Descrie ce face compania ta, produsele sau serviciile oferite și publicul țintă...",
-    placeholderChatbotName: "ex. AsistentBot, Alex, HelpDesk",
-    submitBtn: "Construiește Chatbot-ul",
+    placeholderDescription: "Descrie ce face compania ta, produsele sau serviciile oferite \u0219i publicul \u021bint\u0103...",
+    placeholderAgentName: "ex. AsistentBot, Alex, HelpDesk",
+    submitBtn: "Construie\u0219te Agentul",
 
-    // Validation
-    validationRequired: "Acest câmp este obligatoriu.",
+    // === Validation ===
+    validationRequired: "Acest c\u00e2mp este obligatoriu.",
     validationDomain: "Introdu un domeniu valid (ex. exemplu.md).",
     validationMinLength: "Minim {n} caractere.",
 
-    // Progress
-    progressTitle: "Construim chatbot-ul tău...",
-    progressSubtitle: "Poate dura un moment. Te rugăm să nu închizi pagina.",
-    step1: "Analizăm website-ul tău...",
-    step2: "Înțelegem afacerea ta...",
-    step3: "Configurăm chatbot-ul...",
-    step4: "Finalizăm configurarea...",
+    // === Progress ===
+    progressTitle: "Construim agentul t\u0103u...",
+    progressSubtitle: "Poate dura un moment. Te rug\u0103m s\u0103 nu \u00eenchizi pagina.",
+    step1: "Analiz\u0103m website-ul t\u0103u...",
+    step2: "\u00cen\u021belegem afacerea ta...",
+    step3: "Configur\u0103m agentul...",
+    step4: "Finaliz\u0103m configurarea...",
 
-    // Result
-    successTitle: "Chatbot-ul tău este gata!",
+    // === Result ===
+    successTitle: "Agentul t\u0103u este gata!",
     errorTitle: "Ceva nu a mers bine",
-    retryBtn: "Încearcă din nou",
+    retryBtn: "\u00cencearc\u0103 din nou",
 
-    // Build errors
-    buildErrorFallback: "Nu am putut construi chatbot-ul. Te rugăm să încerci din nou.",
-    buildErrorNetwork: "Eroare de rețea. Verifică conexiunea și încearcă din nou.",
-    buildErrorUnavailable: "Serviciul este temporar indisponibil. Încearcă din nou într-un moment.",
-    noUuidError: "Chatbot-ul a fost creat, dar a apărut o eroare la încărcarea chatului. Contactează suportul.",
+    // === Build errors ===
+    buildErrorFallback: "Nu am putut construi agentul. Te rug\u0103m s\u0103 \u00eencerci din nou.",
+    buildErrorNetwork: "Eroare de re\u021bea. Verific\u0103 conexiunea \u0219i \u00eencearc\u0103 din nou.",
+    buildErrorUnavailable: "Serviciul este temporar indisponibil. \u00cencearc\u0103 din nou \u00eentr-un moment.",
+    noUuidError: "Agentul a fost creat, dar a ap\u0103rut o eroare la \u00eenc\u0103rcarea chatului. Contacteaz\u0103 suportul.",
 
-    // Config panel
+    // === Config panel ===
     configWebsite: "Website",
     configDescription: "Descriere",
-    configChatbotId: "ID Chatbot",
-    configStatus: "Status",
-    configStatusActive: "Activ",
-    buildAnotherBtn: "Construiește altul",
+    buildAnotherBtn: "Construie\u0219te altul",
 
-    // Chat
+    // === Chat ===
     chatPlaceholder: "Scrie un mesaj...",
-    chatError: "Ceva nu a mers bine. Încearcă din nou.",
-    chatErrorNetwork: "Eroare de rețea. Verifică conexiunea.",
-    chatErrorUnavailable: "Serviciul este temporar indisponibil. Încearcă din nou.",
-    sessionEndFallback: "Ai atins limita de mesaje pentru această sesiune demo. Contactează-ne pentru a continua.",
-    sessionEndedBar: "Ai atins limita de mesaje pentru această sesiune demo.",
+    chatError: "Ceva nu a mers bine. \u00cencearc\u0103 din nou.",
+    chatErrorNetwork: "Eroare de re\u021bea. Verific\u0103 conexiunea.",
+    chatErrorUnavailable: "Serviciul este temporar indisponibil. \u00cencearc\u0103 din nou.",
+    sessionEndFallback: "Ai atins limita de mesaje pentru aceast\u0103 sesiune demo. Contacteaz\u0103-ne pentru a continua.",
+    sessionEndedBar: "Ai atins limita de mesaje pentru aceast\u0103 sesiune demo.",
     autoGreeting: "Salut",
 
-    // Contact CTA
-    contactTitle: "Vrei un chatbot ca acesta pentru afacerea ta?",
-    contactName: "Numele tău",
+    // === Contact CTA ===
+    contactTitle: "Vrei un agent AI ca acesta pentru afacerea ta?",
+    contactName: "Numele t\u0103u",
     contactContact: "Telefon sau email",
     contactContactPlaceholder: "Telefon sau email",
-    contactNote: "Notă (opțional)",
-    contactSubmit: "Contactează-ne",
-    contactSuccess: "Mulțumim! Te vom contacta în curând.",
-    contactError: "Ceva nu a mers bine. Încearcă din nou.",
+    contactNote: "Not\u0103 (op\u021bional)",
+    contactSubmit: "Contacteaz\u0103-ne",
+    contactSuccess: "Mul\u021bumim! Te vom contacta \u00een cur\u00e2nd.",
+    contactError: "Ceva nu a mers bine. \u00cencearc\u0103 din nou.",
+
+    // === Pricing Page ===
+    pricingTitle: "Pre\u021buri Simple \u0219i Transparente",
+    pricingSubtitle: "Mai pu\u021bin dec\u00e2t un angajat part-time. Mai capabil dec\u00e2t o echip\u0103 \u00eentreag\u0103.",
+    pricingAnchor: "Compar\u0103: un angajat part-time suport cost\u0103 $1,500\u20133,000/lun\u0103",
+    pricingPoc: "Fiecare plan pl\u0103tit include 1.000 de chat-uri gratuite ca proof of concept",
+    pricingMonthly: "Lunar",
+    pricingAnnual: "Anual",
+    pricingSave: "Economise\u0219ti ~17%",
+    pricingMostPopular: "Cel Mai Popular",
+    pricingTryDemo: "\u00cencerc\u0103 Demo",
+    pricingGetStarted: "\u00cencepe",
+    pricingContactUs: "Contacteaz\u0103-ne",
+    pricingEnterpriseTitle: "Enterprise",
+    pricingEnterpriseDesc: "Infrastructur\u0103 personalizat\u0103 de agen\u021bi pentru organiza\u021bii mari. Implementare privat\u0103, SSO, modele fine-tuned, account manager dedicat \u0219i SLA personalizat.",
+    pricingEnterprisePrice: "De la ~$2,000/lun\u0103, personalizat",
+    pricingAddonsTitle: "Add-on-uri Done-For-You",
+    pricingSetupSprint: "Setup Sprint",
+    pricingOneTime: "o singur\u0103 dat\u0103",
+    pricingSetupSprintDesc: "Cartografiem fluxurile, configur\u0103m integr\u0103rile, test\u0103m \u0219i implement\u0103m agentul.",
+    pricingManagedMonthly: "Management Lunar",
+    pricingManagedDesc: "Optimizare lunar\u0103, reguli noi, review performan\u021b\u0103 \u0219i raportare.",
+    pricingOverageTitle: "Pre\u021buri Dep\u0103\u0219ire",
+    pricingOverageNote: "C\u00e2nd limita de conversa\u021bii este atins\u0103, continu\u0103 la tarife flexibile per conversa\u021bie.",
+    pricingOverageTier: "Plan",
+    pricingOverageRate: "Per conversa\u021bie extra",
+
+    // === FAQ Page ===
+    faqTitle: "\u00centreb\u0103ri Frecvente",
+    faqCtaText: "Mai ai \u00eentreb\u0103ri?",
+    faqCtaBtn: "\u00cencerc\u0103 Demo Gratuit",
+
+    // === Footer ===
+    footerTagline: "Agen\u021bi AI personaliza\u021bi care lucreaz\u0103 pentru afacerea ta, 24/7.",
+    footerProduct: "Produs",
+    footerCompany: "Companie",
+    footerRights: "Toate drepturile rezervate.",
   },
 
   ru: {
-    // Page
-    pageTitle: "Создай своего чат-бота",
-    headerTitle: "Создай своего чат-бота",
-    subtitle: "Расскажите о вашем бизнесе, и мы создадим персонализированного чат-бота для вас.",
+    // === Page Titles ===
+    homePageTitle: "NexonTech \u2014 \u041f\u0435\u0440\u0441\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0435 AI-\u0430\u0433\u0435\u043d\u0442\u044b \u0434\u043b\u044f \u0432\u0430\u0448\u0435\u0433\u043e \u0431\u0438\u0437\u043d\u0435\u0441\u0430",
+    demoPageTitle: "\u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0434\u0435\u043c\u043e \u2014 NexonTech",
+    pricingPageTitle: "\u0426\u0435\u043d\u044b \u2014 NexonTech",
+    faqPageTitle: "\u0427\u0430\u0441\u0442\u044b\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b \u2014 NexonTech",
 
-    // Form
-    labelWebsite: "URL сайта",
-    labelDescription: "Описание компании",
-    labelChatbotName: "Имя чат-бота",
+    // === Navbar ===
+    navCapabilities: "\u0412\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u0438",
+    navHowItWorks: "\u041a\u0430\u043a \u044d\u0442\u043e \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442",
+    navPricing: "\u0426\u0435\u043d\u044b",
+    navFaq: "\u0412\u043e\u043f\u0440\u043e\u0441\u044b",
+    navTryDemo: "\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c",
+
+    // === Hero ===
+    heroTitle: "\u0412\u0430\u0448 \u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a \u2014 AI-\u0430\u0433\u0435\u043d\u0442",
+    heroSubtitle: "\u041f\u0435\u0440\u0441\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0435 AI-\u0430\u0433\u0435\u043d\u0442\u044b, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0437\u0430\u043f\u0438\u0441\u044b\u0432\u0430\u044e\u0442 \u043d\u0430 \u043f\u0440\u0438\u0451\u043c, \u0441\u043e\u0431\u0438\u0440\u0430\u044e\u0442 \u043b\u0438\u0434\u044b, \u0443\u043f\u0440\u0430\u0432\u043b\u044f\u044e\u0442 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u043e\u0439 \u0438 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0437\u0438\u0440\u0443\u044e\u0442 \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u044b \u2014 \u0441\u043e\u0437\u0434\u0430\u043d\u043d\u044b\u0435 \u043f\u043e\u0434 \u0432\u0430\u0448 \u0431\u0438\u0437\u043d\u0435\u0441 \u0437\u0430 60 \u0441\u0435\u043a\u0443\u043d\u0434.",
+    heroCtaPrimary: "\u0421\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0432 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0438",
+    heroCtaSecondary: "\u0421\u043c\u043e\u0442\u0440\u0435\u0442\u044c \u0446\u0435\u043d\u044b",
+    heroProof: "\u041d\u0430\u043c \u0434\u043e\u0432\u0435\u0440\u044f\u044e\u0442 200+ \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0439",
+    mockupBot1: "\u042f \u043d\u0430\u0448\u0451\u043b 3 \u0441\u0432\u043e\u0431\u043e\u0434\u043d\u044b\u0445 \u0441\u043b\u043e\u0442\u0430 \u043d\u0430 \u044d\u0442\u043e\u0439 \u043d\u0435\u0434\u0435\u043b\u0435. \u041f\u043e\u0434\u043e\u0439\u0434\u0451\u0442 \u0447\u0435\u0442\u0432\u0435\u0440\u0433 \u0432 14:00?",
+    mockupUser1: "\u0414\u0430, \u043e\u0442\u043b\u0438\u0447\u043d\u043e!",
+    mockupBot2: "\u0417\u0430\u043f\u0438\u0441\u044c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0430. \u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043e\u0442\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u043e \u043d\u0430 \u0432\u0430\u0448\u0443 \u043f\u043e\u0447\u0442\u0443.",
+
+    // === Capabilities ===
+    capTitle: "\u0411\u043e\u043b\u044c\u0448\u0435, \u0447\u0435\u043c \u0447\u0430\u0442-\u0431\u043e\u0442 \u2014 \u043f\u043e\u043b\u043d\u043e\u0446\u0435\u043d\u043d\u044b\u0439 AI-\u0430\u0433\u0435\u043d\u0442",
+    capSubtitle: "\u0411\u043e\u043b\u044c\u0448\u0438\u043d\u0441\u0442\u0432\u043e \u0447\u0430\u0442-\u0431\u043e\u0442\u043e\u0432 \u043e\u0441\u0442\u0430\u043d\u0430\u0432\u043b\u0438\u0432\u0430\u044e\u0442\u0441\u044f \u043d\u0430 \u043e\u0442\u0432\u0435\u0442\u0430\u0445. \u041d\u0430\u0448 \u2014 \u043d\u0435\u0442.",
+    capTask: "\u0412\u044b\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0435 \u0437\u0430\u0434\u0430\u0447",
+    capTaskDesc: "\u041d\u0435 \u043e\u043f\u0438\u0441\u044b\u0432\u0430\u0435\u0442, \u0447\u0442\u043e \u0434\u0435\u043b\u0430\u0442\u044c \u2014 \u0434\u0435\u043b\u0430\u0435\u0442 \u0441\u0430\u043c. \u0417\u0430\u043f\u0438\u0441\u044b\u0432\u0430\u0435\u0442 \u043d\u0430 \u043f\u0440\u0438\u0451\u043c, \u0441\u043e\u0437\u0434\u0430\u0451\u0442 \u0442\u0438\u043a\u0435\u0442\u044b, \u043e\u0442\u043f\u0440\u0430\u0432\u043b\u044f\u0435\u0442 \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u044f, \u043e\u0431\u043d\u043e\u0432\u043b\u044f\u0435\u0442 CRM.",
+    capMonitor: "\u041f\u0440\u043e\u0430\u043a\u0442\u0438\u0432\u043d\u044b\u0439 \u043c\u043e\u043d\u0438\u0442\u043e\u0440\u0438\u043d\u0433",
+    capMonitorDesc: "\u0421\u043b\u0435\u0434\u0438\u0442 \u0437\u0430 \u043e\u0442\u043a\u0440\u044b\u0442\u044b\u043c\u0438 \u0437\u0430\u0434\u0430\u0447\u0430\u043c\u0438. \u041b\u0438\u0434 \u043d\u0435 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u0430\u043d 48 \u0447\u0430\u0441\u043e\u0432? \u0422\u0438\u043a\u0435\u0442 \u0431\u0435\u0437 \u043e\u0442\u0432\u0435\u0442\u0430? \u0410\u0433\u0435\u043d\u0442 \u0441\u0430\u043c \u0441\u043e\u043e\u0431\u0449\u0438\u0442.",
+    capDecisions: "\u0410\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u044b\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u044f",
+    capDecisionsDesc: "\u0423\u0441\u0442\u0430\u043d\u043e\u0432\u0438\u0442\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430 \u043e\u0434\u0438\u043d \u0440\u0430\u0437. \u0410\u0432\u0442\u043e-\u044d\u0441\u043a\u0430\u043b\u0430\u0446\u0438\u044f, \u0430\u0432\u0442\u043e-\u0437\u0430\u043a\u0440\u044b\u0442\u0438\u0435, \u043d\u0430\u043f\u043e\u043c\u0438\u043d\u0430\u043d\u0438\u044f. \u0410\u0433\u0435\u043d\u0442 \u043f\u0440\u0438\u043c\u0435\u043d\u044f\u0435\u0442 \u0438\u0445 24/7.",
+    capContext: "\u0413\u043b\u0443\u0431\u043e\u043a\u0438\u0439 \u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442",
+    capContextDesc: "\u041d\u0435 \u043d\u0430\u0447\u0438\u043d\u0430\u0435\u0442 \u0441 \u043d\u0443\u043b\u044f. \u0417\u043d\u0430\u0435\u0442 \u0438\u0441\u0442\u043e\u0440\u0438\u044e \u043a\u043b\u0438\u0435\u043d\u0442\u0430, \u043f\u0440\u0435\u0434\u044b\u0434\u0443\u0449\u0438\u0435 \u0432\u0437\u0430\u0438\u043c\u043e\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0438 \u0441\u0442\u0430\u0442\u0443\u0441 \u043f\u043e\u043a\u0443\u043f\u043e\u043a. \u041a\u0430\u0436\u0434\u044b\u0439 \u043e\u0442\u0432\u0435\u0442 \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b\u0438\u0437\u0438\u0440\u043e\u0432\u0430\u043d.",
+    capIntegrations: "\u041e\u0442\u043a\u0440\u044b\u0442\u044b\u0435 \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0438",
+    capIntegrationsDesc: "\u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0430\u0435\u0442\u0441\u044f \u043a \u0432\u0441\u0435\u043c\u0443, \u0447\u0442\u043e \u043e\u043d\u043b\u0430\u0439\u043d \u2014 CRM, \u043a\u0430\u043b\u0435\u043d\u0434\u0430\u0440\u0438, \u0445\u0435\u043b\u043f\u0434\u0435\u0441\u043a\u0438, \u0438\u043d\u0442\u0435\u0440\u043d\u0435\u0442-\u043c\u0430\u0433\u0430\u0437\u0438\u043d\u044b, Slack, \u043f\u043e\u0447\u0442\u0430 \u0438 \u043b\u044e\u0431\u044b\u0435 \u0434\u0440\u0443\u0433\u0438\u0435 \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u044b.",
+
+    // === Bridge ===
+    bridgeText: "\u0414\u0435\u043c\u043e \u043f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0435\u0442 10% \u2014 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u043e \u0440\u0430\u0437\u0433\u043e\u0432\u043e\u0440\u0430, \u0433\u043e\u043b\u043e\u0441 \u0431\u0440\u0435\u043d\u0434\u0430, \u0438\u043d\u0442\u0435\u043b\u043b\u0435\u043a\u0442. \u042d\u0442\u043e \u0441\u0430\u043c\u043e\u0435 \u0441\u043b\u043e\u0436\u043d\u043e\u0435. \u0412\u0441\u0451 \u043e\u0441\u0442\u0430\u043b\u044c\u043d\u043e\u0435 \u043f\u043e\u0441\u0442\u0440\u043e\u0435\u043d\u043e \u043d\u0430 \u044d\u0442\u043e\u0439 \u043e\u0441\u043d\u043e\u0432\u0435.",
+    bridgeCta: "\u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0434\u0435\u043c\u043e \u2014 \u043e\u0446\u0435\u043d\u0438\u0442\u0435 \u043e\u0441\u043d\u043e\u0432\u0443",
+
+    // === How It Works ===
+    howTitle: "\u041a\u0430\u043a \u044d\u0442\u043e \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442",
+    howStep1: "\u041e\u043f\u0438\u0448\u0438\u0442\u0435 \u0432\u0430\u0448 \u0431\u0438\u0437\u043d\u0435\u0441",
+    howStep1Desc: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 URL \u0432\u0430\u0448\u0435\u0433\u043e \u0441\u0430\u0439\u0442\u0430 \u0438 \u043a\u0440\u0430\u0442\u043a\u043e\u0435 \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0434\u0435\u044f\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u0438.",
+    howStep2: "AI \u0441\u043e\u0437\u0434\u0430\u0451\u0442 \u0430\u0433\u0435\u043d\u0442\u0430",
+    howStep2Desc: "\u041d\u0430\u0448 AI \u0430\u043d\u0430\u043b\u0438\u0437\u0438\u0440\u0443\u0435\u0442 \u0441\u0430\u0439\u0442, \u043f\u043e\u043d\u0438\u043c\u0430\u0435\u0442 \u0431\u0438\u0437\u043d\u0435\u0441 \u0438 \u043d\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u0442 \u0430\u0433\u0435\u043d\u0442\u0430 \u0437\u0430 60 \u0441\u0435\u043a\u0443\u043d\u0434.",
+    howStep3: "\u0422\u0435\u0441\u0442\u0438\u0440\u0443\u0439\u0442\u0435 \u0438 \u0437\u0430\u043f\u0443\u0441\u043a\u0430\u0439\u0442\u0435",
+    howStep3Desc: "\u041f\u043e\u043e\u0431\u0449\u0430\u0439\u0442\u0435\u0441\u044c \u0441 \u0430\u0433\u0435\u043d\u0442\u043e\u043c \u0432 \u0434\u0435\u043c\u043e, \u0437\u0430\u0442\u0435\u043c \u043c\u044b \u0432\u043d\u0435\u0434\u0440\u0438\u043c \u0435\u0433\u043e \u0441 \u043f\u043e\u043b\u043d\u044b\u043c\u0438 \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e\u0441\u0442\u044f\u043c\u0438.",
+    howCta: "\u041d\u0430\u0447\u0430\u0442\u044c",
+
+    // === Use Cases ===
+    useCasesTitle: "\u0421\u043e\u0437\u0434\u0430\u043d \u0434\u043b\u044f \u0432\u0430\u0448\u0435\u0433\u043e \u0431\u0438\u0437\u043d\u0435\u0441\u0430",
+    useCaseEcommerce: "\u0418\u043d\u0442\u0435\u0440\u043d\u0435\u0442-\u043c\u0430\u0433\u0430\u0437\u0438\u043d",
+    useCaseEcommerceDesc: "\u041a\u043b\u0438\u0435\u043d\u0442 \u0441\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0435\u0442, \u0433\u0434\u0435 \u0437\u0430\u043a\u0430\u0437. \u0410\u0433\u0435\u043d\u0442 \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 \u0441\u0442\u0430\u0442\u0443\u0441. \u0415\u0441\u043b\u0438 \u0437\u0430\u0434\u0435\u0440\u0436\u043a\u0430 \u2014 \u0438\u0437\u0432\u0438\u043d\u044f\u0435\u0442\u0441\u044f, \u043f\u0440\u0435\u0434\u043b\u0430\u0433\u0430\u0435\u0442 \u0441\u043a\u0438\u0434\u043a\u0443, \u0444\u0438\u043a\u0441\u0438\u0440\u0443\u0435\u0442 \u0436\u0430\u043b\u043e\u0431\u0443.",
+    useCaseClinic: "\u041a\u043b\u0438\u043d\u0438\u043a\u0438 \u0438 \u0443\u0441\u043b\u0443\u0433\u0438",
+    useCaseClinicDesc: "\u041f\u0430\u0446\u0438\u0435\u043d\u0442 \u0445\u043e\u0447\u0435\u0442 \u0437\u0430\u043f\u0438\u0441\u0430\u0442\u044c\u0441\u044f. \u0410\u0433\u0435\u043d\u0442 \u043f\u0440\u043e\u0432\u0435\u0440\u044f\u0435\u0442 \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u043e\u0441\u0442\u044c, \u0437\u0430\u043f\u0438\u0441\u044b\u0432\u0430\u0435\u0442, \u043d\u0430\u043f\u043e\u043c\u0438\u043d\u0430\u0435\u0442 \u0437\u0430 24\u0447 \u0438 \u0441\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0435\u0442 \u043e\u0442\u0437\u044b\u0432 \u043f\u043e\u0441\u043b\u0435 \u0432\u0438\u0437\u0438\u0442\u0430.",
+    useCaseAgency: "\u0410\u0433\u0435\u043d\u0442\u0441\u0442\u0432\u0430 \u0438 B2B",
+    useCaseAgencyDesc: "\u041b\u0438\u0434 \u043f\u0438\u0448\u0435\u0442 \u0432 \u0447\u0430\u0442. \u0410\u0433\u0435\u043d\u0442 \u043a\u0432\u0430\u043b\u0438\u0444\u0438\u0446\u0438\u0440\u0443\u0435\u0442, \u043d\u0430\u0437\u043d\u0430\u0447\u0430\u0435\u0442 \u0437\u0432\u043e\u043d\u043e\u043a, \u0432\u043d\u043e\u0441\u0438\u0442 \u0432 CRM \u0438 \u0443\u0432\u0435\u0434\u043e\u043c\u043b\u044f\u0435\u0442 \u043c\u0435\u043d\u0435\u0434\u0436\u0435\u0440\u0430 \u0447\u0435\u0440\u0435\u0437 Slack.",
+
+    // === Testimonials ===
+    testimonialsTitle: "\u0427\u0442\u043e \u0433\u043e\u0432\u043e\u0440\u044f\u0442 \u043d\u0430\u0448\u0438 \u043a\u043b\u0438\u0435\u043d\u0442\u044b",
+    testimonial1Quote: "\"\u041c\u044b \u043d\u0430\u0441\u0442\u0440\u043e\u0438\u043b\u0438 \u0435\u0433\u043e \u0437\u0430 \u043c\u0438\u043d\u0443\u0442\u0443, \u0438 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u043e \u0440\u0430\u0437\u0433\u043e\u0432\u043e\u0440\u0430 \u043d\u0430\u0441 \u043f\u043e\u0440\u0430\u0437\u0438\u043b\u043e. \u041e\u043d \u0440\u0435\u0430\u043b\u044c\u043d\u043e \u0437\u0432\u0443\u0447\u0438\u0442 \u043a\u0430\u043a \u043d\u0430\u0448 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a.\"",
+    testimonial1Role: "\u041c\u0435\u043d\u0435\u0434\u0436\u0435\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0439, RetailPlus",
+    testimonial2Quote: "\"\u0410\u0433\u0435\u043d\u0442 \u0441\u043e\u0431\u0440\u0430\u043b \u0432 3 \u0440\u0430\u0437\u0430 \u0431\u043e\u043b\u044c\u0448\u0435 \u043b\u0438\u0434\u043e\u0432, \u0447\u0435\u043c \u043d\u0430\u0448\u0430 \u0441\u0442\u0430\u0440\u0430\u044f \u0444\u043e\u0440\u043c\u0430. \u0418 \u043a\u0432\u0430\u043b\u0438\u0444\u0438\u0446\u0438\u0440\u0443\u0435\u0442 \u0438\u0445 \u0435\u0449\u0451 \u0434\u043e \u043d\u0430\u0448\u0435\u0433\u043e \u0443\u0432\u0435\u0434\u043e\u043c\u043b\u0435\u043d\u0438\u044f.\"",
+    testimonial2Role: "\u041e\u0441\u043d\u043e\u0432\u0430\u0442\u0435\u043b\u044c, GrowthLab Agency",
+    testimonial3Quote: "\"\u041c\u044b \u0442\u0440\u0430\u0442\u0438\u043b\u0438 4 \u0447\u0430\u0441\u0430 \u0432 \u0434\u0435\u043d\u044c \u043d\u0430 \u043e\u0434\u043d\u0438 \u0438 \u0442\u0435 \u0436\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b. \u0422\u0435\u043f\u0435\u0440\u044c \u0430\u0433\u0435\u043d\u0442 \u043e\u0431\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0435\u0442 90% \u0438\u0437 \u043d\u0438\u0445.\"",
+    testimonial3Role: "\u0420\u0443\u043a\u043e\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044c \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0438, MedCenter",
+    statAgents: "\u0410\u0433\u0435\u043d\u0442\u043e\u0432 \u0440\u0430\u0437\u0432\u0451\u0440\u043d\u0443\u0442\u043e",
+    statConversations: "\u0420\u0430\u0437\u0433\u043e\u0432\u043e\u0440\u043e\u0432",
+    statLeads: "\u041b\u0438\u0434\u043e\u0432 \u0441\u043e\u0431\u0440\u0430\u043d\u043e",
+
+    // === Final CTA ===
+    finalCtaTitle: "\u0413\u043e\u0442\u043e\u0432\u044b \u043d\u0430\u043d\u044f\u0442\u044c \u0441\u0432\u043e\u0435\u0433\u043e AI-\u0430\u0433\u0435\u043d\u0442\u0430?",
+    finalCtaSubtitle: "\u0423\u0432\u0438\u0434\u044c\u0442\u0435, \u043a\u0430\u043a \u043e\u043d \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u043d\u0430 \u0432\u0430\u0448\u0435\u043c \u0431\u0438\u0437\u043d\u0435\u0441\u0435 \u0437\u0430 60 \u0441\u0435\u043a\u0443\u043d\u0434. \u0411\u0435\u0437 \u043a\u0440\u0435\u0434\u0438\u0442\u043d\u043e\u0439 \u043a\u0430\u0440\u0442\u044b.",
+    finalCtaBtn: "\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u043e",
+
+    // === Demo Page ===
+    demoTitle: "\u0423\u0432\u0438\u0434\u044c\u0442\u0435 \u0441\u0432\u043e\u0435\u0433\u043e AI-\u0430\u0433\u0435\u043d\u0442\u0430 \u0432 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0438",
+    demoSubtitle: "\u042d\u0442\u043e \u0434\u0435\u043c\u043e \u043f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0435\u0442 \u043e\u0441\u043d\u043e\u0432\u0443 \u2014 \u0442\u0435 10%, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0441\u043b\u043e\u0436\u043d\u0435\u0435 \u0432\u0441\u0435\u0433\u043e \u0441\u0434\u0435\u043b\u0430\u0442\u044c \u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u043e. \u041f\u043e\u043b\u043d\u044b\u0439 \u0430\u0433\u0435\u043d\u0442 \u0434\u0435\u043b\u0430\u0435\u0442 \u0432\u0441\u0451, \u0447\u0442\u043e \u0432\u044b \u0432\u0438\u0434\u0435\u043b\u0438 \u043d\u0430 \u0433\u043b\u0430\u0432\u043d\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435.",
+    demoBadge: "30 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0439 \u00b7 \u0411\u0435\u0437 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438",
+
+    // === Form ===
+    labelWebsite: "URL \u0441\u0430\u0439\u0442\u0430",
+    labelDescription: "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438",
+    labelAgentName: "\u0418\u043c\u044f \u0430\u0433\u0435\u043d\u0442\u0430",
     placeholderWebsite: "example.com",
-    placeholderDescription: "Опишите, чем занимается ваша компания, какие продукты или услуги предлагает и кто ваша целевая аудитория...",
-    placeholderChatbotName: "напр. ПоддержкаБот, Алекс, HelpDesk",
-    submitBtn: "Создать чат-бота",
+    placeholderDescription: "\u041e\u043f\u0438\u0448\u0438\u0442\u0435, \u0447\u0435\u043c \u0437\u0430\u043d\u0438\u043c\u0430\u0435\u0442\u0441\u044f \u0432\u0430\u0448\u0430 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u044f, \u043a\u0430\u043a\u0438\u0435 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u044b \u0438\u043b\u0438 \u0443\u0441\u043b\u0443\u0433\u0438 \u043f\u0440\u0435\u0434\u043b\u0430\u0433\u0430\u0435\u0442 \u0438 \u043a\u0442\u043e \u0432\u0430\u0448\u0430 \u0446\u0435\u043b\u0435\u0432\u0430\u044f \u0430\u0443\u0434\u0438\u0442\u043e\u0440\u0438\u044f...",
+    placeholderAgentName: "\u043d\u0430\u043f\u0440. \u041f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0430\u0411\u043e\u0442, \u0410\u043b\u0435\u043a\u0441, HelpDesk",
+    submitBtn: "\u0421\u043e\u0437\u0434\u0430\u0442\u044c \u0430\u0433\u0435\u043d\u0442\u0430",
 
-    // Validation
-    validationRequired: "Это поле обязательно.",
-    validationDomain: "Введите корректный домен (напр. example.com).",
-    validationMinLength: "Минимум {n} символов.",
+    // === Validation ===
+    validationRequired: "\u042d\u0442\u043e \u043f\u043e\u043b\u0435 \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e.",
+    validationDomain: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043a\u043e\u0440\u0440\u0435\u043a\u0442\u043d\u044b\u0439 \u0434\u043e\u043c\u0435\u043d (\u043d\u0430\u043f\u0440. example.com).",
+    validationMinLength: "\u041c\u0438\u043d\u0438\u043c\u0443\u043c {n} \u0441\u0438\u043c\u0432\u043e\u043b\u043e\u0432.",
 
-    // Progress
-    progressTitle: "Создаём вашего чат-бота...",
-    progressSubtitle: "Это может занять некоторое время. Пожалуйста, не закрывайте страницу.",
-    step1: "Анализируем ваш сайт...",
-    step2: "Изучаем ваш бизнес...",
-    step3: "Настраиваем чат-бота...",
-    step4: "Завершаем настройку...",
+    // === Progress ===
+    progressTitle: "\u0421\u043e\u0437\u0434\u0430\u0451\u043c \u0432\u0430\u0448\u0435\u0433\u043e \u0430\u0433\u0435\u043d\u0442\u0430...",
+    progressSubtitle: "\u042d\u0442\u043e \u043c\u043e\u0436\u0435\u0442 \u0437\u0430\u043d\u044f\u0442\u044c \u043d\u0435\u043a\u043e\u0442\u043e\u0440\u043e\u0435 \u0432\u0440\u0435\u043c\u044f. \u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u043d\u0435 \u0437\u0430\u043a\u0440\u044b\u0432\u0430\u0439\u0442\u0435 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0443.",
+    step1: "\u0410\u043d\u0430\u043b\u0438\u0437\u0438\u0440\u0443\u0435\u043c \u0432\u0430\u0448 \u0441\u0430\u0439\u0442...",
+    step2: "\u0418\u0437\u0443\u0447\u0430\u0435\u043c \u0432\u0430\u0448 \u0431\u0438\u0437\u043d\u0435\u0441...",
+    step3: "\u041d\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u043c \u0430\u0433\u0435\u043d\u0442\u0430...",
+    step4: "\u0417\u0430\u0432\u0435\u0440\u0448\u0430\u0435\u043c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0443...",
 
-    // Result
-    successTitle: "Ваш чат-бот готов!",
-    errorTitle: "Что-то пошло не так",
-    retryBtn: "Попробовать снова",
+    // === Result ===
+    successTitle: "\u0412\u0430\u0448 \u0430\u0433\u0435\u043d\u0442 \u0433\u043e\u0442\u043e\u0432!",
+    errorTitle: "\u0427\u0442\u043e-\u0442\u043e \u043f\u043e\u0448\u043b\u043e \u043d\u0435 \u0442\u0430\u043a",
+    retryBtn: "\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c \u0441\u043d\u043e\u0432\u0430",
 
-    // Build errors
-    buildErrorFallback: "Не удалось создать чат-бота. Пожалуйста, попробуйте снова.",
-    buildErrorNetwork: "Ошибка сети. Проверьте подключение и попробуйте снова.",
-    buildErrorUnavailable: "Сервис временно недоступен. Попробуйте через несколько минут.",
-    noUuidError: "Чат-бот был создан, но произошла ошибка при загрузке чата. Свяжитесь с поддержкой.",
+    // === Build errors ===
+    buildErrorFallback: "\u041d\u0435 \u0443\u0434\u0430\u043b\u043e\u0441\u044c \u0441\u043e\u0437\u0434\u0430\u0442\u044c \u0430\u0433\u0435\u043d\u0442\u0430. \u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u043f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0441\u043d\u043e\u0432\u0430.",
+    buildErrorNetwork: "\u041e\u0448\u0438\u0431\u043a\u0430 \u0441\u0435\u0442\u0438. \u041f\u0440\u043e\u0432\u0435\u0440\u044c\u0442\u0435 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435 \u0438 \u043f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0441\u043d\u043e\u0432\u0430.",
+    buildErrorUnavailable: "\u0421\u0435\u0440\u0432\u0438\u0441 \u0432\u0440\u0435\u043c\u0435\u043d\u043d\u043e \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u0435\u043d. \u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0447\u0435\u0440\u0435\u0437 \u043d\u0435\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u043c\u0438\u043d\u0443\u0442.",
+    noUuidError: "\u0410\u0433\u0435\u043d\u0442 \u0431\u044b\u043b \u0441\u043e\u0437\u0434\u0430\u043d, \u043d\u043e \u043f\u0440\u043e\u0438\u0437\u043e\u0448\u043b\u0430 \u043e\u0448\u0438\u0431\u043a\u0430 \u043f\u0440\u0438 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0435 \u0447\u0430\u0442\u0430. \u0421\u0432\u044f\u0436\u0438\u0442\u0435\u0441\u044c \u0441 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u043e\u0439.",
 
-    // Config panel
-    configWebsite: "Сайт",
-    configDescription: "Описание",
-    configChatbotId: "ID чат-бота",
-    configStatus: "Статус",
-    configStatusActive: "Активен",
-    buildAnotherBtn: "Создать другого",
+    // === Config panel ===
+    configWebsite: "\u0421\u0430\u0439\u0442",
+    configDescription: "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435",
+    buildAnotherBtn: "\u0421\u043e\u0437\u0434\u0430\u0442\u044c \u0434\u0440\u0443\u0433\u043e\u0433\u043e",
 
-    // Chat
-    chatPlaceholder: "Напишите сообщение...",
-    chatError: "Что-то пошло не так. Попробуйте снова.",
-    chatErrorNetwork: "Ошибка сети. Проверьте подключение.",
-    chatErrorUnavailable: "Сервис временно недоступен. Попробуйте снова.",
-    sessionEndFallback: "Вы достигли лимита сообщений для этой демо-сессии. Свяжитесь с нами для продолжения.",
-    sessionEndedBar: "Вы достигли лимита сообщений для этой демо-сессии.",
-    autoGreeting: "Привет",
+    // === Chat ===
+    chatPlaceholder: "\u041d\u0430\u043f\u0438\u0448\u0438\u0442\u0435 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435...",
+    chatError: "\u0427\u0442\u043e-\u0442\u043e \u043f\u043e\u0448\u043b\u043e \u043d\u0435 \u0442\u0430\u043a. \u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0441\u043d\u043e\u0432\u0430.",
+    chatErrorNetwork: "\u041e\u0448\u0438\u0431\u043a\u0430 \u0441\u0435\u0442\u0438. \u041f\u0440\u043e\u0432\u0435\u0440\u044c\u0442\u0435 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u0435.",
+    chatErrorUnavailable: "\u0421\u0435\u0440\u0432\u0438\u0441 \u0432\u0440\u0435\u043c\u0435\u043d\u043d\u043e \u043d\u0435\u0434\u043e\u0441\u0442\u0443\u043f\u0435\u043d. \u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0441\u043d\u043e\u0432\u0430.",
+    sessionEndFallback: "\u0412\u044b \u0434\u043e\u0441\u0442\u0438\u0433\u043b\u0438 \u043b\u0438\u043c\u0438\u0442\u0430 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0439 \u0434\u043b\u044f \u044d\u0442\u043e\u0439 \u0434\u0435\u043c\u043e-\u0441\u0435\u0441\u0441\u0438\u0438. \u0421\u0432\u044f\u0436\u0438\u0442\u0435\u0441\u044c \u0441 \u043d\u0430\u043c\u0438 \u0434\u043b\u044f \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u044f.",
+    sessionEndedBar: "\u0412\u044b \u0434\u043e\u0441\u0442\u0438\u0433\u043b\u0438 \u043b\u0438\u043c\u0438\u0442\u0430 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0439 \u0434\u043b\u044f \u044d\u0442\u043e\u0439 \u0434\u0435\u043c\u043e-\u0441\u0435\u0441\u0441\u0438\u0438.",
+    autoGreeting: "\u041f\u0440\u0438\u0432\u0435\u0442",
 
-    // Contact CTA
-    contactTitle: "Хотите такого чат-бота для вашего бизнеса?",
-    contactName: "Ваше имя",
-    contactContact: "Телефон или емайл",
-    contactContactPlaceholder: "Телефон или емайл",
-    contactNote: "Примечание (необязательно)",
-    contactSubmit: "Связаться с нами",
-    contactSuccess: "Спасибо! Мы свяжемся с вами в ближайшее время.",
-    contactError: "Что-то пошло не так. Попробуйте снова.",
+    // === Contact CTA ===
+    contactTitle: "\u0425\u043e\u0442\u0438\u0442\u0435 \u0442\u0430\u043a\u043e\u0433\u043e AI-\u0430\u0433\u0435\u043d\u0442\u0430 \u0434\u043b\u044f \u0432\u0430\u0448\u0435\u0433\u043e \u0431\u0438\u0437\u043d\u0435\u0441\u0430?",
+    contactName: "\u0412\u0430\u0448\u0435 \u0438\u043c\u044f",
+    contactContact: "\u0422\u0435\u043b\u0435\u0444\u043e\u043d \u0438\u043b\u0438 \u0435\u043c\u0430\u0439\u043b",
+    contactContactPlaceholder: "\u0422\u0435\u043b\u0435\u0444\u043e\u043d \u0438\u043b\u0438 \u0435\u043c\u0430\u0439\u043b",
+    contactNote: "\u041f\u0440\u0438\u043c\u0435\u0447\u0430\u043d\u0438\u0435 (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)",
+    contactSubmit: "\u0421\u0432\u044f\u0437\u0430\u0442\u044c\u0441\u044f \u0441 \u043d\u0430\u043c\u0438",
+    contactSuccess: "\u0421\u043f\u0430\u0441\u0438\u0431\u043e! \u041c\u044b \u0441\u0432\u044f\u0436\u0435\u043c\u0441\u044f \u0441 \u0432\u0430\u043c\u0438 \u0432 \u0431\u043b\u0438\u0436\u0430\u0439\u0448\u0435\u0435 \u0432\u0440\u0435\u043c\u044f.",
+    contactError: "\u0427\u0442\u043e-\u0442\u043e \u043f\u043e\u0448\u043b\u043e \u043d\u0435 \u0442\u0430\u043a. \u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0441\u043d\u043e\u0432\u0430.",
+
+    // === Pricing (keep English for prices, translate labels) ===
+    pricingTitle: "\u041f\u0440\u043e\u0441\u0442\u044b\u0435, \u043f\u0440\u043e\u0437\u0440\u0430\u0447\u043d\u044b\u0435 \u0446\u0435\u043d\u044b",
+    pricingSubtitle: "\u0414\u0435\u0448\u0435\u0432\u043b\u0435 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0430. \u042d\u0444\u0444\u0435\u043a\u0442\u0438\u0432\u043d\u0435\u0435 \u043a\u043e\u043c\u0430\u043d\u0434\u044b.",
+    pricingAnchor: "\u0421\u0440\u0430\u0432\u043d\u0438\u0442\u0435: \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u043a\u0438 \u0441\u0442\u043e\u0438\u0442 $1,500\u20133,000/\u043c\u0435\u0441",
+    pricingPoc: "\u041a\u0430\u0436\u0434\u044b\u0439 \u043f\u043b\u0430\u0442\u043d\u044b\u0439 \u043f\u043b\u0430\u043d \u0432\u043a\u043b\u044e\u0447\u0430\u0435\u0442 1,000 \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u044b\u0445 \u0447\u0430\u0442\u043e\u0432 \u0434\u043b\u044f \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438",
+    pricingMonthly: "\u0415\u0436\u0435\u043c\u0435\u0441\u044f\u0447\u043d\u043e",
+    pricingAnnual: "\u0415\u0436\u0435\u0433\u043e\u0434\u043d\u043e",
+    pricingSave: "\u042d\u043a\u043e\u043d\u043e\u043c\u0438\u044f ~17%",
+    pricingMostPopular: "\u0421\u0430\u043c\u044b\u0439 \u043f\u043e\u043f\u0443\u043b\u044f\u0440\u043d\u044b\u0439",
+    pricingTryDemo: "\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c",
+    pricingGetStarted: "\u041d\u0430\u0447\u0430\u0442\u044c",
+    pricingContactUs: "\u0421\u0432\u044f\u0437\u0430\u0442\u044c\u0441\u044f",
+    pricingEnterpriseTitle: "Enterprise",
+    pricingEnterpriseDesc: "\u0418\u043d\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043b\u044c\u043d\u0430\u044f \u0438\u043d\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u0430\u0433\u0435\u043d\u0442\u043e\u0432 \u0434\u043b\u044f \u043a\u0440\u0443\u043f\u043d\u044b\u0445 \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u0430\u0446\u0438\u0439. \u041f\u0440\u0438\u0432\u0430\u0442\u043d\u043e\u0435 \u0440\u0430\u0437\u0432\u0451\u0440\u0442\u044b\u0432\u0430\u043d\u0438\u0435, SSO, \u0432\u044b\u0434\u0435\u043b\u0435\u043d\u043d\u044b\u0439 \u043c\u0435\u043d\u0435\u0434\u0436\u0435\u0440 \u0438 SLA.",
+    pricingEnterprisePrice: "\u041e\u0442 ~$2,000/\u043c\u0435\u0441, \u0438\u043d\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043b\u044c\u043d\u043e",
+    pricingAddonsTitle: "\u0414\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0435 \u0443\u0441\u043b\u0443\u0433\u0438",
+    pricingSetupSprint: "\u0411\u044b\u0441\u0442\u0440\u044b\u0439 \u0437\u0430\u043f\u0443\u0441\u043a",
+    pricingOneTime: "\u0440\u0430\u0437\u043e\u0432\u043e",
+    pricingSetupSprintDesc: "\u041c\u044b \u043d\u0430\u0441\u0442\u0440\u043e\u0438\u043c \u0444\u043b\u043e\u0443, \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u0438, \u043f\u0440\u043e\u0442\u0435\u0441\u0442\u0438\u0440\u0443\u0435\u043c \u0438 \u0437\u0430\u043f\u0443\u0441\u0442\u0438\u043c \u0430\u0433\u0435\u043d\u0442\u0430.",
+    pricingManagedMonthly: "\u0415\u0436\u0435\u043c\u0435\u0441\u044f\u0447\u043d\u043e\u0435 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435",
+    pricingManagedDesc: "\u041e\u043f\u0442\u0438\u043c\u0438\u0437\u0430\u0446\u0438\u044f, \u043d\u043e\u0432\u044b\u0435 \u043f\u0440\u0430\u0432\u0438\u043b\u0430, \u043e\u0431\u0437\u043e\u0440 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u0438 \u0438 \u043e\u0442\u0447\u0451\u0442\u044b.",
+    pricingOverageTitle: "\u0426\u0435\u043d\u044b \u043f\u0440\u0438 \u043f\u0440\u0435\u0432\u044b\u0448\u0435\u043d\u0438\u0438",
+    pricingOverageNote: "\u041f\u0440\u0438 \u0434\u043e\u0441\u0442\u0438\u0436\u0435\u043d\u0438\u0438 \u043b\u0438\u043c\u0438\u0442\u0430 \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0430\u0439\u0442\u0435 \u043f\u043e \u0433\u0438\u0431\u043a\u0438\u043c \u0442\u0430\u0440\u0438\u0444\u0430\u043c \u0437\u0430 \u0440\u0430\u0437\u0433\u043e\u0432\u043e\u0440.",
+    pricingOverageTier: "\u041f\u043b\u0430\u043d",
+    pricingOverageRate: "\u0417\u0430 \u0434\u043e\u043f. \u0440\u0430\u0437\u0433\u043e\u0432\u043e\u0440",
+
+    // === FAQ ===
+    faqTitle: "\u0427\u0430\u0441\u0442\u043e \u0437\u0430\u0434\u0430\u0432\u0430\u0435\u043c\u044b\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u044b",
+    faqCtaText: "\u041e\u0441\u0442\u0430\u043b\u0438\u0441\u044c \u0432\u043e\u043f\u0440\u043e\u0441\u044b?",
+    faqCtaBtn: "\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u043e",
+
+    // === Footer ===
+    footerTagline: "\u041f\u0435\u0440\u0441\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0435 AI-\u0430\u0433\u0435\u043d\u0442\u044b \u0434\u043b\u044f \u0432\u0430\u0448\u0435\u0433\u043e \u0431\u0438\u0437\u043d\u0435\u0441\u0430, 24/7.",
+    footerProduct: "\u041f\u0440\u043e\u0434\u0443\u043a\u0442",
+    footerCompany: "\u041a\u043e\u043c\u043f\u0430\u043d\u0438\u044f",
+    footerRights: "\u0412\u0441\u0435 \u043f\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043d\u044b.",
   },
 };
