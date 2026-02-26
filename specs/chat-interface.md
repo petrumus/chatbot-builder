@@ -1,6 +1,6 @@
 # SPEC: Demo Page — Build & Chat Interface
 
-> **Status: IMPLEMENTED** — This spec reflects the current working implementation on `demo.html`.
+> **Status: IMPLEMENTED** — This spec reflects the current working implementation on `demo/index.html`.
 
 ## Overview
 

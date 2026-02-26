@@ -19,7 +19,7 @@ A multi-page marketing website for NexonTech AI agents. The site positions the p
 [n8n Build Webhook — builds chatbot]
         ↓ responds with uuid + user_data
 
-[Frontend transitions to chat mode on demo.html]
+[Frontend transitions to chat mode on demo/index.html]
         ↓ POST (Bearer anon key)
 [Supabase Edge Function: chat-message]
         ↓ POST (Header Auth)
@@ -211,7 +211,7 @@ All Edge Functions import from `_shared/utils.ts`:
 
 ## Page-Specific Features
 
-### Landing Page (`index.html`)
+### Landing Page (`home/index.html`)
 - **Hero section**: headline, subheading, CTA buttons ("See It in Action" → demo, "View Pricing" → pricing), CSS chat mockup showing appointment booking scenario
 - **Capabilities section**: 5 cards (Task Execution, Proactive Monitoring, Autonomous Decisions, Deep Context, Open Integrations)
 - **Bridge section**: "10% that's hardest to get right" messaging connecting capabilities to demo CTA
@@ -221,11 +221,11 @@ All Edge Functions import from `_shared/utils.ts`:
 - **Final CTA**: "Ready to Meet Your Next Employee?" with demo button
 - **Scroll reveal**: `.reveal` elements animate in via IntersectionObserver
 
-### Demo Page (`demo.html`)
+### Demo Page (`demo/index.html`)
 - **Demo intro**: headline, "10%" description, badge ("30 messages · No signup required")
 - **Form → Progress → Chat**: see [chat-interface.md](chat-interface.md)
 
-### Pricing Page (`pricing.html`)
+### Pricing Page (`pricing/index.html`)
 - **Monthly/Annual toggle**: checkbox with "Save ~17%" badge
 - **4 pricing cards**: Free Demo ($0), Starter ($149/mo), Pro ($399/mo, "Most Popular"), Business ($899/mo)
 - **Lead capture modal**: "Get Started" / "Contact Us" buttons on paid plans open a modal with phone/email field. Submits to existing `contact-form` Edge Function with `note: "Plan: {planName}"`. Closes on X, overlay click, or Escape. Translates for all 3 languages. Fires `plan_cta_click`, `modal_open`, `modal_submit`, `modal_close` tracking events.
@@ -235,7 +235,7 @@ All Edge Functions import from `_shared/utils.ts`:
 - **Proof of concept note**: "Every paid plan includes 1,000 free chats"
 - **Price anchoring**: "Compare: a part-time support hire costs $1,500–3,000/mo"
 
-### FAQ Page (`faq.html`)
+### FAQ Page (`faq/index.html`)
 - **10 accordion items** derived from sales pitch objection handling:
   1. What makes this different from other chatbots?
   2. What can the AI agent actually do?
@@ -368,7 +368,7 @@ Fire-and-forget analytics event. Inserts directly into Supabase `events` table (
 ```json
 {
   "event_name": "cta_click",
-  "page": "/pricing.html",
+  "page": "/pricing/",
   "metadata": { "plan": "Pro", "action": "Get Started" },
   "visitor_id": "abc-123-..."
 }
