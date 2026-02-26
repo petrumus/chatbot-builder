@@ -3,11 +3,12 @@
 ## Overview
 A multi-page marketing website for NexonTech AI agents. The site positions the product as a full AI agent (not just a chatbot) with 5 capability layers. Users can explore the landing page, view pricing, read FAQs, and try a live demo that builds a custom AI agent in 60 seconds. Both webhooks (build + chat) are proxied through Supabase Edge Functions to keep n8n URLs hidden.
 
-**Pages:**
-- `index.html` — Landing page (hero, capabilities, how-it-works, use cases, testimonials, CTA)
-- `demo.html` — Interactive demo (form → build → live chat with AI agent)
-- `pricing.html` — Pricing tiers, add-ons, overage table
-- `faq.html` — Accordion FAQ (10 items, derived from sales objection handling)
+**Pages (clean URLs — directory-based routing):**
+- `/home` → `home/index.html` — Landing page (hero, capabilities, how-it-works, use cases, testimonials, CTA)
+- `/demo` → `demo/index.html` — Interactive demo (form → build → live chat with AI agent)
+- `/pricing` → `pricing/index.html` — Pricing tiers, add-ons, overage table, lead capture modal
+- `/faq` → `faq/index.html` — Accordion FAQ (10 items, derived from sales objection handling)
+- `/` → `index.html` — Redirect to `/home`
 
 ## Architecture
 ```
@@ -58,16 +59,21 @@ All n8n webhook URLs are hidden as Supabase Edge Function secrets. The frontend 
 
 ## File Structure
 ```
-├── index.html              # Landing page — hero, capabilities, bridge, how-it-works, use cases, testimonials, CTA
-├── demo.html               # Demo page — form, progress steps, result, live chat
-├── pricing.html            # Pricing page — 4 tiers + enterprise + add-ons + overages
-├── faq.html                # FAQ page — 10 accordion items
+├── index.html              # Root redirect → /home
+├── home/
+│   └── index.html          # Landing page — hero, capabilities, bridge, how-it-works, use cases, testimonials, CTA
+├── demo/
+│   └── index.html          # Demo page — form, progress steps, result, live chat
+├── pricing/
+│   └── index.html          # Pricing page — 4 tiers + enterprise + add-ons + overages + lead capture modal
+├── faq/
+│   └── index.html          # FAQ page — 10 accordion items
 ├── style.css               # All styles — navbar, pages, chat, responsive, animations
 ├── shared.js               # Shared logic (all pages) — visitor ID, i18n, event tracking, navbar, scroll reveal, FAQ, pricing toggle, pricing modal
 ├── demo.js                 # Demo-only logic — form, build, chat, markdown, contacts
 ├── config.js               # Supabase URLs + anon key (no n8n URLs)
 ├── lang.js                 # i18n translations (en, ro, ru) — all pages
-├── serve.js                # Local dev server (Node.js, port 8080) — not deployed
+├── serve.js                # Local dev server (Node.js, port 8080, clean URLs) — not deployed
 ├── .gitignore
 ├── CLAUDE.md               # Project instructions for Claude Code
 ├── specs/                  # Feature specifications
@@ -97,8 +103,8 @@ All n8n webhook URLs are hidden as Supabase Edge Function secrets. The frontend 
 ### JS Architecture
 The original monolithic `script.js` was split into two files:
 
-- **`shared.js`** (loaded on ALL pages): visitor ID, i18n system, page visit tracking, event tracking (`trackEvent()`), navbar (scroll/hamburger), smooth scroll, scroll reveal animations, FAQ accordion, pricing toggle, pricing lead capture modal. Exposes `window.NexonTech = { visitorId, t, getLang, applyLanguage, trackEvent }` for other scripts.
-- **`demo.js`** (loaded on `demo.html` ONLY): form validation, build API call, progress steps, chat mode, markdown renderer, contact forms. Uses `window.NexonTech` (aliased as `NT`) for translations and visitor ID. Guards with `if (!form) return;` to safely no-op on non-demo pages.
+- **`shared.js`** (loaded on ALL pages): visitor ID, i18n system, page visit tracking, event tracking (`trackEvent()`), navbar (scroll/hamburger), smooth scroll, scroll reveal animations, FAQ accordion, pricing toggle, pricing lead capture modal. Exposes `window.NexonTech = { visitorId, t, getLang, applyLanguage, trackEvent }` for other scripts. Loaded from `../shared.js` (pages live in subdirectories).
+- **`demo.js`** (loaded on `demo/index.html` ONLY): form validation, build API call, progress steps, chat mode, markdown renderer, contact forms. Uses `window.NexonTech` (aliased as `NT`) for translations and visitor ID. Guards with `if (!form) return;` to safely no-op on non-demo pages.
 
 ## Design System
 - **Font**: system font stack (`-apple-system, BlinkMacSystemFont, "Segoe UI", ...`)
