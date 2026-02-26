@@ -49,7 +49,8 @@ All n8n webhook URLs are hidden as Supabase Edge Function secrets. The frontend 
 
 ## Tech Stack
 - **Frontend**: Plain HTML, CSS, JS — NO frameworks, NO build tools, NO npm dependencies
-- **Backend proxy**: Supabase Edge Functions (Deno/TypeScript) — proxies for all n8n webhooks
+- **Backend proxy**: Supabase Edge Functions (Deno/TypeScript) — proxies for n8n webhooks + direct DB writes
+- **Database**: Supabase PostgreSQL — `events` table for analytics event tracking
 - **Automation**: n8n webhooks (build, chat, contact form, reached-limit, page-visit)
 - **Hosting**: GitHub Pages (auto-deploys from `main` via GitHub Actions)
 - **Repo**: https://github.com/petrumus/chatbot-builder
@@ -62,7 +63,7 @@ All n8n webhook URLs are hidden as Supabase Edge Function secrets. The frontend 
 ├── pricing.html            # Pricing page — 4 tiers + enterprise + add-ons + overages
 ├── faq.html                # FAQ page — 10 accordion items
 ├── style.css               # All styles — navbar, pages, chat, responsive, animations
-├── shared.js               # Shared logic (all pages) — visitor ID, i18n, navbar, scroll reveal, FAQ, pricing toggle
+├── shared.js               # Shared logic (all pages) — visitor ID, i18n, event tracking, navbar, scroll reveal, FAQ, pricing toggle, pricing modal
 ├── demo.js                 # Demo-only logic — form, build, chat, markdown, contacts
 ├── config.js               # Supabase URLs + anon key (no n8n URLs)
 ├── lang.js                 # i18n translations (en, ro, ru) — all pages
@@ -84,8 +85,10 @@ All n8n webhook URLs are hidden as Supabase Edge Function secrets. The frontend 
 │       │   └── index.ts    # Edge function proxy — contact/lead capture
 │       ├── reached-limit/
 │       │   └── index.ts    # Edge function proxy — session limit notification
-│       └── page-visit/
-│           └── index.ts    # Edge function proxy — page visit tracking
+│       ├── page-visit/
+│       │   └── index.ts    # Edge function proxy — page visit tracking
+│       └── track-event/
+│           └── index.ts    # Edge function — analytics event tracking (direct Supabase DB insert)
 └── .github/
     └── workflows/
         └── deploy.yml      # GitHub Pages deployment
@@ -94,7 +97,7 @@ All n8n webhook URLs are hidden as Supabase Edge Function secrets. The frontend 
 ### JS Architecture
 The original monolithic `script.js` was split into two files:
 
-- **`shared.js`** (loaded on ALL pages): visitor ID, i18n system, page visit tracking, navbar (scroll/hamburger), smooth scroll, scroll reveal animations, FAQ accordion, pricing toggle. Exposes `window.NexonTech = { visitorId, t, getLang, applyLanguage }` for other scripts.
+- **`shared.js`** (loaded on ALL pages): visitor ID, i18n system, page visit tracking, event tracking (`trackEvent()`), navbar (scroll/hamburger), smooth scroll, scroll reveal animations, FAQ accordion, pricing toggle, pricing lead capture modal. Exposes `window.NexonTech = { visitorId, t, getLang, applyLanguage, trackEvent }` for other scripts.
 - **`demo.js`** (loaded on `demo.html` ONLY): form validation, build API call, progress steps, chat mode, markdown renderer, contact forms. Uses `window.NexonTech` (aliased as `NT`) for translations and visitor ID. Guards with `if (!form) return;` to safely no-op on non-demo pages.
 
 ## Design System
@@ -141,8 +144,10 @@ All Edge Functions import from `_shared/utils.ts`:
 
 ## Supabase Configuration
 - **Project ref**: `umkkmgrjxgekbnvinhiq`
-- **Edge Functions**: `chatbot-webhook` (build), `chat-message` (chat), `contact-form` (leads), `reached-limit` (notification), `page-visit` (tracking)
+- **Edge Functions**: `chatbot-webhook` (build), `chat-message` (chat), `contact-form` (leads), `reached-limit` (notification), `page-visit` (tracking), `track-event` (analytics)
+- **Database tables**: `events` (analytics event tracking — visitor_id, event_name, page, metadata jsonb, created_at)
 - **Secrets**: `N8N_WEBHOOK_URL`, `N8N_CHAT_WEBHOOK_URL`, `N8N_CONTACT_WEBHOOK_URL`, `N8N_REACHED_LIMIT_WEBHOOK_URL`, `N8N_PAGE_VISIT_WEBHOOK_URL`, `N8N_AUTH_USER`, `N8N_AUTH_KEY`
+- **Auto-available env vars** (used by `track-event`): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
 - **CLI path** (local): `C:\Users\Petru\supabase-cli\supabase.exe`
 
 ## Deployment
@@ -152,6 +157,7 @@ All Edge Functions import from `_shared/utils.ts`:
 - **Contact function**: `supabase.exe functions deploy contact-form`
 - **Reached-limit function**: `supabase.exe functions deploy reached-limit`
 - **Page-visit function**: `supabase.exe functions deploy page-visit`
+- **Track-event function**: `supabase.exe functions deploy track-event`
 - **Local dev**: `node serve.js` → http://localhost:8080
 
 ## Feature Specs
@@ -165,6 +171,31 @@ All Edge Functions import from `_shared/utils.ts`:
 - `applyLanguage()` updates all `[data-i18n]` and `[data-i18n-placeholder]` elements, page title, and `html[lang]`
 - Auto-greeting is localized: "Hello" (en), "Salut" (ro), "Привет" (ru)
 - All pages share the same i18n system via `shared.js`
+
+## Event Tracking (Analytics)
+- `trackEvent(eventName, metadata)` in `shared.js` — fire-and-forget POST to `track-event` Edge Function
+- Edge Function inserts directly into Supabase `events` table (uses `supabase-js` with service role key, not n8n)
+- Events table: `id`, `visitor_id`, `event_name`, `page`, `metadata` (jsonb), `created_at`
+- RLS enabled — only service role can insert
+
+### Tracked Events
+| Event | Source | Metadata |
+|---|---|---|
+| `lang_switch` | shared.js (all pages) | `{ lang }` |
+| `nav_click` | shared.js (all pages) | `{ target: href }` |
+| `cta_click` | shared.js (home page) | `{ label, section }` |
+| `faq_toggle` | shared.js (FAQ page) | `{ question }` |
+| `pricing_toggle` | shared.js (pricing page) | `{ period }` |
+| `plan_cta_click` | shared.js (pricing page) | `{ plan, action }` |
+| `modal_open` | shared.js (pricing page) | `{ plan }` |
+| `modal_submit` | shared.js (pricing page) | `{ plan }` |
+| `modal_close` | shared.js (pricing page) | `{ plan }` |
+| `demo_build_start` | demo.js | `{}` |
+| `demo_build_success` | demo.js | `{}` |
+| `demo_build_error` | demo.js | `{}` |
+| `demo_chat_send` | demo.js | `{}` |
+| `demo_contact_submit` | demo.js | `{ source: "sidebar"\|"chat" }` |
+| `demo_build_another` | demo.js | `{}` |
 
 ## Visitor Tracking
 - `visitor_id` generated via `crypto.randomUUID()` on first visit, stored in `localStorage`
@@ -191,7 +222,8 @@ All Edge Functions import from `_shared/utils.ts`:
 ### Pricing Page (`pricing.html`)
 - **Monthly/Annual toggle**: checkbox with "Save ~17%" badge
 - **4 pricing cards**: Free Demo ($0), Starter ($149/mo), Pro ($399/mo, "Most Popular"), Business ($899/mo)
-- **Enterprise banner**: "From ~$2,000/mo", "Let's Talk" CTA
+- **Lead capture modal**: "Get Started" / "Contact Us" buttons on paid plans open a modal with phone/email field. Submits to existing `contact-form` Edge Function with `note: "Plan: {planName}"`. Closes on X, overlay click, or Escape. Translates for all 3 languages. Fires `plan_cta_click`, `modal_open`, `modal_submit`, `modal_close` tracking events.
+- **Enterprise banner**: "From ~$2,000/mo", "Contact Us" CTA (also opens the lead capture modal)
 - **Add-ons**: Setup Sprint ($499 one-time), Managed Monthly (+$299/mo)
 - **Overage table**: per-conversation rates (Starter $0.08, Pro $0.05, Business $0.03)
 - **Proof of concept note**: "Every paid plan includes 1,000 free chats"
@@ -323,3 +355,17 @@ Fire-and-forget notification on every page load (all pages).
   "lang": "en"
 }
 ```
+
+### Track Event (via `track-event` Edge Function)
+Fire-and-forget analytics event. Inserts directly into Supabase `events` table (not proxied to n8n).
+**Request body:**
+```json
+{
+  "event_name": "cta_click",
+  "page": "/pricing.html",
+  "metadata": { "plan": "Pro", "action": "Get Started" },
+  "visitor_id": "abc-123-..."
+}
+```
+Validation: `event_name` required (max 100 chars), `page` max 500 chars.
+**Success (200):** `{ "success": true }`

@@ -8,6 +8,7 @@ Plain HTML/CSS/JS website hosted on GitHub Pages. Users fill a form to build a c
 
 ## Conventions
 - **After any feature change, update the relevant spec in `specs/`** — specs must always reflect the current implementation
+- **Event tracking**: When adding any new user-interactive element (button, form, toggle, link, etc.), add a `trackEvent()` call using `window.NexonTech.trackEvent(eventName, metadata)`. Use descriptive snake_case event names (e.g. `cta_click`, `form_submit`) and include relevant context in metadata. See `specs/project-overview.md` § "Event Tracking" for the full list of tracked events.
 
 ## Quick Reference
 - **Repo**: https://github.com/petrumus/chatbot-builder

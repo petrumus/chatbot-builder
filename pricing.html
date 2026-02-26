@@ -204,6 +204,21 @@
       </table>
     </div>
 
+    <!-- Pricing Lead Capture Modal -->
+    <div class="modal-overlay hidden" id="pricing-modal">
+      <div class="modal-card">
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+        <h3 id="modal-plan-title"></h3>
+        <p data-i18n="modalSubtitle">Leave your contact and we'll set everything up.</p>
+        <div class="field">
+          <label data-i18n="contactContact">Phone or email</label>
+          <input type="text" id="modal-contact" data-i18n-placeholder="contactContactPlaceholder" placeholder="Phone or email">
+        </div>
+        <button class="contact-cta-btn" id="modal-submit-btn" data-i18n="contactSubmit">Get in Touch</button>
+        <div class="contact-cta-error hidden" id="modal-error"></div>
+      </div>
+    </div>
+
   </main>
 
   <!-- Footer -->

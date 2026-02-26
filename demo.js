@@ -209,6 +209,7 @@
 
     savedFormData = data;
     submitBtn.disabled = true;
+    NT.trackEvent("demo_build_start");
 
     showSection(progressSection);
     startProgressSteps();
@@ -224,6 +225,7 @@
         return;
       }
 
+      NT.trackEvent("demo_build_success");
       const uuid = result.uuid || (result.user_data && result.user_data.uuid);
       if (uuid) {
         activateChatMode(uuid, data);
@@ -236,6 +238,7 @@
       completeAllSteps();
       await new Promise((r) => setTimeout(r, 400));
 
+      NT.trackEvent("demo_build_error");
       if (err.data && err.data.success === false) {
         showBuildError(err.data);
         return;
@@ -538,6 +541,7 @@
     chatReplyButtons.innerHTML = "";
     appendMessage("user", messageText);
     state.messageCount++;
+    NT.trackEvent("demo_chat_send");
 
     state.isWaitingForResponse = true;
     chatInput.value = "";
@@ -715,6 +719,7 @@
         throw new Error(`HTTP ${response.status}`);
       }
 
+      NT.trackEvent("demo_contact_submit", { source: "chat" });
       const ctaEl = document.querySelector(".contact-cta");
       ctaEl.innerHTML = `<div class="contact-cta-success">${escapeHtml(NT.t("contactSuccess"))}</div>`;
     } catch (err) {
@@ -766,6 +771,7 @@
         throw new Error(`HTTP ${response.status}`);
       }
 
+      NT.trackEvent("demo_contact_submit", { source: "sidebar" });
       sidebarCta.innerHTML = `<div class="sidebar-cta-success">${escapeHtml(NT.t("contactSuccess"))}</div>`;
     } catch (err) {
       errorEl.textContent = NT.t("contactError");
@@ -804,6 +810,7 @@
   // ============================================
 
   document.getElementById("build-another-btn").addEventListener("click", () => {
+    NT.trackEvent("demo_build_another");
     state.userUuid = null;
     state.chatbotName = null;
     state.messageCount = 0;

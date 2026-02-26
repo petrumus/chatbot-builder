@@ -16,4 +16,7 @@ const CONFIG = {
 
   // Page-visit Edge Function URL (notifies n8n when a visitor loads the page)
   PAGE_VISIT_FUNCTION_URL: "https://umkkmgrjxgekbnvinhiq.supabase.co/functions/v1/page-visit",
+
+  // Event tracking Edge Function URL (stores analytics events in Supabase)
+  TRACK_EVENT_FUNCTION_URL: "https://umkkmgrjxgekbnvinhiq.supabase.co/functions/v1/track-event",
 };

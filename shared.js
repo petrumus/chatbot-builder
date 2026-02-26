@@ -50,12 +50,33 @@
     });
   }
 
+  // ============================================
+  // Event Tracking
+  // ============================================
+
+  function trackEvent(eventName, metadata = {}) {
+    fetch(CONFIG.TRACK_EVENT_FUNCTION_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+      },
+      body: JSON.stringify({
+        event_name: eventName,
+        page: location.pathname,
+        metadata,
+        visitor_id: visitorId,
+      }),
+    }).catch(() => {});
+  }
+
   // Language switcher
   document.querySelectorAll(".lang-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       currentLang = btn.getAttribute("data-lang");
       localStorage.setItem("lang", currentLang);
       applyLanguage();
+      trackEvent("lang_switch", { lang: currentLang });
     });
   });
 
@@ -67,6 +88,7 @@
     t,
     getLang: () => currentLang,
     applyLanguage,
+    trackEvent,
   };
 
   // ============================================
@@ -89,6 +111,7 @@
         navLinks.classList.remove("open");
         hamburger.classList.remove("open");
         hamburger.setAttribute("aria-expanded", "false");
+        trackEvent("nav_click", { target: link.getAttribute("href") });
       });
     });
   }
@@ -144,6 +167,20 @@
   }
 
   // ============================================
+  // CTA Click Tracking (Home page)
+  // ============================================
+
+  if (document.body.classList.contains("page-home")) {
+    document.querySelectorAll(".btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const section = btn.closest("section");
+        const sectionClass = section ? section.className.replace(/\s*section\s*/, "").trim() : "unknown";
+        trackEvent("cta_click", { label: btn.textContent.trim(), section: sectionClass });
+      });
+    });
+  }
+
+  // ============================================
   // FAQ Accordion
   // ============================================
 
@@ -152,7 +189,10 @@
       const item = btn.closest(".faq-item");
       const isOpen = item.classList.contains("open");
       document.querySelectorAll(".faq-item.open").forEach((i) => i.classList.remove("open"));
-      if (!isOpen) item.classList.add("open");
+      if (!isOpen) {
+        item.classList.add("open");
+        trackEvent("faq_toggle", { question: btn.textContent.trim() });
+      }
     });
   });
 
@@ -167,6 +207,106 @@
       const attr = isAnnual ? "data-annual" : "data-monthly";
       document.querySelectorAll("[data-monthly][data-annual]").forEach((el) => {
         el.textContent = el.getAttribute(attr);
+      });
+      trackEvent("pricing_toggle", { period: isAnnual ? "annual" : "monthly" });
+    });
+  }
+
+  // ============================================
+  // Pricing Modal
+  // ============================================
+
+  const modal = document.getElementById("pricing-modal");
+  if (modal) {
+    const modalOverlay = modal;
+    const modalTitle = document.getElementById("modal-plan-title");
+    const modalContact = document.getElementById("modal-contact");
+    const modalSubmitBtn = document.getElementById("modal-submit-btn");
+    const modalError = document.getElementById("modal-error");
+    const modalCloseBtn = document.getElementById("modal-close-btn");
+    let modalPlan = "";
+
+    function openModal(planName) {
+      modalPlan = planName;
+      modalTitle.textContent = t("modalTitle").replace("{plan}", planName);
+      modalContact.value = "";
+      modalContact.placeholder = t("contactContactPlaceholder");
+      modalError.classList.add("hidden");
+      modalError.textContent = "";
+      modalSubmitBtn.disabled = false;
+      modalSubmitBtn.textContent = t("contactSubmit");
+      modalOverlay.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      modalContact.focus();
+      trackEvent("modal_open", { plan: planName });
+    }
+
+    function closeModal() {
+      modalOverlay.classList.add("hidden");
+      document.body.style.overflow = "";
+      trackEvent("modal_close", { plan: modalPlan });
+    }
+
+    modalCloseBtn.addEventListener("click", closeModal);
+    modalOverlay.addEventListener("click", (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !modalOverlay.classList.contains("hidden")) closeModal();
+    });
+
+    async function submitModal() {
+      const contact = modalContact.value.trim();
+      if (!contact) {
+        modalError.textContent = t("validationRequired");
+        modalError.classList.remove("hidden");
+        return;
+      }
+
+      modalSubmitBtn.disabled = true;
+      modalError.classList.add("hidden");
+
+      try {
+        const response = await fetch(CONFIG.CONTACT_FUNCTION_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            contact,
+            note: `Plan: ${modalPlan}`,
+            lang: currentLang,
+            visitor_id: visitorId,
+          }),
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        trackEvent("modal_submit", { plan: modalPlan });
+        modal.querySelector(".modal-card").innerHTML =
+          `<div class="modal-success">${t("contactSuccess")}</div>`;
+        setTimeout(closeModal, 2000);
+      } catch {
+        modalError.textContent = t("contactError");
+        modalError.classList.remove("hidden");
+        modalSubmitBtn.disabled = false;
+      }
+    }
+
+    modalSubmitBtn.addEventListener("click", submitModal);
+    modalContact.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") submitModal();
+    });
+
+    // Wire pricing CTA buttons that point to href="#"
+    document.querySelectorAll('.pricing-cta-btn[href="#"]').forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const card = btn.closest(".pricing-card") || btn.closest(".enterprise-banner");
+        const planName = card ? card.querySelector("h3").textContent.trim() : "Unknown";
+        trackEvent("plan_cta_click", { plan: planName, action: btn.textContent.trim() });
+        openModal(planName);
       });
     });
   }

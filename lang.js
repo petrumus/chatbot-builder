@@ -139,6 +139,10 @@ const LANG = {
     contactSuccess: "Thank you! We'll get back to you shortly.",
     contactError: "Something went wrong. Please try again.",
 
+    // === Pricing Modal ===
+    modalTitle: "Get Started with {plan}",
+    modalSubtitle: "Leave your contact and we'll set everything up.",
+
     // === Pricing Page ===
     pricingTitle: "Simple, Transparent Pricing",
     pricingSubtitle: "Less than a part-time hire. More capable than a full team.",
@@ -375,6 +379,10 @@ const LANG = {
     contactSuccess: "Mul\u021bumim! Te vom contacta \u00een cur\u00e2nd.",
     contactError: "Ceva nu a mers bine. \u00cencearc\u0103 din nou.",
 
+    // === Pricing Modal ===
+    modalTitle: "\u00cencepe cu {plan}",
+    modalSubtitle: "Las\u0103 datele de contact \u0219i ne ocup\u0103m de tot.",
+
     // === Pricing Page ===
     pricingTitle: "Pre\u021buri Simple \u0219i Transparente",
     pricingSubtitle: "Mai pu\u021bin dec\u00e2t un angajat part-time. Mai capabil dec\u00e2t o echip\u0103 \u00eentreag\u0103.",
@@ -610,6 +618,10 @@ const LANG = {
     contactSubmit: "\u0421\u0432\u044f\u0437\u0430\u0442\u044c\u0441\u044f \u0441 \u043d\u0430\u043c\u0438",
     contactSuccess: "\u0421\u043f\u0430\u0441\u0438\u0431\u043e! \u041c\u044b \u0441\u0432\u044f\u0436\u0435\u043c\u0441\u044f \u0441 \u0432\u0430\u043c\u0438 \u0432 \u0431\u043b\u0438\u0436\u0430\u0439\u0448\u0435\u0435 \u0432\u0440\u0435\u043c\u044f.",
     contactError: "\u0427\u0442\u043e-\u0442\u043e \u043f\u043e\u0448\u043b\u043e \u043d\u0435 \u0442\u0430\u043a. \u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0441\u043d\u043e\u0432\u0430.",
+
+    // === Pricing Modal ===
+    modalTitle: "\u041d\u0430\u0447\u0430\u0442\u044c \u0441 {plan}",
+    modalSubtitle: "\u041e\u0441\u0442\u0430\u0432\u044c\u0442\u0435 \u043a\u043e\u043d\u0442\u0430\u043a\u0442, \u0438 \u043c\u044b \u0432\u0441\u0451 \u043d\u0430\u0441\u0442\u0440\u043e\u0438\u043c.",
 
     // === Pricing (keep English for prices, translate labels) ===
     pricingTitle: "\u041f\u0440\u043e\u0441\u0442\u044b\u0435, \u043f\u0440\u043e\u0437\u0440\u0430\u0447\u043d\u044b\u0435 \u0446\u0435\u043d\u044b",
