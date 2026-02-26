@@ -310,4 +310,55 @@
       });
     });
   }
+
+  // === Contact Page ===
+  const contactSubmitBtn = document.getElementById("contact-submit-btn");
+  if (contactSubmitBtn) {
+    const contactInput = document.getElementById("contact-input");
+    const contactNote  = document.getElementById("contact-note");
+    const contactError = document.getElementById("contact-error");
+
+    // Track email link click
+    document.querySelector(".contact-email-link")
+      ?.addEventListener("click", () => trackEvent("contact_email_click"));
+
+    async function submitContactPage() {
+      const contact = contactInput.value.trim();
+      if (!contact) {
+        contactError.textContent = t("validationRequired");
+        contactError.classList.remove("hidden");
+        return;
+      }
+      contactSubmitBtn.disabled = true;
+      contactError.classList.add("hidden");
+      trackEvent("contact_page_submit");
+      try {
+        const res = await fetch(CONFIG.CONTACT_FUNCTION_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            contact,
+            note: contactNote.value.trim(),
+            lang: currentLang,
+            visitor_id: visitorId,
+          }),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        document.querySelector(".contact-page-card").innerHTML =
+          `<p class="modal-success" style="padding:2rem 0;font-size:1rem;text-align:center;">${t("contactSuccess")}</p>`;
+      } catch {
+        contactError.textContent = t("contactError");
+        contactError.classList.remove("hidden");
+        contactSubmitBtn.disabled = false;
+      }
+    }
+
+    contactSubmitBtn.addEventListener("click", submitContactPage);
+    contactInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") submitContactPage();
+    });
+  }
 })();

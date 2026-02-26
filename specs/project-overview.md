@@ -8,6 +8,7 @@ A multi-page marketing website for NexonTech AI agents. The site positions the p
 - `/demo` → `demo/index.html` — Interactive demo (form → build → live chat with AI agent)
 - `/pricing` → `pricing/index.html` — Pricing tiers, add-ons, overage table, lead capture modal
 - `/faq` → `faq/index.html` — Accordion FAQ (10 items, derived from sales objection handling)
+- `/contact` → `contact/index.html` — Contact page (email address + contact form)
 - `/` → `index.html` — Redirect to `/home`
 
 ## Architecture
@@ -68,8 +69,10 @@ All n8n webhook URLs are hidden as Supabase Edge Function secrets. The frontend 
 │   └── index.html          # Pricing page — 4 tiers + enterprise + add-ons + overages + lead capture modal
 ├── faq/
 │   └── index.html          # FAQ page — 10 accordion items
+├── contact/
+│   └── index.html          # Contact page — email address + contact form
 ├── style.css               # All styles — navbar, pages, chat, responsive, animations
-├── shared.js               # Shared logic (all pages) — visitor ID, i18n, event tracking, navbar, scroll reveal, FAQ, pricing toggle, pricing modal
+├── shared.js               # Shared logic (all pages) — visitor ID, i18n, event tracking, navbar, scroll reveal, FAQ, pricing toggle, pricing modal, contact page form
 ├── demo.js                 # Demo-only logic — form, build, chat, markdown, contacts
 ├── config.js               # Supabase URLs + anon key (no n8n URLs)
 ├── lang.js                 # i18n translations (en, ro, ru) — all pages
@@ -202,6 +205,8 @@ All Edge Functions import from `_shared/utils.ts`:
 | `demo_chat_send` | demo.js | `{}` |
 | `demo_contact_submit` | demo.js | `{ source: "sidebar"\|"chat" }` |
 | `demo_build_another` | demo.js | `{}` |
+| `contact_email_click` | shared.js (contact page) | `{}` |
+| `contact_page_submit` | shared.js (contact page) | `{}` |
 
 ## Visitor Tracking
 - `visitor_id` generated via `crypto.randomUUID()` on first visit, stored in `localStorage`
@@ -234,6 +239,16 @@ All Edge Functions import from `_shared/utils.ts`:
 - **Overage table**: per-conversation rates (Starter $0.08, Pro $0.05, Business $0.03)
 - **Proof of concept note**: "Every paid plan includes 1,000 free chats"
 - **Price anchoring**: "Compare: a part-time support hire costs $1,500–3,000/mo"
+
+### Contact Page (`contact/index.html`)
+- **Email block**: prominently displays `contact@nexontech.org` as a `mailto:` link with a small label above ("Email us directly")
+- **Contact form**: phone/email field (required) + optional message textarea + submit button
+- Submits to `contact-form` Edge Function with `{ contact, note, lang, visitor_id }`
+- On success: card replaced with localized "Thank you" message
+- On error: inline error message, button re-enabled
+- Email link click tracked as `contact_email_click`; form submission tracked as `contact_page_submit`
+- No name field (simpler than in-chat CTA which has name + contact + note)
+- Form logic lives in `shared.js` scoped to `#contact-submit-btn`
 
 ### FAQ Page (`faq/index.html`)
 - **10 accordion items** derived from sales pitch objection handling:

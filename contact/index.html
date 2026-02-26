@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n-title="contactPageTitle">Contact — NexonTech</title>
+  <meta name="description" content="Get in touch with the NexonTech team. We'll get back to you within 24 hours.">
+  <meta property="og:title" content="Contact — NexonTech AI Agents">
+  <meta property="og:description" content="Get in touch with NexonTech. Questions, partnerships, or custom requirements — we're here.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://petrumus.github.io/chatbot-builder/contact/">
+  <link rel="icon" type="image/png" href="../logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body class="page-contact">
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="../home/" class="nav-logo">
+        <img src="../logo.png" alt="NexonTech" height="32">
+        <span>NexonTech</span>
+      </a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="../home/#capabilities" data-i18n="navCapabilities">What It Does</a>
+        <a href="../home/#how-it-works" data-i18n="navHowItWorks">How It Works</a>
+        <a href="../pricing/" data-i18n="navPricing">Pricing</a>
+        <a href="../faq/" data-i18n="navFaq">FAQ</a>
+        <div class="nav-lang">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="ro">RO</button>
+          <button class="lang-btn" data-lang="ru">RU</button>
+        </div>
+        <a href="../demo/" class="nav-cta" data-i18n="navTryDemo">Try Demo</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="contact-page">
+
+    <div class="contact-page-header">
+      <h1 data-i18n="contactPageHeading">Get in Touch</h1>
+      <p data-i18n="contactPageSubtitle">We'll get back to you within 24 hours.</p>
+    </div>
+
+    <div class="contact-page-card">
+      <div class="contact-email-block">
+        <span data-i18n="contactEmailLabel">Email us directly</span>
+        <a href="mailto:contact@nexontech.org" class="contact-email-link">contact@nexontech.org</a>
+      </div>
+      <div class="contact-divider" data-i18n="contactOr">or send a message</div>
+      <div class="field">
+        <label data-i18n="contactContact">Phone or email</label>
+        <input type="text" id="contact-input" data-i18n-placeholder="contactContactPlaceholder" placeholder="Phone or email">
+      </div>
+      <div class="field">
+        <label data-i18n="contactNote">Note (optional)</label>
+        <textarea id="contact-note" rows="4" data-i18n-placeholder="contactNotePlaceholder" placeholder="How can we help?"></textarea>
+      </div>
+      <button class="contact-cta-btn" id="contact-submit-btn" data-i18n="contactSubmit">Get in Touch</button>
+      <div class="contact-cta-error hidden" id="contact-error"></div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="../home/" class="footer-logo">
+          <img src="../logo.png" alt="NexonTech" height="28">
+          <span>NexonTech</span>
+        </a>
+        <p data-i18n="footerTagline">Custom AI agents that work for your business, 24/7.</p>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 data-i18n="footerProduct">Product</h4>
+          <a href="../home/#capabilities" data-i18n="navCapabilities">What It Does</a>
+          <a href="../home/#how-it-works" data-i18n="navHowItWorks">How It Works</a>
+          <a href="../demo/" data-i18n="navTryDemo">Try Demo</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footerCompany">Company</h4>
+          <a href="../pricing/" data-i18n="navPricing">Pricing</a>
+          <a href="../faq/" data-i18n="navFaq">FAQ</a>
+          <a href="../contact/" class="active" data-i18n="navContact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 NexonTech. <span data-i18n="footerRights">All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <script src="../config.js"></script>
+  <script src="../lang.js"></script>
+  <script src="../shared.js"></script>
+</body>
+</html>

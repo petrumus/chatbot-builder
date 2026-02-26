@@ -143,6 +143,15 @@ const LANG = {
     modalTitle: "Get Started with {plan}",
     modalSubtitle: "Leave your contact and we'll set everything up.",
 
+    // === Contact Page ===
+    contactPageTitle: "Contact — NexonTech",
+    contactPageHeading: "Get in Touch",
+    contactPageSubtitle: "We'll get back to you within 24 hours.",
+    contactEmailLabel: "Email us directly",
+    contactOr: "or send a message",
+    contactNotePlaceholder: "How can we help?",
+    navContact: "Contact",
+
     // === Pricing Page ===
     pricingTitle: "Simple, Transparent Pricing",
     pricingSubtitle: "Less than a part-time hire. More capable than a full team.",
@@ -383,6 +392,15 @@ const LANG = {
     modalTitle: "\u00cencepe cu {plan}",
     modalSubtitle: "Las\u0103 datele de contact \u0219i ne ocup\u0103m de tot.",
 
+    // === Contact Page ===
+    contactPageTitle: "Contact — NexonTech",
+    contactPageHeading: "Contactează-ne",
+    contactPageSubtitle: "Îți răspundem în 24 de ore.",
+    contactEmailLabel: "Scrie-ne direct pe email",
+    contactOr: "sau trimite un mesaj",
+    contactNotePlaceholder: "Cum te putem ajuta?",
+    navContact: "Contact",
+
     // === Pricing Page ===
     pricingTitle: "Pre\u021buri Simple \u0219i Transparente",
     pricingSubtitle: "Mai pu\u021bin dec\u00e2t un angajat part-time. Mai capabil dec\u00e2t o echip\u0103 \u00eentreag\u0103.",
@@ -622,6 +640,15 @@ const LANG = {
     // === Pricing Modal ===
     modalTitle: "\u041d\u0430\u0447\u0430\u0442\u044c \u0441 {plan}",
     modalSubtitle: "\u041e\u0441\u0442\u0430\u0432\u044c\u0442\u0435 \u043a\u043e\u043d\u0442\u0430\u043a\u0442, \u0438 \u043c\u044b \u0432\u0441\u0451 \u043d\u0430\u0441\u0442\u0440\u043e\u0438\u043c.",
+
+    // === Contact Page ===
+    contactPageTitle: "Контакты — NexonTech",
+    contactPageHeading: "Свяжитесь с нами",
+    contactPageSubtitle: "Мы ответим в течение 24 часов.",
+    contactEmailLabel: "Напишите нам напрямую",
+    contactOr: "или отправьте сообщение",
+    contactNotePlaceholder: "Чем мы можем помочь?",
+    navContact: "Контакты",
 
     // === Pricing (keep English for prices, translate labels) ===
     pricingTitle: "\u041f\u0440\u043e\u0441\u0442\u044b\u0435, \u043f\u0440\u043e\u0437\u0440\u0430\u0447\u043d\u044b\u0435 \u0446\u0435\u043d\u044b",
